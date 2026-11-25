@@ -33,9 +33,15 @@ Satu objek; kunci = id karakter (`bima`, `rina`, `dito`, `kamu`).
 | `nama` | string | Ya | Nama tampil, mis. “Pak Bima” |
 | `peran` | string | Ya | Peran tampil, mis. “Bos” |
 | `avatar` | string | Ya | Satu emoji, mis. “🐻‍❄️” |
-| `foto` | string | Ya | URL relatif ke file potret (mis. `../public/assets/bima.webp`); saat migrasi (1.2) data URI lama dipindah ke file |
-| `sapaan` | string | Ya | Sapaan pembuka di Chat (1 kalimat) |
-| `ucapan` | objek | Ya | Ucapan pop-up per kondisi tugas: `baru`, `dikerjakan`, `selesai` (masing-masing 1 kalimat) |
+| `foto` | string | Ya* | URL relatif ke file potret (mis. `../public/assets/bima.webp`); saat migrasi (1.2) data URI lama dipindah ke file |
+| `sapaan` | string | Ya* | Sapaan pembuka di Chat (1 kalimat) |
+| `ucapan` | objek | Ya* | Ucapan pop-up per kondisi tugas: `baru`, `dikerjakan`, `selesai` (masing-masing 1 kalimat) |
+| `placeholder` | boolean | Tidak | `true` bila karakter ini placeholder (isinya menyusul, mis. Monyet) |
+
+\* `foto`, `sapaan`, dan `ucapan` wajib untuk karakter NPC biasa (Bima, Rina, Dito).
+Boleh kosong/tidak ada untuk: (a) karakter dengan `placeholder: true` (Monyet —
+nama/sifat menyusul, Q8), dan (b) pemain (`kamu` — pemain tidak menyapa dirinya
+sendiri dan fotonya menyusul di Koleksi).
 
 **Contoh (Pak Bima — data asli dari game):**
 
@@ -56,8 +62,11 @@ Satu objek; kunci = id karakter (`bima`, `rina`, `dito`, `kamu`).
 }
 ```
 
-**Aturan validasi:** tiap karakter punya keempat field wajib + `ucapan` berisi
-ketiga kunci (`baru`, `dikerjakan`, `selesai`); `sapaan` dan tiap ucapan tidak kosong.
+**Aturan validasi:** tiap karakter punya `nama`, `peran`, `avatar` (tidak kosong).
+`foto`, `sapaan`, dan `ucapan` (berisi ketiga kunci `baru`, `dikerjakan`, `selesai`)
+wajib ada dan tidak kosong, KECUALI untuk karakter dengan `placeholder: true`
+dan untuk pemain (`kamu`). `foto` boleh berupa URL relatif atau data URI
+(data URI dicatat sebagai utang migrasi, lihat §8).
 
 ## 3. Skema tugas (`tugas/<id>.json`)
 
