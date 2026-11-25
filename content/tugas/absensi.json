@@ -1,0 +1,24 @@
+{
+  "id": "absensi",
+  "judul": "Absensi Karyawan",
+  "dari": "Pak Bima",
+  "skill": [
+    "COUNTIF",
+    "SUM"
+  ],
+  "brief": "Bu Wati dari HRD minta rekap absensi minggu ini. Hitung hadir, izin, dan alfa tiap karyawan, lalu totalnya di bawah.",
+  "ringkas": "Hitung hadir, izin, dan alfa tiap karyawan.",
+  "lampiran": {
+    "nama": "Template Absensi Karyawan.xlsx"
+  },
+  "hint": [
+    "ada fungsi yang menghitung sel yang cocok dengan satu kriteria",
+    "kriterianya berupa huruf, ditulis dalam tanda kutip",
+    "rentang hitung B sampai F pada baris yang sama"
+  ],
+  "trik": [
+    "tulis rumus di G2 lalu tarik ke kanan dan ke bawah",
+    "kunci rentang dengan F4 bila perlu",
+    "cek total di bawah harus 50 jika dijumlahkan semua kolom"
+  ]
+}

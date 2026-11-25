@@ -1,0 +1,26 @@
+{
+  "id": "rekap_penjualan",
+  "judul": "Rekap Penjualan Mingguan",
+  "dari": "Pak Bima",
+  "deadline": "Kirim sebelum jam 5",
+  "skill": [
+    "perkalian",
+    "SUM",
+    "AVERAGE"
+  ],
+  "brief": "Pagi! Tolong rekap penjualan minggu ini ya. Isi kolom Total, lalu hitung total seluruh penjualan dan rata-rata per produk. Kirim balik sebelum jam 5.",
+  "ringkas": "Isi kolom Total, lalu hitung total dan rata-rata.",
+  "lampiran": {
+    "nama": "Template Rekap Penjualan Mingguan.xlsx"
+  },
+  "hint": [
+    "Total per produk = Qty dikali Harga.",
+    "Menjumlahkan banyak sel punya fungsi yang namanya mirip “jumlah” dalam bahasa Inggris.",
+    "Tulis rumus, jangan ketik angkanya."
+  ],
+  "trik": [
+    "Klik dua kali pojok kanan bawah sel untuk mengisi ke bawah.",
+    "Blok D2:D11 dan lihat bar status untuk cek cepat.",
+    "Simpan dengan Ctrl+S dari Excel."
+  ]
+}

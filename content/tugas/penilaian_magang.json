@@ -1,0 +1,24 @@
+{
+  "id": "penilaian_magang",
+  "judul": "Penilaian Magang",
+  "dari": "Pak Bima",
+  "skill": [
+    "AVERAGE",
+    "IF"
+  ],
+  "brief": "Tolong nilai anak magang. Hitung rata-rata teori dan praktik, lalu beri keterangan Lulus jika 75 ke atas, selain itu Remedial.",
+  "ringkas": "Hitung rata-rata, beri Lulus atau Remedial.",
+  "lampiran": {
+    "nama": "Template Penilaian Magang.xlsx"
+  },
+  "hint": [
+    "rata-rata punya fungsi sendiri",
+    "pengambilan keputusan dua pilihan memakai fungsi IF",
+    "perhatikan peserta yang nilainya tepat di batas"
+  ],
+  "trik": [
+    "pakai >= bukan >",
+    "teks dalam rumus ditulis dengan tanda kutip",
+    "sebelum kirim, cek ada satu orang tepat 75"
+  ]
+}

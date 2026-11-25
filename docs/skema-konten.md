@@ -77,7 +77,7 @@ Satu objek per jenis tugas. Nama file = `<id>.json` (mis. `rekap_penjualan.json`
 | `id` | string | Ya | Sama dengan nama file (tanpa `.json`) |
 | `judul` | string | Ya | Judul tampil, mis. “Rekap Penjualan Mingguan” |
 | `dari` | string | Ya | Pemberi tugas, mis. “Pak Bima” |
-| `deadline` | string | Ya | Teks deadline, mis. “Kirim sebelum jam 5” |
+| `deadline` | string | Ya* | Teks deadline, mis. “Kirim sebelum jam 5”. Hanya bila tugas itu punya deadline (lihat catatan di bawah tabel) |
 | `skill` | array string | Ya | Skill yang dilatih, mis. `["perkalian", "SUM", "AVERAGE"]` |
 | `brief` | string atau array | Ya | Teks brief; boleh memakai placeholder (lihat §6). Bila array, tiap entri satu varian brief |
 | `ringkas` | string | Ya | Ringkasan satu baris untuk kartu Jobdesk |
@@ -113,6 +113,12 @@ Satu objek per jenis tugas. Nama file = `<id>.json` (mis. `rekap_penjualan.json`
 **Aturan validasi:** `id` cocok dengan nama file; `hint` dan `trik` masing-masing
 tepat 3 entri dan tidak kosong; tidak ada field `checks` (aturan cek dilarang di sini);
 tidak ada rumus jawaban lengkap di `brief`, `hint`, atau `trik`.
+
+\* `deadline` hanya wajib bila tugas itu memang punya deadline di data asli.
+Di Tahap 1 hanya `rekap_penjualan` yang punya deadline (“Kirim sebelum jam 5”);
+`absensi` dan `penilaian_magang` tidak punya field `deadline`, dan kartu Jobdesk
+hanya menampilkan deadline bila field itu ada (lihat baris 10254 `index.html`).
+Jangan mengarang deadline untuk tugas yang tidak punya.
 
 ## 4. Skema feedback (`feedback.json`)
 
