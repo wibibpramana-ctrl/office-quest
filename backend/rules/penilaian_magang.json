@@ -1,0 +1,57 @@
+{
+  "tugas": "penilaian_magang",
+  "sheet": "Data",
+  "pass": 70,
+  "checks": [
+    {
+      "type": "value_each",
+      "range": "D2:D11",
+      "evaluator": {
+        "jenis": "rata_kolom",
+        "kolom": [
+          "B",
+          "C"
+        ]
+      },
+      "points": 25,
+      "label": "Rata-rata tiap peserta benar (D2:D11)"
+    },
+    {
+      "type": "formula_uses",
+      "range": "D2:D11",
+      "functions": [
+        "AVERAGE"
+      ],
+      "points": 10,
+      "label": "Rata-rata memakai rumus rata-rata (D2:D11)"
+    },
+    {
+      "type": "value_each",
+      "range": "E2:E11",
+      "evaluator": {
+        "jenis": "ambang",
+        "kolom": "D",
+        "operator": ">=",
+        "ambang": 75,
+        "maka": "Lulus",
+        "selain": "Remedial"
+      },
+      "points": 35,
+      "label": "Keterangan Lulus/Remedial benar (E2:E11)"
+    },
+    {
+      "type": "formula_uses",
+      "range": "E2:E11",
+      "functions": [
+        "IF"
+      ],
+      "points": 20,
+      "label": "Keterangan memakai rumus keputusan (E2:E11)"
+    },
+    {
+      "type": "no_errors",
+      "points": 10,
+      "label": "Tidak ada error di file"
+    }
+  ]
+}

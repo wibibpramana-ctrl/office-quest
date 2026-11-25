@@ -1,0 +1,57 @@
+{
+  "tugas": "absensi",
+  "sheet": "Data",
+  "pass": 70,
+  "checks": [
+    {
+      "type": "value_each",
+      "range": "G2:I11",
+      "evaluator": {
+        "jenis": "hitung_kriteria",
+        "kolom": "B:F",
+        "kriteria": [
+          "H",
+          "I",
+          "A"
+        ]
+      },
+      "points": 45,
+      "label": "Jumlah H/I/A tiap karyawan benar (G2:I11)"
+    },
+    {
+      "type": "formula_uses",
+      "range": "G2:I11",
+      "functions": [
+        "COUNTIF"
+      ],
+      "points": 25,
+      "label": "Jumlah memakai rumus hitung (G2:I11)"
+    },
+    {
+      "type": "value_each",
+      "range": "G12:I12",
+      "evaluator": {
+        "jenis": "jumlah_kolom",
+        "baris_awal": 2,
+        "baris_akhir": 11
+      },
+      "points": 15,
+      "label": "Total di bawah benar (G12:I12)"
+    },
+    {
+      "type": "formula_uses",
+      "range": "G12:I12",
+      "functions": [
+        "SUM",
+        "SUBTOTAL"
+      ],
+      "points": 5,
+      "label": "Total memakai rumus jumlah (G12:I12)"
+    },
+    {
+      "type": "no_errors",
+      "points": 10,
+      "label": "Tidak ada error di file"
+    }
+  ]
+}

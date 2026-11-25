@@ -1,0 +1,72 @@
+{
+  "tugas": "rekap_penjualan",
+  "sheet": "Data",
+  "pass": 70,
+  "checks": [
+    {
+      "type": "value_each",
+      "range": "D2:D11",
+      "evaluator": {
+        "jenis": "kali",
+        "kolom": [
+          "B",
+          "C"
+        ]
+      },
+      "points": 30,
+      "label": "Total per produk benar (D2:D11)"
+    },
+    {
+      "type": "is_formula",
+      "range": "D2:D11",
+      "points": 15,
+      "label": "Total diisi dengan rumus (D2:D11)"
+    },
+    {
+      "type": "value",
+      "cell": "D12",
+      "evaluator": {
+        "jenis": "agregat",
+        "fungsi": "sum",
+        "range": "D2:D11"
+      },
+      "points": 20,
+      "label": "Total penjualan benar (D12)"
+    },
+    {
+      "type": "formula_uses",
+      "cell": "D12",
+      "functions": [
+        "SUM",
+        "SUBTOTAL"
+      ],
+      "points": 10,
+      "label": "Total penjualan memakai rumus jumlah (D12)"
+    },
+    {
+      "type": "value",
+      "cell": "D13",
+      "evaluator": {
+        "jenis": "agregat",
+        "fungsi": "avg",
+        "range": "D2:D11"
+      },
+      "points": 15,
+      "label": "Rata-rata benar (D13)"
+    },
+    {
+      "type": "formula_uses",
+      "cell": "D13",
+      "functions": [
+        "AVERAGE"
+      ],
+      "points": 5,
+      "label": "Rata-rata memakai rumus rata-rata (D13)"
+    },
+    {
+      "type": "no_errors",
+      "points": 5,
+      "label": "Tidak ada error di file"
+    }
+  ]
+}
