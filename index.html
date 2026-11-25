@@ -2107,6 +2107,12 @@
         }
       }
 
+      /* 1.5: indikator pemuatan konten — di atas layar, bukan bawah */
+      .muat-indikator {
+        top: 12px;
+        bottom: auto;
+      }
+
       /* HP: daftar satu layar; saat percakapan dibuka (.chat--buka)
          daftar disembunyikan dan percakapan tampil layar penuh */
       @media (max-width: 899px) {
@@ -6056,6 +6062,9 @@
       <!-- Pesan bila template belum bisa diunduh -->
       <div class="unduh-toast" id="unduh-toast" role="status" aria-live="polite" hidden></div>
 
+      <!-- 1.5: indikator pemuatan konten -->
+      <div class="unduh-toast muat-indikator" id="indikator-muat" role="status" aria-live="polite" hidden>Memuat konten…</div>
+
       <!-- ============ DIALOG KONFIRMASI "ULANG" ============
            Dibuka dari tombol kecil "Ulang" di bar atas. "Ya,
            ulang" menghapus progres tersimpan, membuat seed
@@ -6113,7 +6122,9 @@
          ============================================================ */
 
       // 1. DATA — tiga tugas Tahap 1 (PROJECT.md §12)
-      const DATA_TUGAS = {
+      // 1.5: `let` (bukan `const`) supaya pemuat konten bisa
+      // menggantinya dengan data dari content/*.json bila berhasil.
+      let DATA_TUGAS = {
         rekap_penjualan: {
           id: "rekap_penjualan",
           judul: "Rekap Penjualan Mingguan",
@@ -6315,7 +6326,8 @@
       // Setiap kode berisi 2–3 variasi kalimat; variasi pertama
       // adalah kalimat §13 persis, variasi berikutnya usulan.
       // Pemilihan kode dan variasi ada di pilihBalasanBima.
-      const DATA_FEEDBACK = {
+      // 1.5: `let` supaya pemuat konten bisa menggantinya.
+      let DATA_FEEDBACK = {
         altered: [
           "Kok datanya beda dari file yang saya kirim? Tolong pakai file aslinya.",
           "Hmm, angka di file ini tidak sama dengan yang saya kirim. Coba unduh ulang templatenya, ya.",
@@ -6368,7 +6380,8 @@
       // dipilih dari kondisi tugas: "baru", "dikerjakan", atau
       // "selesai" (lihat kondisiTugas). Avatar masih emoji
       // sementara, sama seperti stasiun cadangan.
-      const DATA_KARAKTER = {
+      // 1.5: `let` supaya pemuat konten bisa menggantinya.
+      let DATA_KARAKTER = {
         bima: {
           nama: "Pak Bima",
           peran: "Bos",
@@ -6430,6 +6443,131 @@
         },
         kamu: { nama: "Kamu", peran: "Magang", avatar: "🐻" },
       };
+
+      // ============================================================
+      // 1.5: PEMUAT KONTEN — memuat content/*.json saat start.
+      // Data tertanam di atas (DATA_TUGAS, DATA_FEEDBACK,
+      // DATA_KARAKTER) adalah CADANGAN: bila pemuatan gagal
+      // (dibuka langsung dari file, offline, file belum ada),
+      // game tetap jalan dengan data cadangan itu. Karena itu
+      // pemuat berjalan di latar belakang SETELAH render awal,
+      // bukan menahan init().
+      // ============================================================
+      const DAFTAR_KONTEN = [
+        { kunci: "karakter", berkas: "content/karakter.json" },
+        { kunci: "feedback", berkas: "content/feedback.json" },
+        { kunci: "tugas", berkas: "content/tugas/rekap_penjualan.json" },
+        { kunci: "tugas", berkas: "content/tugas/absensi.json" },
+        { kunci: "tugas", berkas: "content/tugas/penilaian_magang.json" },
+      ];
+
+      function tampilkanIndikatorMuat(tampil) {
+        const el = document.getElementById("indikator-muat");
+        if (!el) return;
+        el.hidden = !tampil;
+      }
+
+      // Validasi ringan (validasi penuh ada di skrip 1.6):
+      // cukup pastikan bentuknya sesuai skema supaya game tidak
+      // rusak bila file konten salah isi.
+      function kontenValid(kunci, data) {
+        if (!data || typeof data !== "object") return false;
+        if (kunci === "karakter") {
+          return !!(
+            data.bima && data.rina && data.dito &&
+            data.bima.nama && data.rina.nama && data.dito.nama
+          );
+        }
+        if (kunci === "feedback") {
+          const kode = ["altered", "nocache", "err", "rowval", "sum", "hard", "ok90", "ok70", "fail"];
+          return kode.every(function (k) {
+            return Array.isArray(data[k]) && data[k].length === 3 && data[k].every(Boolean);
+          });
+        }
+        if (kunci === "tugas") {
+          return !!(
+            data.id && data.judul && data.dari && data.brief && data.ringkas &&
+            Array.isArray(data.hint) && data.hint.length === 3 &&
+            Array.isArray(data.trik) && data.trik.length === 3 &&
+            !("checks" in data)
+          );
+        }
+        return false;
+      }
+
+      function muatKonten() {
+        tampilkanIndikatorMuat(true);
+        // Tanpa fetch (peramban sangat lama) langsung pakai cadangan.
+        if (typeof fetch !== "function") {
+          tampilkanIndikatorMuat(false);
+          return;
+        }
+        const janji = DAFTAR_KONTEN.map(function (item) {
+          return fetch(item.berkas)
+            .then(function (res) {
+              if (!res.ok) throw new Error("HTTP " + res.status);
+              return res.json();
+            })
+            .then(function (data) {
+              if (!kontenValid(item.kunci, data)) throw new Error("Konten tidak valid: " + item.berkas);
+              return { kunci: item.kunci, data: data };
+            });
+        });
+        Promise.all(janji)
+          .then(function (hasil) {
+            tampilkanIndikatorMuat(false);
+            // Terapkan hanya bila isinya berbeda dari cadangan
+            // (saat ini identik, jadi tidak ada perubahan tampak).
+            let berubah = false;
+            const karakterBaru = hasil.find(function (h) { return h.kunci === "karakter"; });
+            const feedbackBaru = hasil.find(function (h) { return h.kunci === "feedback"; });
+            const tugasBaru = hasil.filter(function (h) { return h.kunci === "tugas"; });
+            if (karakterBaru && JSON.stringify(karakterBaru.data) !== JSON.stringify(DATA_KARAKTER)) {
+              DATA_KARAKTER = karakterBaru.data;
+              berubah = true;
+            }
+            if (feedbackBaru && JSON.stringify(feedbackBaru.data) !== JSON.stringify(DATA_FEEDBACK)) {
+              DATA_FEEDBACK = feedbackBaru.data;
+              berubah = true;
+            }
+            const tugasGabung = {};
+            tugasBaru.forEach(function (h) { tugasGabung[h.data.id] = h.data; });
+            // DATA_TUGAS masih berisi `checks`; bandingkan dengan
+            // salinan tanpa `checks` supaya tidak selalu "berbeda".
+            const tugasLama = {};
+            Object.keys(DATA_TUGAS).forEach(function (id) {
+              const salin = {};
+              Object.keys(DATA_TUGAS[id]).forEach(function (k) {
+                if (k !== "checks") salin[k] = DATA_TUGAS[id][k];
+              });
+              tugasLama[id] = salin;
+            });
+            if (Object.keys(tugasGabung).length === 3 &&
+                JSON.stringify(tugasGabung) !== JSON.stringify(tugasLama)) {
+              DATA_TUGAS = tugasGabung;
+              berubah = true;
+            }
+            if (berubah) {
+              renderDaftarKontak();
+              renderPercakapan(state.chatAktif || "bima");
+              renderLencanaChat();
+              renderBarAtas();
+              perbaruiJobdesk();
+              renderTugasAktif();
+            }
+          })
+          .catch(function () {
+            // Gagal memuat: pakai data cadangan (sudah tampil).
+            // Pesan ramah hanya bila dibuka lewat http(s) — bila
+            // dibuka langsung dari file, ini keadaan normal dan
+            // tidak perlu diberitahu setiap kali.
+            tampilkanIndikatorMuat(false);
+            const protokol = (window.location && window.location.protocol) || "";
+            if (protokol.indexOf("http") === 0) {
+              tampilkanToast("Konten terbaru tidak bisa dimuat. Memakai data bawaan — game tetap bisa dimainkan.");
+            }
+          });
+      }
 
       // Judul tiap layar, untuk memindahkan fokus saat pindah layar
       const JUDUL_LAYAR = {
@@ -11311,6 +11449,10 @@
         if (!panduanSudahDilihat() && window.location.hash !== "#uji") {
           bukaPanelPanduan();
         }
+
+        // 1.5: muat konten dari content/*.json di latar belakang.
+        // Bila gagal, data tertanam dipakai dan game tetap jalan.
+        muatKonten();
       }
 
       init();
