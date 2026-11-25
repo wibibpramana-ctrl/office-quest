@@ -1,0 +1,47 @@
+{
+  "altered": [
+    "Kok datanya beda dari file yang saya kirim? Tolong pakai file aslinya.",
+    "Hmm, angka di file ini tidak sama dengan yang saya kirim. Coba unduh ulang templatenya, ya.",
+    "Sepertinya data aslinya ikut berubah. Pakai file template yang saya kirim, jangan diubah angkanya."
+  ],
+  "nocache": [
+    "Hasilnya belum terbaca. Buka di Excel, simpan dengan Ctrl+S, lalu kirim lagi.",
+    "Laporannya kosong di sisi saya. Buka di Excel, tekan Ctrl+S, lalu unggah lagi.",
+    "Rumusnya ada tapi hasilnya belum tersimpan. Simpan dulu dari Excel, baru kirim."
+  ],
+  "err": [
+    "Ada tulisan aneh seperti #REF! atau #VALUE! di laporanmu. Tolong dicek.",
+    "Ada sel yang menampilkan kode error. Perbaiki dulu sebelum dikirim.",
+    "Saya lihat ada #VALUE! di laporanmu. Cek rumus di baris itu, ya."
+  ],
+  "rowval": [
+    "Masih ada baris yang tidak sesuai. Cek lagi rumusnya.",
+    "Beberapa baris Total-nya belum cocok. Coba hitung ulang satu per satu.",
+    "Masih ada Total per produk yang meleset. Periksa lagi Qty dikali Harga-nya."
+  ],
+  "sum": [
+    "Angka di bagian bawah belum tepat.",
+    "Total dan rata-rata di bawah belum pas. Cek lagi rentang selnya.",
+    "Angka bawahnya belum sesuai. Pastikan rumusnya mencakup semua baris."
+  ],
+  "hard": [
+    "Ada angka yang diketik manual. Kalau data berubah, laporan ikut salah. Pakai rumus ya.",
+    "Saya lihat ada angka yang diketik langsung. Tulis rumusnya, supaya laporanmu tetap benar kalau data berubah.",
+    "Jangan ketik angkanya — pakai rumus. Itu gunanya spreadsheet."
+  ],
+  "ok90": [
+    "Rapi dan akurat. Terima kasih, bonus masuk ya.",
+    "Laporanmu rapi dan semua angka tepat. Kerja bagus!",
+    "Sempurna. Ini yang saya mau. Terima kasih."
+  ],
+  "ok70": [
+    "Cukup baik, tapi ada catatan.",
+    "Sudah cukup baik. Ada beberapa catatan kecil, tapi bisa diterima.",
+    "Lolos, tapi masih bisa lebih rapi. Perhatikan detailnya lain kali."
+  ],
+  "fail": [
+    "Belum bisa saya terima. Perbaiki lalu kirim ulang.",
+    "Maaf, laporan ini belum bisa saya terima. Coba perbaiki dulu, lalu kirim ulang.",
+    "Belum lolos. Tenang saja, perbaiki yang salah lalu kirim lagi sebelum jam 5."
+  ]
+}
