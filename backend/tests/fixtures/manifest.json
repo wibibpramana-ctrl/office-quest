@@ -1,0 +1,151 @@
+{
+  "seed": "fixture-tahap2",
+  "dibuat": "Langkah 2.3 Tahap 2",
+  "keterangan": "15 kasus #uji dari halaman uji pemeriksa rekonstruksi (docs/baseline.md). skor/lulus/kode adalah hasil yang diharapkan pemeriksa JS; mesin Python (3.4) harus memberi hasil yang sama.",
+  "fixtures": [
+    {
+      "file": "uji-rekap_penjualan-benar.xlsx",
+      "tugas": "rekap_penjualan",
+      "varian": "benar",
+      "skor": 100,
+      "lulus": true,
+      "kode": []
+    },
+    {
+      "file": "uji-rekap_penjualan-nilai-salah.xlsx",
+      "tugas": "rekap_penjualan",
+      "varian": "nilai-salah",
+      "skor": 70,
+      "lulus": true,
+      "kode": [
+        "rowval"
+      ]
+    },
+    {
+      "file": "uji-rekap_penjualan-manual.xlsx",
+      "tugas": "rekap_penjualan",
+      "varian": "manual",
+      "skor": 70,
+      "lulus": true,
+      "kode": [
+        "hard"
+      ]
+    },
+    {
+      "file": "uji-rekap_penjualan-error.xlsx",
+      "tugas": "rekap_penjualan",
+      "varian": "error",
+      "skor": 50,
+      "lulus": false,
+      "kode": [
+        "err"
+      ]
+    },
+    {
+      "file": "uji-rekap_penjualan-data-diubah.xlsx",
+      "tugas": "rekap_penjualan",
+      "varian": "data-diubah",
+      "skor": 100,
+      "lulus": true,
+      "kode": [
+        "altered"
+      ]
+    },
+    {
+      "file": "uji-absensi-benar.xlsx",
+      "tugas": "absensi",
+      "varian": "benar",
+      "skor": 100,
+      "lulus": true,
+      "kode": []
+    },
+    {
+      "file": "uji-absensi-nilai-salah.xlsx",
+      "tugas": "absensi",
+      "varian": "nilai-salah",
+      "skor": 55,
+      "lulus": false,
+      "kode": [
+        "rowval"
+      ]
+    },
+    {
+      "file": "uji-absensi-manual.xlsx",
+      "tugas": "absensi",
+      "varian": "manual",
+      "skor": 70,
+      "lulus": true,
+      "kode": [
+        "hard"
+      ]
+    },
+    {
+      "file": "uji-absensi-error.xlsx",
+      "tugas": "absensi",
+      "varian": "error",
+      "skor": 20,
+      "lulus": false,
+      "kode": [
+        "err"
+      ]
+    },
+    {
+      "file": "uji-absensi-data-diubah.xlsx",
+      "tugas": "absensi",
+      "varian": "data-diubah",
+      "skor": 100,
+      "lulus": true,
+      "kode": [
+        "altered"
+      ]
+    },
+    {
+      "file": "uji-penilaian_magang-benar.xlsx",
+      "tugas": "penilaian_magang",
+      "varian": "benar",
+      "skor": 100,
+      "lulus": true,
+      "kode": []
+    },
+    {
+      "file": "uji-penilaian_magang-nilai-salah.xlsx",
+      "tugas": "penilaian_magang",
+      "varian": "nilai-salah",
+      "skor": 75,
+      "lulus": true,
+      "kode": [
+        "rowval"
+      ]
+    },
+    {
+      "file": "uji-penilaian_magang-manual.xlsx",
+      "tugas": "penilaian_magang",
+      "varian": "manual",
+      "skor": 70,
+      "lulus": true,
+      "kode": [
+        "hard"
+      ]
+    },
+    {
+      "file": "uji-penilaian_magang-error.xlsx",
+      "tugas": "penilaian_magang",
+      "varian": "error",
+      "skor": 55,
+      "lulus": false,
+      "kode": [
+        "err"
+      ]
+    },
+    {
+      "file": "uji-penilaian_magang-data-diubah.xlsx",
+      "tugas": "penilaian_magang",
+      "varian": "data-diubah",
+      "skor": 100,
+      "lulus": true,
+      "kode": [
+        "altered"
+      ]
+    }
+  ]
+}
