@@ -1,0 +1,7 @@
+# Gitleaks: pindai rahasia di repo (4.1).
+# File di bawah ini berisi HASH data tes (bukan rahasia) — dikecualikan.
+[allowlist]
+paths = [
+  '''backend/tests/fixtures/paritas-generator\.json''',
+  '''backend/tests/fixtures/paritas-template\.json''',
+]

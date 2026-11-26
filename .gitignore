@@ -4,3 +4,6 @@ __pycache__/
 .venv/
 venv/
 .pytest_cache/
+
+# Node (dipasang CI/lokal untuk uji frontend)
+node_modules/
