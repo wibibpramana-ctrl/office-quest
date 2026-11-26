@@ -423,13 +423,15 @@ def label_cek(cek, nama_sheet):
     return "Cek " + str(tipe) + (" " + sasaran if sasaran else "")
 
 
-def data_diubah(lembar, aoa, daftar_cek):
+def data_diubah(lembar, aoa, daftar_cek, batas_waktu=None):
     """Sel sumber tak-kosong baris 2-11 di luar range cek berubah?"""
     tercakup = set()
     for cek in daftar_cek or []:
         for a in alamat_sasaran(cek):
             tercakup.add((a["kolom"], a["baris"]))
     for baris in range(2, 12):
+        if batas_waktu is not None:
+            batas_waktu.periksa()
         if baris - 1 >= len(aoa):
             continue
         baris_data = aoa[baris - 1]
@@ -475,9 +477,10 @@ def _gagal_semua(daftar_cek, nama_sheet, detail):
     }
 
 
-def periksa_lembar(lembar, seed, aturan):
+def periksa_lembar(lembar, seed, aturan, batas_waktu=None):
     """Periksa satu lembar (sheet) dengan aturan cek. Mirip
-    periksaWorkbook di JS; lembar=None berarti sheet tidak ada."""
+    periksaWorkbook di JS; lembar=None berarti sheet tidak ada.
+    batas_waktu (punya metode periksa()) membatasi waktu proses (3.5)."""
     nama_sheet = (aturan or {}).get("sheet") or "Data"
     batas_lulus = aturan.get("pass") if isinstance(aturan.get("pass"), (int, float)) else 70
     daftar_cek = aturan.get("checks") if isinstance(aturan.get("checks"), list) else []
@@ -494,12 +497,14 @@ def periksa_lembar(lembar, seed, aturan):
     def tandai(kode):
         kode_ada.add(kode)
 
-    if data_diubah(lembar, aoa, daftar_cek):
+    if data_diubah(lembar, aoa, daftar_cek, batas_waktu):
         tandai("altered")
 
     skor = 0
     centang = []
     for cek in daftar_cek:
+        if batas_waktu is not None:
+            batas_waktu.periksa()
         poin_maks = cek.get("points") or 0
         lulus = False
         detail = ""
@@ -630,11 +635,11 @@ def periksa_lembar(lembar, seed, aturan):
     }
 
 
-def periksa_bytes(data, seed, aturan):
+def periksa_bytes(data, seed, aturan, batas_waktu=None):
     """Periksa bytes file .xlsx dengan aturan cek."""
     nama_sheet = (aturan or {}).get("sheet") or "Data"
     lembar = muat_lembar(data, nama_sheet)
-    return periksa_lembar(lembar, seed, aturan)
+    return periksa_lembar(lembar, seed, aturan, batas_waktu)
 
 
 def muat_aturan(tugas_id):
