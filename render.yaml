@@ -1,0 +1,17 @@
+# Render Blueprint untuk backend Office Quest (4.2).
+# Cara pakai: di dashboard Render, New > Blueprint, pilih repo ini.
+# Nilai OFFICE_QUEST_GARAM dibuat otomatis oleh Render (generateValue)
+# — tidak perlu diisi manual, dan nilainya tidak pernah masuk repo
+# atau chat. Tiket lama tetap kedaluwarsa tiap 02.00 WIB seperti biasa.
+services:
+  - type: web
+    name: office-quest-backend
+    env: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /sehat
+    envVars:
+      - key: OFFICE_QUEST_GARAM
+        generateValue: true
