@@ -33,6 +33,8 @@ cd backend
 pytest
 ```
 
+Ukur beban: `python scripts/ukur-beban.py` (laporan di `docs/ukur-beban.md`).
+
 ## Endpoint
 
 | Metode | Jalan | Keterangan |
@@ -67,6 +69,8 @@ backend/
     validasi.py   validasi unggahan (ukuran, .xlsm, arsip, sel, waktu)
     tiket.py      tiket tugas bertanda tangan HMAC + seed dari garam
   rules/          aturan cek tiap tugas (JSON, evaluator)
+  scripts/
+    ukur-beban.py ukur waktu /periksa file 2 MB + 20 permintaan beruntun
   tests/          tes pytest + fixtures
     fixtures/     15 file uji pemeriksa (#uji) + manifest.json
                   paritas-generator.json (sha256 AOA JS untuk 200 seed)
@@ -78,6 +82,7 @@ backend/
     test_validasi.py
     test_tiket.py
     test_api.py
+    test_beban.py
   requirements.txt
   .env.example
 ```
@@ -86,4 +91,4 @@ Batas unggahan (validasi.py): file 2 MB, dekompresi 20 MB, 100.000 sel,
 waktu proses 10 detik; file .xlsm ditolak. Tiket berlaku sampai 02.00 WIB
 hari berikutnya.
 
-Langkah berikutnya (Fase 3): 3.8 ukur beban.
+Fase 3 selesai. Berikutnya: Fase 4 (deploy backend).
