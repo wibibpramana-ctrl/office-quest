@@ -33,6 +33,20 @@ cd backend
 pytest
 ```
 
+## Endpoint
+
+| Metode | Jalan | Keterangan |
+| --- | --- | --- |
+| GET | `/sehat` | Cek hidup |
+| POST | `/tugas/tiket` | Terbitkan tiket satu jenis tugas (jenis, tier, id_pemain, benih, modifier) |
+| GET | `/tugas/template?tiket=...` | Unduh template .xlsx untuk tiket itu |
+| POST | `/periksa` | Periksa file jawaban (form: tiket + file) |
+
+CORS hanya untuk `https://wibibpramana-ctrl.github.io`. Pembatas laju:
+30 permintaan/menit per IP untuk endpoint tugas (429 bila lewat).
+Log hanya mencatat metode/jalan/status/waktu/ukuran/skor/kode — tidak
+pernah isi file, string tiket, atau garam.
+
 ## Variabel lingkungan
 
 | Variabel | Isi |
@@ -46,7 +60,7 @@ Contoh nama variabel (tanpa nilai) ada di `.env.example`.
 ```
 backend/
   app/            kode layanan (FastAPI)
-    main.py       titik masuk + endpoint /sehat
+    main.py       titik masuk + endpoint + CORS + pembatas laju + log
     generator.py  generator data tugas (port persis dari JS, mode paritas)
     template.py   pembuat template .xlsx (openpyxl, sheet "Data")
     checker.py    mesin pemeriksa file .xlsx (port periksaWorkbook)
@@ -63,6 +77,7 @@ backend/
     test_checker.py
     test_validasi.py
     test_tiket.py
+    test_api.py
   requirements.txt
   .env.example
 ```
@@ -71,4 +86,4 @@ Batas unggahan (validasi.py): file 2 MB, dekompresi 20 MB, 100.000 sel,
 waktu proses 10 detik; file .xlsm ditolak. Tiket berlaku sampai 02.00 WIB
 hari berikutnya.
 
-Langkah berikutnya (Fase 3): 3.7 endpoint tugas, 3.8 ukur beban.
+Langkah berikutnya (Fase 3): 3.8 ukur beban.
