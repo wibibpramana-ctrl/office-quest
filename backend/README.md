@@ -41,6 +41,8 @@ backend/
     main.py       titik masuk + endpoint /sehat
     generator.py  generator data tugas (port persis dari JS, mode paritas)
     template.py   pembuat template .xlsx (openpyxl, sheet "Data")
+    checker.py    mesin pemeriksa file .xlsx (port periksaWorkbook)
+  rules/          aturan cek tiap tugas (JSON, evaluator)
   tests/          tes pytest + fixtures
     fixtures/     15 file uji pemeriksa (#uji) + manifest.json
                   paritas-generator.json (sha256 AOA JS untuk 200 seed)
@@ -48,8 +50,9 @@ backend/
     test_sehat.py
     test_generator_paritas.py
     test_template.py
+    test_checker.py
   requirements.txt
 ```
 
-Langkah berikutnya (Fase 3): 3.4 mesin pemeriksa, 3.5 validasi unggahan,
-3.6 garam + tiket, 3.7 endpoint tugas, 3.8 ukur beban.
+Langkah berikutnya (Fase 3): 3.5 validasi unggahan, 3.6 garam + tiket,
+3.7 endpoint tugas, 3.8 ukur beban.
