@@ -1,0 +1,3012 @@
+{
+  "keterangan": "Paritas generator data Tahap 2 (3.2): sha256 dari JSON.stringify(aoa) keluaran JS buatDataTugas1/2/3. Generator Python harus menghasilkan hash yang sama untuk seed dan tugas yang sama.",
+  "dibuat": "Langkah 3.2 Tahap 2",
+  "jumlah_seed": 200,
+  "tugas": [
+    "rekap_penjualan",
+    "absensi",
+    "penilaian_magang"
+  ],
+  "entri": [
+    {
+      "seed": "fixture-tahap2",
+      "tugas": "rekap_penjualan",
+      "sha256": "bed778da97fbe23049e7dd38cc5c019bee52ab4cd4c62082c1f26c374a69aa78"
+    },
+    {
+      "seed": "fixture-tahap2",
+      "tugas": "absensi",
+      "sha256": "3625a1a5298731b66b2e4fa675813f986e60c8dc9b602534f580fec370e17943"
+    },
+    {
+      "seed": "fixture-tahap2",
+      "tugas": "penilaian_magang",
+      "sha256": "5f3b78dd5d68e0b85f35aaff451b75377653a8db9b42ef49b7e63f7a0e45cae7"
+    },
+    {
+      "seed": "",
+      "tugas": "rekap_penjualan",
+      "sha256": "000c3f54e5fc6f0cee399bcff00c68a87b0605660147af38a47cd0fd434f7dbf"
+    },
+    {
+      "seed": "",
+      "tugas": "absensi",
+      "sha256": "753e7cd4e3167172c6b88189cfd2971c553a5fe2c1dcff2f86e15143934eef93"
+    },
+    {
+      "seed": "",
+      "tugas": "penilaian_magang",
+      "sha256": "a7f3cf91ad392a4dfcb43d010a40cc3a88e2f78f784ed61f40feb7449685499e"
+    },
+    {
+      "seed": "seed-paritas-000",
+      "tugas": "rekap_penjualan",
+      "sha256": "bc3cb07cf3df7047369421829ba7f6310546d255e82044677e39e0327db173e2"
+    },
+    {
+      "seed": "seed-paritas-000",
+      "tugas": "absensi",
+      "sha256": "51ee0dd8401a232d5fd090ca9b7154e5c07ee09444d8992defc157a0f76bf70c"
+    },
+    {
+      "seed": "seed-paritas-000",
+      "tugas": "penilaian_magang",
+      "sha256": "94f0e5fbb1e36ac8467777a50fee5e9d816f236ef8bd5ba7a56d79cd3e884dae"
+    },
+    {
+      "seed": "seed-paritas-001",
+      "tugas": "rekap_penjualan",
+      "sha256": "2f150ccbfb25ef43c2e9da0c0b3e72cc0c12ce49b0e5811b63c52443b71f8e17"
+    },
+    {
+      "seed": "seed-paritas-001",
+      "tugas": "absensi",
+      "sha256": "74653f1718849b72d821e2b80e2621bb777d6e6b57e88a73f24c74fdbb5abf44"
+    },
+    {
+      "seed": "seed-paritas-001",
+      "tugas": "penilaian_magang",
+      "sha256": "8c9652c89554a409af5374136b2c95068f62bd0d0e7646e6f2d3fca6d6890605"
+    },
+    {
+      "seed": "seed-paritas-002",
+      "tugas": "rekap_penjualan",
+      "sha256": "46a4d9bbf26b8a3cb3c0e5fe6064ca4afa836b7c082781ccfa1b1bef938fb71c"
+    },
+    {
+      "seed": "seed-paritas-002",
+      "tugas": "absensi",
+      "sha256": "b9354e0071bd90c9d6cebc5fea4ae822100c3c62351e31d49f8c5b7b4985c8bc"
+    },
+    {
+      "seed": "seed-paritas-002",
+      "tugas": "penilaian_magang",
+      "sha256": "1611f895912ead6754b63b8fd5df26a301e17181e4cf69f6181333aa04902f61"
+    },
+    {
+      "seed": "seed-paritas-003",
+      "tugas": "rekap_penjualan",
+      "sha256": "48fcef0aca5370d8200a4cc73eaaec312063ec1f48677a7881981e35063cfe17"
+    },
+    {
+      "seed": "seed-paritas-003",
+      "tugas": "absensi",
+      "sha256": "8619285775b579c48c379060f689af4eb27a52102f0b807c3fab7ade2a85a2db"
+    },
+    {
+      "seed": "seed-paritas-003",
+      "tugas": "penilaian_magang",
+      "sha256": "b77d04734a2eb83d5997e5d0728322ba1fc565bd52ce7231c4ac2616283f1fce"
+    },
+    {
+      "seed": "seed-paritas-004",
+      "tugas": "rekap_penjualan",
+      "sha256": "f76d080161da10b3fc4b591bbf9bd1a632e822c77fc3ecd4d2f8762a856445a5"
+    },
+    {
+      "seed": "seed-paritas-004",
+      "tugas": "absensi",
+      "sha256": "4eaa8a28f5d8a698419dd59bcc61fd2f37c319d216d9741eb4281729ade38625"
+    },
+    {
+      "seed": "seed-paritas-004",
+      "tugas": "penilaian_magang",
+      "sha256": "acd8acee8e6d50482285107c73ad5213fc8c64446f373ff970974d2fd866ab49"
+    },
+    {
+      "seed": "seed-paritas-005",
+      "tugas": "rekap_penjualan",
+      "sha256": "38ce6f03458291254e1ca7e9dc7bf170a2729c62860e0f85687c075c1f8b63ba"
+    },
+    {
+      "seed": "seed-paritas-005",
+      "tugas": "absensi",
+      "sha256": "03067dce0953fe6aa6b4447a8296aef735be7d606f9ddf05bdaa4107fc9ed70b"
+    },
+    {
+      "seed": "seed-paritas-005",
+      "tugas": "penilaian_magang",
+      "sha256": "fd34e67cc3ce8b580d2a74fba53d41a3675fa98286b703e95b23787e39974a45"
+    },
+    {
+      "seed": "seed-paritas-006",
+      "tugas": "rekap_penjualan",
+      "sha256": "14573d2bfeda4546934bc683c13b968a145907a5defabff28f342c6a2fc22276"
+    },
+    {
+      "seed": "seed-paritas-006",
+      "tugas": "absensi",
+      "sha256": "58cf09ed35c9cac8ff78447d88001b30cdca26b3003c7cd9ab7cd12244655428"
+    },
+    {
+      "seed": "seed-paritas-006",
+      "tugas": "penilaian_magang",
+      "sha256": "b92a13b3e111be4373542569624a6f2c2ed1c504411226e03e46c01f79b15d7c"
+    },
+    {
+      "seed": "seed-paritas-007",
+      "tugas": "rekap_penjualan",
+      "sha256": "d6bd541714379c008eb742e17a1f85f4259b5889d4701ae9390d6c87d168a192"
+    },
+    {
+      "seed": "seed-paritas-007",
+      "tugas": "absensi",
+      "sha256": "e44c130de30b5b5a2b4b92ae578be065f84d0467246b60b075d1af8066328384"
+    },
+    {
+      "seed": "seed-paritas-007",
+      "tugas": "penilaian_magang",
+      "sha256": "bebe9ce9af497eae25d123d12062305562e12ef38f1a374cf42c40e3ec1b6ba4"
+    },
+    {
+      "seed": "seed-paritas-008",
+      "tugas": "rekap_penjualan",
+      "sha256": "84ee2c74fcbe72fb390d0b8ce3c5470d0a7d785784908a225a8992fb4a91bdfd"
+    },
+    {
+      "seed": "seed-paritas-008",
+      "tugas": "absensi",
+      "sha256": "e038c99266b12f43c3cf3d06bb76efed5e47af3030b073174baa041a9a4b3e69"
+    },
+    {
+      "seed": "seed-paritas-008",
+      "tugas": "penilaian_magang",
+      "sha256": "5d485b83f831d88d4c99adfb9d0479b15665e810aa0385638e73c6a5c294cf3a"
+    },
+    {
+      "seed": "seed-paritas-009",
+      "tugas": "rekap_penjualan",
+      "sha256": "a1c62d9db3e2a5def8beb10928a20d2889836397dc3ed9d7cf0b4490d31bdd2b"
+    },
+    {
+      "seed": "seed-paritas-009",
+      "tugas": "absensi",
+      "sha256": "964506a0627345b06acbd67c34e5149b045b464a94ae38dd2ada4ef453049e84"
+    },
+    {
+      "seed": "seed-paritas-009",
+      "tugas": "penilaian_magang",
+      "sha256": "285768ed702d7559b07ef668387e9b891a6f9a9b23c9c41186809e60bb37d207"
+    },
+    {
+      "seed": "seed-paritas-010",
+      "tugas": "rekap_penjualan",
+      "sha256": "d5bd6ca16cb7a273a662d9a11f0664aaadd1ffd7c353266664666a43b04a95f7"
+    },
+    {
+      "seed": "seed-paritas-010",
+      "tugas": "absensi",
+      "sha256": "faa3e05ae9c1a0bfe21ee66fe7a0c436acd70d6f6d7e7a97810883541c638457"
+    },
+    {
+      "seed": "seed-paritas-010",
+      "tugas": "penilaian_magang",
+      "sha256": "fabbc0a799ed79fe7d5e822f664bd398b7d1c8ed337675ac0378f095517877d4"
+    },
+    {
+      "seed": "seed-paritas-011",
+      "tugas": "rekap_penjualan",
+      "sha256": "cbf6e62bc8444c306cb9adcdeae1c5c7320373548b94ca4ab0bac3e04369a32e"
+    },
+    {
+      "seed": "seed-paritas-011",
+      "tugas": "absensi",
+      "sha256": "2c2beca75bd3899758baf817063a693361f1fcaedfc291b208d0f7ff9c6409ac"
+    },
+    {
+      "seed": "seed-paritas-011",
+      "tugas": "penilaian_magang",
+      "sha256": "d86683e17f1229644dfd94dca5010af31e86bb58d81f2d760bd4e11b55075b10"
+    },
+    {
+      "seed": "seed-paritas-012",
+      "tugas": "rekap_penjualan",
+      "sha256": "0e212c239ad22bd205c056a3d4c34d6cdca23f62b573964638f80daf5e1c375a"
+    },
+    {
+      "seed": "seed-paritas-012",
+      "tugas": "absensi",
+      "sha256": "0032f12049d82eb05fca38e3e42375edd0f5317a33a4f8a2dba84e7a5c2e542c"
+    },
+    {
+      "seed": "seed-paritas-012",
+      "tugas": "penilaian_magang",
+      "sha256": "86db23ab2d227b61ad862f9caaed999f78af1efecb67ee0d88896eaf451a229c"
+    },
+    {
+      "seed": "seed-paritas-013",
+      "tugas": "rekap_penjualan",
+      "sha256": "63f201348fa5885981134f540070c36ebb010a0851147fca610fbe8f8dc49911"
+    },
+    {
+      "seed": "seed-paritas-013",
+      "tugas": "absensi",
+      "sha256": "994459e7f24faa7377ef83296b1cf9998ef05048f4af40f2d44f7fa8cb05339c"
+    },
+    {
+      "seed": "seed-paritas-013",
+      "tugas": "penilaian_magang",
+      "sha256": "c05ae0fa63864a42ccf0236e4959627cb9293dbd6fb89fddcdf9580c12007d5a"
+    },
+    {
+      "seed": "seed-paritas-014",
+      "tugas": "rekap_penjualan",
+      "sha256": "bdb09a038681bedc6967a442e80cf147e0b4d1f6989f0fa54209ac079c8e1aac"
+    },
+    {
+      "seed": "seed-paritas-014",
+      "tugas": "absensi",
+      "sha256": "49ab092c653faffcb09aa5762577151f3afeb716d5fd274489eadd10eba17542"
+    },
+    {
+      "seed": "seed-paritas-014",
+      "tugas": "penilaian_magang",
+      "sha256": "5c4a5adcc18a88f5a73f7469e6184b8d18be9a3fffea384588f80db0d33cd7d1"
+    },
+    {
+      "seed": "seed-paritas-015",
+      "tugas": "rekap_penjualan",
+      "sha256": "737190b03327cb9b2f491aae24cc2f89543f2af55452742df45573d2a60e3662"
+    },
+    {
+      "seed": "seed-paritas-015",
+      "tugas": "absensi",
+      "sha256": "f89dc2bc364670a69da128cdde1061d042e4ab91ef97f97a9cacf136cbb931ec"
+    },
+    {
+      "seed": "seed-paritas-015",
+      "tugas": "penilaian_magang",
+      "sha256": "7f02d930a0f9ea19ef7de7fe1f3ff4cccae61b8adaf384cb9d09b92c0596b8f9"
+    },
+    {
+      "seed": "seed-paritas-016",
+      "tugas": "rekap_penjualan",
+      "sha256": "e22f0d9eceda50e809830104a1c3e835b86cb178c390df43fd216f2f95f7f4e9"
+    },
+    {
+      "seed": "seed-paritas-016",
+      "tugas": "absensi",
+      "sha256": "742238d21c22c2cfc3ece34af30af87df1c839108c85441ec9eb17ff1a920d99"
+    },
+    {
+      "seed": "seed-paritas-016",
+      "tugas": "penilaian_magang",
+      "sha256": "94ae56bb65f1cb8d578f60f2776bc7ea998d2387badf7d86136adc9a7f217f78"
+    },
+    {
+      "seed": "seed-paritas-017",
+      "tugas": "rekap_penjualan",
+      "sha256": "8935fa37ddd3b68d161f88bb5e27e87d2333483a213a1685722c1cbf92756aa7"
+    },
+    {
+      "seed": "seed-paritas-017",
+      "tugas": "absensi",
+      "sha256": "af3fb0fa3d4b2c046d772d1e4a879c4ab27c4cc82e6ffac6480789927131fa22"
+    },
+    {
+      "seed": "seed-paritas-017",
+      "tugas": "penilaian_magang",
+      "sha256": "bbff3f2114b7490b4159b31de4da645018e2a4cc1e09301c5e6b0c5bcc0d6269"
+    },
+    {
+      "seed": "seed-paritas-018",
+      "tugas": "rekap_penjualan",
+      "sha256": "ada7e43f51d26a4edb72c5fd63c3710acea6fa663c836a1e1225e9c7e892f376"
+    },
+    {
+      "seed": "seed-paritas-018",
+      "tugas": "absensi",
+      "sha256": "f28ae17151757550005bb72b0b4dffd9bbe87755e6396e8841b9dd10c8fa90d1"
+    },
+    {
+      "seed": "seed-paritas-018",
+      "tugas": "penilaian_magang",
+      "sha256": "17b37e6a6381e0f2a88791f26653ab905e4c33e7201257fa64ddc3e3439f1445"
+    },
+    {
+      "seed": "seed-paritas-019",
+      "tugas": "rekap_penjualan",
+      "sha256": "085fa73b640c7f40d17253b8d94003d16a92bf4e0670c1c57196d5d998bc40a3"
+    },
+    {
+      "seed": "seed-paritas-019",
+      "tugas": "absensi",
+      "sha256": "ef318c89be27b631b19cb190ff2cff53dfc8f6847fbe4eaea30575d443401737"
+    },
+    {
+      "seed": "seed-paritas-019",
+      "tugas": "penilaian_magang",
+      "sha256": "7a8e21bc02c52336ab36336464fc81e920f4963a13598a4a3aa71c40ab0a83e7"
+    },
+    {
+      "seed": "seed-paritas-020",
+      "tugas": "rekap_penjualan",
+      "sha256": "90ef6cae4ec247ae11f824627a25f50f84247348bf56cf97b952faed794fb3cc"
+    },
+    {
+      "seed": "seed-paritas-020",
+      "tugas": "absensi",
+      "sha256": "7f0757f9b8e525bf62afe1ab16eed6bc4a8cf8b26d3338d0178768f2d0dd1138"
+    },
+    {
+      "seed": "seed-paritas-020",
+      "tugas": "penilaian_magang",
+      "sha256": "680f1098eb045ad6fd3c1164db592b8d03f57ede83f53238f3d8c99e7c1efae2"
+    },
+    {
+      "seed": "seed-paritas-021",
+      "tugas": "rekap_penjualan",
+      "sha256": "333c75fda30798f126e6420c43c8b742c2e930a5d11db5b80cc4f992a6fbbd6b"
+    },
+    {
+      "seed": "seed-paritas-021",
+      "tugas": "absensi",
+      "sha256": "f73ded0561617b4d8dd6bafb1508df29db703e2fe1d668e7f3b2b476d8b09b21"
+    },
+    {
+      "seed": "seed-paritas-021",
+      "tugas": "penilaian_magang",
+      "sha256": "cd7f7016ad6b4f3ed4829748a9425e61624f3441d6c3395a9290f55e1f113652"
+    },
+    {
+      "seed": "seed-paritas-022",
+      "tugas": "rekap_penjualan",
+      "sha256": "3ef72eab3f9f07e2b1ab150d4009f33843ac931d2f5b119e542e2a0a6fd97c21"
+    },
+    {
+      "seed": "seed-paritas-022",
+      "tugas": "absensi",
+      "sha256": "794ce81afcda93a06a3c6d9f7b2c2a8cf9daeddc8e9f620cc944c0aca1a8579c"
+    },
+    {
+      "seed": "seed-paritas-022",
+      "tugas": "penilaian_magang",
+      "sha256": "2a11ed5c930e5e9d94bd19cf84314b9b23f9822e81324b6754f2a03d6b42bb5e"
+    },
+    {
+      "seed": "seed-paritas-023",
+      "tugas": "rekap_penjualan",
+      "sha256": "1573fffbd2190e3b962bcb4630ba450556357a7ea43b7c6a87f6a220ba8ef707"
+    },
+    {
+      "seed": "seed-paritas-023",
+      "tugas": "absensi",
+      "sha256": "c66671acd4490742d7af0f3f17b67a9689bcce04c2ffda5dbc4dda4fb5a5af8c"
+    },
+    {
+      "seed": "seed-paritas-023",
+      "tugas": "penilaian_magang",
+      "sha256": "1e0a623f6a2d231937d131383de3c8d841594a43a13e63be9cd02d0bf77c113c"
+    },
+    {
+      "seed": "seed-paritas-024",
+      "tugas": "rekap_penjualan",
+      "sha256": "e14ba9c1fec24ce880ddb48a8985c0a4844288513e76f52ef5a365a71090ab32"
+    },
+    {
+      "seed": "seed-paritas-024",
+      "tugas": "absensi",
+      "sha256": "3472897e81e3e08a88b07735eb78b5507ea2be753d0c4405de53f128169eb448"
+    },
+    {
+      "seed": "seed-paritas-024",
+      "tugas": "penilaian_magang",
+      "sha256": "bc29d08a56a5ebfb671e001a77bca58e19c922de1a18d71f8e5fa8db05a65c85"
+    },
+    {
+      "seed": "seed-paritas-025",
+      "tugas": "rekap_penjualan",
+      "sha256": "b1613a9f610a9d876fea0a9f52560caf3ebdf659eea6413e761e0b3d51295f95"
+    },
+    {
+      "seed": "seed-paritas-025",
+      "tugas": "absensi",
+      "sha256": "f934c1cb5a5beee4b1670c77fea6b0303ad0a593c5b7e3b2c9e92837e974dc8e"
+    },
+    {
+      "seed": "seed-paritas-025",
+      "tugas": "penilaian_magang",
+      "sha256": "ad9e8e0ec9fe3bd21171edb23112097721fc6c6c12c90fc540dc59450f91aedc"
+    },
+    {
+      "seed": "seed-paritas-026",
+      "tugas": "rekap_penjualan",
+      "sha256": "c1a54ac6133e3677fab90d4e8d228af7cef1ff775aae75ad1afb5184c618dc31"
+    },
+    {
+      "seed": "seed-paritas-026",
+      "tugas": "absensi",
+      "sha256": "cefd3e4cce75f0ab9f304dc0a75f0298e52e1ac319b89c554f513930da80f766"
+    },
+    {
+      "seed": "seed-paritas-026",
+      "tugas": "penilaian_magang",
+      "sha256": "88585b11447b705e5ec035181fdd1f4b4f4ba0d6f302323e47fc6eca22dc136b"
+    },
+    {
+      "seed": "seed-paritas-027",
+      "tugas": "rekap_penjualan",
+      "sha256": "548b80cab8d4a294e7c60b4c65d39390ac08504647dd2e842d6f3f39f3e151c4"
+    },
+    {
+      "seed": "seed-paritas-027",
+      "tugas": "absensi",
+      "sha256": "e061639952f3c2e095cc72d7c99b04d90b25288c4401b74a3942d7dcde1d16c3"
+    },
+    {
+      "seed": "seed-paritas-027",
+      "tugas": "penilaian_magang",
+      "sha256": "54251f8f50e44ae50669636d2a1d09f1e47be7d6e7c9856d33698e0587b53b26"
+    },
+    {
+      "seed": "seed-paritas-028",
+      "tugas": "rekap_penjualan",
+      "sha256": "33d48de40ab3247daa6bc3994a5f383b16029279824dee656590950cfd87223d"
+    },
+    {
+      "seed": "seed-paritas-028",
+      "tugas": "absensi",
+      "sha256": "301d910f598728f707a9a090fad14becba38cabe4176b6606c855bf12de4b70b"
+    },
+    {
+      "seed": "seed-paritas-028",
+      "tugas": "penilaian_magang",
+      "sha256": "c0153d61ade1aae4b6d3338d7263c11cfd7dbcc1bb7a448741a9c7c89d9c3f8d"
+    },
+    {
+      "seed": "seed-paritas-029",
+      "tugas": "rekap_penjualan",
+      "sha256": "665acd2c02b34ef296bf2516eeb3d600d86b56bf6e5f1f70601d7784ed5ab8b0"
+    },
+    {
+      "seed": "seed-paritas-029",
+      "tugas": "absensi",
+      "sha256": "e5eb88b85414b4aa7673633723eb04c1e3155d9f1f8d8e2364ba2ec4d42349b0"
+    },
+    {
+      "seed": "seed-paritas-029",
+      "tugas": "penilaian_magang",
+      "sha256": "e39a325305865c5549562d4653bf3478eaa5548b1f62178939ff7aeb9fd32535"
+    },
+    {
+      "seed": "seed-paritas-030",
+      "tugas": "rekap_penjualan",
+      "sha256": "556686616385c0bc97f5d2faa92834410a06957751c84f624054896d73245ab4"
+    },
+    {
+      "seed": "seed-paritas-030",
+      "tugas": "absensi",
+      "sha256": "71def1e38e8fc8824f910dadeea6cab5847033747f39d335d68fccf9f3d627d8"
+    },
+    {
+      "seed": "seed-paritas-030",
+      "tugas": "penilaian_magang",
+      "sha256": "12315b6a19fe751918e4ad6ac248dc2dd3f84eb7920142e6194e98ec6a03cba2"
+    },
+    {
+      "seed": "seed-paritas-031",
+      "tugas": "rekap_penjualan",
+      "sha256": "0281de3a511b1fbb261875b3a7a0c322702f3f02b1b456f4f182ab7eb821ffd9"
+    },
+    {
+      "seed": "seed-paritas-031",
+      "tugas": "absensi",
+      "sha256": "6b642ff513d6c14a7a1f9d1360bcc0ba6a7a8aa4f7ed4b1d35c12a9eadc7c376"
+    },
+    {
+      "seed": "seed-paritas-031",
+      "tugas": "penilaian_magang",
+      "sha256": "174eab8da9ab7e62cffee0e787ce9763efe7c66850d8cfcf68a622437daab296"
+    },
+    {
+      "seed": "seed-paritas-032",
+      "tugas": "rekap_penjualan",
+      "sha256": "fd6e0bf87d3865e1e751ca7ccbd8a274c82b8c743ac0363ea02240ce3a171269"
+    },
+    {
+      "seed": "seed-paritas-032",
+      "tugas": "absensi",
+      "sha256": "5e7cf44a96ce0a705c9b8087f561918e6a7aae1e85045c41da2c7e0d0da3ec3b"
+    },
+    {
+      "seed": "seed-paritas-032",
+      "tugas": "penilaian_magang",
+      "sha256": "9aa6515ba2f2bd80ffbe567469ec6cd39852b0663bcf53717b2412a4d42c4f77"
+    },
+    {
+      "seed": "seed-paritas-033",
+      "tugas": "rekap_penjualan",
+      "sha256": "fd926eefed2ae022d82f7ef6f039ad0596227cfda4ff47e928ebbf6967784d66"
+    },
+    {
+      "seed": "seed-paritas-033",
+      "tugas": "absensi",
+      "sha256": "45cf1307dd7b18459a11816b92f0aac3771ec0ca348571d90b4515220f3c0f78"
+    },
+    {
+      "seed": "seed-paritas-033",
+      "tugas": "penilaian_magang",
+      "sha256": "abacde1cc5c6b6deae3819e9e6c03b6277fda114202c62a529499459901e189d"
+    },
+    {
+      "seed": "seed-paritas-034",
+      "tugas": "rekap_penjualan",
+      "sha256": "e4e215a13c14b94b3b3197ea5bcdea8e2e171096f39f6eb5158285a32102430b"
+    },
+    {
+      "seed": "seed-paritas-034",
+      "tugas": "absensi",
+      "sha256": "6b5a5f3577a5e0bb615e6ab284b87b619a52f71ea15be46ac92b5deb3e04dedf"
+    },
+    {
+      "seed": "seed-paritas-034",
+      "tugas": "penilaian_magang",
+      "sha256": "14f15b092fc58b58f14a4e7bea1a06fee67550c9b4ae8cbcb12a1b3f44afdf41"
+    },
+    {
+      "seed": "seed-paritas-035",
+      "tugas": "rekap_penjualan",
+      "sha256": "31b6c376902fd0fbc4519efa684fc3ca8e0ff7892dc66267855b98512332f3a3"
+    },
+    {
+      "seed": "seed-paritas-035",
+      "tugas": "absensi",
+      "sha256": "52a314cf86b7e15cafd3b40306ef323d8db1276d760124fc2d27275b4557562a"
+    },
+    {
+      "seed": "seed-paritas-035",
+      "tugas": "penilaian_magang",
+      "sha256": "22f75809cb12f90b1ee6435d152ca46b85fc4229127da851fba7c8c9d72e071f"
+    },
+    {
+      "seed": "seed-paritas-036",
+      "tugas": "rekap_penjualan",
+      "sha256": "4f928c64a89753fcc308c4dc08a50b433d36c2101bf68f01107e216fb6cdc235"
+    },
+    {
+      "seed": "seed-paritas-036",
+      "tugas": "absensi",
+      "sha256": "94b97643c8f9f762b47b7e79e1d98a43edc511c353ab8c5c7da747db22c4d627"
+    },
+    {
+      "seed": "seed-paritas-036",
+      "tugas": "penilaian_magang",
+      "sha256": "72d62bf3c3cfd0b6dad5d0e25287995edc92009b0f21ff274d2077e2dfd27be8"
+    },
+    {
+      "seed": "seed-paritas-037",
+      "tugas": "rekap_penjualan",
+      "sha256": "0aa1d3f3bbffd8ce477595af5db2f40f59c303fd4c40e503fdf5bec72a13e782"
+    },
+    {
+      "seed": "seed-paritas-037",
+      "tugas": "absensi",
+      "sha256": "1ccea0e37defbc21eb45112657bf28178824599a9cdd0fc06810726c01418e04"
+    },
+    {
+      "seed": "seed-paritas-037",
+      "tugas": "penilaian_magang",
+      "sha256": "83f76edea0ffa97f154113ee8cb94409687715277482326165c12f371a617c95"
+    },
+    {
+      "seed": "seed-paritas-038",
+      "tugas": "rekap_penjualan",
+      "sha256": "cc6ebd29c52c9c7fee7f0b67ee65e088f1eb97c1d180e4e8add59fbcb3385ec8"
+    },
+    {
+      "seed": "seed-paritas-038",
+      "tugas": "absensi",
+      "sha256": "b1afc39c55e318ad64357b1dc00ef7d09e5007fbf5c0dadad5c68f1923b57192"
+    },
+    {
+      "seed": "seed-paritas-038",
+      "tugas": "penilaian_magang",
+      "sha256": "96e659407edb22342139721209e7486182aa9b29004bf0df555a8ca9619b7bd6"
+    },
+    {
+      "seed": "seed-paritas-039",
+      "tugas": "rekap_penjualan",
+      "sha256": "5dada14534b73cfd767887fd0051d39229ec7858bfcb9272fca4dc6677d71468"
+    },
+    {
+      "seed": "seed-paritas-039",
+      "tugas": "absensi",
+      "sha256": "565e2eb8763f173c6a7a941a49894dab6a7e6779ab5f6074f5b7b48abdef62f8"
+    },
+    {
+      "seed": "seed-paritas-039",
+      "tugas": "penilaian_magang",
+      "sha256": "0144d809f853bff6e1500051dc5ff71987729c109ee8cac0c348ec41983d615c"
+    },
+    {
+      "seed": "seed-paritas-040",
+      "tugas": "rekap_penjualan",
+      "sha256": "931c63e6c5d0b8f810d1f5e70de4ae0d66bc31ab2c3136695bab11ccb0286a0e"
+    },
+    {
+      "seed": "seed-paritas-040",
+      "tugas": "absensi",
+      "sha256": "fdeaae23bd1fe7dd09b98b7534c7c385472c8ab932bdb9a68d550944410f1d1a"
+    },
+    {
+      "seed": "seed-paritas-040",
+      "tugas": "penilaian_magang",
+      "sha256": "43822e4f396571a67ade495dca922e8d0c6bb784bdbd972b00a32db71dcadb64"
+    },
+    {
+      "seed": "seed-paritas-041",
+      "tugas": "rekap_penjualan",
+      "sha256": "1864f9e227f8ac86a3d29f48d17a15fd60dd7deb2626a61b2ed5dd1f48e1cb00"
+    },
+    {
+      "seed": "seed-paritas-041",
+      "tugas": "absensi",
+      "sha256": "f89ebea2bb5aa09b08632cbe12738d953a2be510c715792d3bd062f65d28cd39"
+    },
+    {
+      "seed": "seed-paritas-041",
+      "tugas": "penilaian_magang",
+      "sha256": "b4a9d326bd4f114060d9dbeca7e07e622ba1042bf8acde5d5646108960f6b4fd"
+    },
+    {
+      "seed": "seed-paritas-042",
+      "tugas": "rekap_penjualan",
+      "sha256": "6d7fca29e61e41b9a677fc747d580e136a21977a4b4467e4af83cb45cfb57c8a"
+    },
+    {
+      "seed": "seed-paritas-042",
+      "tugas": "absensi",
+      "sha256": "05a013f308be4e92e0f2286c971f4b27dcd2911ab069e2b4a1fc6ee4e9c0c286"
+    },
+    {
+      "seed": "seed-paritas-042",
+      "tugas": "penilaian_magang",
+      "sha256": "78ac0f14bc6333770feca58e263de3c986ec560dbaa00c6a680fb9da683cbb2a"
+    },
+    {
+      "seed": "seed-paritas-043",
+      "tugas": "rekap_penjualan",
+      "sha256": "fc59e94f3edfbb1521fede72ae4e667d40adebb91f8a32279febf4348350ac8b"
+    },
+    {
+      "seed": "seed-paritas-043",
+      "tugas": "absensi",
+      "sha256": "be7b627b8a4b60298613231200015ec49483888e6e88d17e47afefa492251ca2"
+    },
+    {
+      "seed": "seed-paritas-043",
+      "tugas": "penilaian_magang",
+      "sha256": "f0c409df025ed84bd5faba6f8ec24e3ee6243f29993cd60d3b72ffc9dd40c4b2"
+    },
+    {
+      "seed": "seed-paritas-044",
+      "tugas": "rekap_penjualan",
+      "sha256": "ff01e4d0c23f0e6b777425225f20e3b31144664dcb2915688f2c8cc6d127626f"
+    },
+    {
+      "seed": "seed-paritas-044",
+      "tugas": "absensi",
+      "sha256": "52630629832a79b7b72a97324be30e8afda34399c1f52c74e0d7867105563cd5"
+    },
+    {
+      "seed": "seed-paritas-044",
+      "tugas": "penilaian_magang",
+      "sha256": "ce8940f6d2b55277297e5dafcc7669ff9faaeede2bb3a4abe2005f467fcc6c75"
+    },
+    {
+      "seed": "seed-paritas-045",
+      "tugas": "rekap_penjualan",
+      "sha256": "5f7ccdad5316f96a1a94c89132e5512066281b74d808ab54a1ab70f5175e4c63"
+    },
+    {
+      "seed": "seed-paritas-045",
+      "tugas": "absensi",
+      "sha256": "0c637bfbf7c8526a3b942d420d5518967b3dd3001c17d542d478d15e23b6da54"
+    },
+    {
+      "seed": "seed-paritas-045",
+      "tugas": "penilaian_magang",
+      "sha256": "09c086e1acaaec948f4c075c4fca26ed5048ced2f59ed5f03ef1fc8e40f16b05"
+    },
+    {
+      "seed": "seed-paritas-046",
+      "tugas": "rekap_penjualan",
+      "sha256": "b0119e80588fcd87e44a9f9b0a89a1e02448b4495f36ebca51bab046497fa2af"
+    },
+    {
+      "seed": "seed-paritas-046",
+      "tugas": "absensi",
+      "sha256": "6ed4f41a88ed3c0a3d92200913f15dc46c6d5d7e7186e8bcd9fe19600a18400b"
+    },
+    {
+      "seed": "seed-paritas-046",
+      "tugas": "penilaian_magang",
+      "sha256": "446af53e8093f3d67f520efe252e6a4408a45d7562e7e17bcbb078c1aa9e938c"
+    },
+    {
+      "seed": "seed-paritas-047",
+      "tugas": "rekap_penjualan",
+      "sha256": "aa65099eb1f11213de3eb723ed4ebcfd7f22b180ffa079c6128c0d508f181dc1"
+    },
+    {
+      "seed": "seed-paritas-047",
+      "tugas": "absensi",
+      "sha256": "fb7282958b772c0df518ecc69f38dbaec77670363d8a8132aa6c2e6b4f599645"
+    },
+    {
+      "seed": "seed-paritas-047",
+      "tugas": "penilaian_magang",
+      "sha256": "f6f1993f40d7e98fcb2072f77a2a0190a39ae7bcb035f2a9d8b7fbdca6c61494"
+    },
+    {
+      "seed": "seed-paritas-048",
+      "tugas": "rekap_penjualan",
+      "sha256": "00dcf59263635efa4a35e731b7ecf9a6437b35a3a30d0b717a62f7c136869cf6"
+    },
+    {
+      "seed": "seed-paritas-048",
+      "tugas": "absensi",
+      "sha256": "0e753ad6eb2258460d54e8ae48ebc82af11540ccc0dfc4e86715352e885a04d8"
+    },
+    {
+      "seed": "seed-paritas-048",
+      "tugas": "penilaian_magang",
+      "sha256": "c3faee2f8577965513efc8c7d07e03ff1d5e697e5743a31e6ffe50da5e89a042"
+    },
+    {
+      "seed": "seed-paritas-049",
+      "tugas": "rekap_penjualan",
+      "sha256": "d6279ff176bc8e562344f0d50d0f209691764f22ee0f40c5ab9d9f0c6db99523"
+    },
+    {
+      "seed": "seed-paritas-049",
+      "tugas": "absensi",
+      "sha256": "44e92ecad7e666e7ab1e717509245b1fa4b119ed7449fa78e876d2f1922f8a82"
+    },
+    {
+      "seed": "seed-paritas-049",
+      "tugas": "penilaian_magang",
+      "sha256": "134fdf52117b78edc5b125c82a9166f165811bcc7882b7c92bcfb5e18ee6504d"
+    },
+    {
+      "seed": "seed-paritas-050",
+      "tugas": "rekap_penjualan",
+      "sha256": "978d979f12d700221a562809f01a7d12fac867b1146ad26359a06d96b94c1caa"
+    },
+    {
+      "seed": "seed-paritas-050",
+      "tugas": "absensi",
+      "sha256": "dea59d591dff6f4b5cbce83fcd84607399abdcf067c892035837eb064e14979e"
+    },
+    {
+      "seed": "seed-paritas-050",
+      "tugas": "penilaian_magang",
+      "sha256": "cf3997744dc718660c514eb9c0a52fe5edbedae93cc8468c6762cd2e598a17f8"
+    },
+    {
+      "seed": "seed-paritas-051",
+      "tugas": "rekap_penjualan",
+      "sha256": "f1ae8ed8e78f527781f97fd5ea8d4470cb60d42d551f6b387f4918831d023216"
+    },
+    {
+      "seed": "seed-paritas-051",
+      "tugas": "absensi",
+      "sha256": "388b3f01995ba7b512f29743489f5d3b84cea4e69578529a889c6bfb07703222"
+    },
+    {
+      "seed": "seed-paritas-051",
+      "tugas": "penilaian_magang",
+      "sha256": "e9488d9bc833624c44da2f9992d4357add07ef134b0339811be4a08676102d09"
+    },
+    {
+      "seed": "seed-paritas-052",
+      "tugas": "rekap_penjualan",
+      "sha256": "fc6b6857dc83dcf4a28627443264e102dc4ba92b075e0b1d0e06303088d68334"
+    },
+    {
+      "seed": "seed-paritas-052",
+      "tugas": "absensi",
+      "sha256": "fbdbf86a67a92e3fdeec3e68f9d480d499d0073628e16d339a181ce917e98370"
+    },
+    {
+      "seed": "seed-paritas-052",
+      "tugas": "penilaian_magang",
+      "sha256": "2c786575c42c4890dc8996b88457b0bcda0099c7c36c17918ef453793433f3ce"
+    },
+    {
+      "seed": "seed-paritas-053",
+      "tugas": "rekap_penjualan",
+      "sha256": "20342cb12adf45126d1ca0904f4813885a4ec65412087740c46eeb03e9873892"
+    },
+    {
+      "seed": "seed-paritas-053",
+      "tugas": "absensi",
+      "sha256": "6723c0275865b779f96677cec404484890eb8251167b4cfa31fcb9cebfbbddc8"
+    },
+    {
+      "seed": "seed-paritas-053",
+      "tugas": "penilaian_magang",
+      "sha256": "a4968be415fd0b61f6d341c031d332fda015cf07b47454552207d86cfaeec06c"
+    },
+    {
+      "seed": "seed-paritas-054",
+      "tugas": "rekap_penjualan",
+      "sha256": "b491a14afdcf7af693f09f58f37a4c24ce6185471182709591ad2bd852750dd4"
+    },
+    {
+      "seed": "seed-paritas-054",
+      "tugas": "absensi",
+      "sha256": "f08655a66c19322ef39a58d28c54de5bb70f66118b751d185c5d335c9a1ace52"
+    },
+    {
+      "seed": "seed-paritas-054",
+      "tugas": "penilaian_magang",
+      "sha256": "3fbc3975f88bdb2f32122347bde9976015773314d16baf3fc8af5704a3463b8b"
+    },
+    {
+      "seed": "seed-paritas-055",
+      "tugas": "rekap_penjualan",
+      "sha256": "4e46a3ac5c82146b9b4eec35b3675618e05a4e67120d22b73ab1c9ef8782aefa"
+    },
+    {
+      "seed": "seed-paritas-055",
+      "tugas": "absensi",
+      "sha256": "9fc4ab9ce9c9071f9e2a88c88f68ae8c17c8250d158f240075d9aca17aacb7b2"
+    },
+    {
+      "seed": "seed-paritas-055",
+      "tugas": "penilaian_magang",
+      "sha256": "7c9734478382a60a3afbe6e71e033213c550a2f08562ee4c830f83a494ef2db0"
+    },
+    {
+      "seed": "seed-paritas-056",
+      "tugas": "rekap_penjualan",
+      "sha256": "c8d9f4c54d6bf0d0e6539b281b852ab265d6ded1f097146aca03fc1f13a19024"
+    },
+    {
+      "seed": "seed-paritas-056",
+      "tugas": "absensi",
+      "sha256": "6d6d9e3c1d3e3b8e8d588caf3ea7374bccb4141e3b241de0e2d8b93c4a6e7fe4"
+    },
+    {
+      "seed": "seed-paritas-056",
+      "tugas": "penilaian_magang",
+      "sha256": "b68e3ceca0a7be02fd1b4751a9070a5caa222a1ee474f00745cd1ee916e6431a"
+    },
+    {
+      "seed": "seed-paritas-057",
+      "tugas": "rekap_penjualan",
+      "sha256": "ed754b789fec9f3dc97b1f9ecc772e5bc1d31125965123276d71aadbd2f6433f"
+    },
+    {
+      "seed": "seed-paritas-057",
+      "tugas": "absensi",
+      "sha256": "0d86efd46894555901860d44debfa9149cbeddfaccbe2d7656b6431d48312ad5"
+    },
+    {
+      "seed": "seed-paritas-057",
+      "tugas": "penilaian_magang",
+      "sha256": "5fd6c6f988495463653d5c2fc7fd3f25ed0c6b63351ac96da89b9aeae65bb044"
+    },
+    {
+      "seed": "seed-paritas-058",
+      "tugas": "rekap_penjualan",
+      "sha256": "06fc45d43217e4830568ad92be311f9c8c58b5ff76a5d341549782780b1f6ccb"
+    },
+    {
+      "seed": "seed-paritas-058",
+      "tugas": "absensi",
+      "sha256": "c68de5c9b9b3c1816ebc31c27f621addda33973b8c45aa313b8ff122806d3cde"
+    },
+    {
+      "seed": "seed-paritas-058",
+      "tugas": "penilaian_magang",
+      "sha256": "1967655eb555fe18688bdf8bcc29bb05c9bfae2140e552f0b16d2ac223e66b3b"
+    },
+    {
+      "seed": "seed-paritas-059",
+      "tugas": "rekap_penjualan",
+      "sha256": "5b5ddd0647fe156fdb123d6e1bfbb49e1538dc3b6325a9d5cbceee4eda3c98a4"
+    },
+    {
+      "seed": "seed-paritas-059",
+      "tugas": "absensi",
+      "sha256": "dd835073ec78b163b828c9fb2e449e687638a11830a3e0b592b373ddadde9b00"
+    },
+    {
+      "seed": "seed-paritas-059",
+      "tugas": "penilaian_magang",
+      "sha256": "5bd86b4b731b14cc6b6029acd364f6c2785f663ac345fd58c4fce80ffe462766"
+    },
+    {
+      "seed": "seed-paritas-060",
+      "tugas": "rekap_penjualan",
+      "sha256": "1cb2d322f7731d4392067002ce34ea6bc91fba8a100e48e7ab56093be5cd38c8"
+    },
+    {
+      "seed": "seed-paritas-060",
+      "tugas": "absensi",
+      "sha256": "b9eed74fe17b2ba388bc58d1ff3d635fbf4326b5e185d448182453ef12d5f550"
+    },
+    {
+      "seed": "seed-paritas-060",
+      "tugas": "penilaian_magang",
+      "sha256": "b8e4238551c8379f1a3a72d7909085d662622ff3989d313913aa57d9ec4f4ed9"
+    },
+    {
+      "seed": "seed-paritas-061",
+      "tugas": "rekap_penjualan",
+      "sha256": "3e708116b147f4c73f837da4adafa585d7730fd3cafa7edd7f3d33b5f68baa01"
+    },
+    {
+      "seed": "seed-paritas-061",
+      "tugas": "absensi",
+      "sha256": "7395a6a774cafacf20feb4ff46c8c5310ea18fcb5c1dd151ec9337cc1de665e6"
+    },
+    {
+      "seed": "seed-paritas-061",
+      "tugas": "penilaian_magang",
+      "sha256": "7150161ce7ac7491b5df6fb85fdfa9ca67858b17ac1b86220a5859ef750b8496"
+    },
+    {
+      "seed": "seed-paritas-062",
+      "tugas": "rekap_penjualan",
+      "sha256": "5b6fb07bcc1f91ec47a2d5e858a41b4852db1ea27cf574ad2c5b3a2ba3d38fbb"
+    },
+    {
+      "seed": "seed-paritas-062",
+      "tugas": "absensi",
+      "sha256": "195f61304da1c783e88dbdcb7e5c9159b3a4b3f836b433e974e3e073f78d04ec"
+    },
+    {
+      "seed": "seed-paritas-062",
+      "tugas": "penilaian_magang",
+      "sha256": "28084ef9ac88c9ae8b4d7fe75af9494dbe70893d6e71af249d9f10c2960ad4f2"
+    },
+    {
+      "seed": "seed-paritas-063",
+      "tugas": "rekap_penjualan",
+      "sha256": "a5a18166711e84f4e490e52c1acf57671e8603c81a0bbffd84b0d868fe619371"
+    },
+    {
+      "seed": "seed-paritas-063",
+      "tugas": "absensi",
+      "sha256": "0576e14bcb02584a0c98fcba4d4648f35cba076e32ddf97635af62e7e313057e"
+    },
+    {
+      "seed": "seed-paritas-063",
+      "tugas": "penilaian_magang",
+      "sha256": "4d63de59c9bd04f785f4d36d1eb9cd125e13adf8266060b910363163deac6a19"
+    },
+    {
+      "seed": "seed-paritas-064",
+      "tugas": "rekap_penjualan",
+      "sha256": "61ba814aac5164a03d2947824921e9d06aeec4a992b448d7b8ca138da6367e45"
+    },
+    {
+      "seed": "seed-paritas-064",
+      "tugas": "absensi",
+      "sha256": "c308ef9c528975f1385a459951a40c3769ccc943ce14be24412061819a950627"
+    },
+    {
+      "seed": "seed-paritas-064",
+      "tugas": "penilaian_magang",
+      "sha256": "af79dd5f32eadc48eca1413f308cc47f22a8be0e3bb75811956c43625cdb654b"
+    },
+    {
+      "seed": "seed-paritas-065",
+      "tugas": "rekap_penjualan",
+      "sha256": "4be547e8b5b94e7c588306454b7a1ae81089b387b7a7c720baee587ce91c47a7"
+    },
+    {
+      "seed": "seed-paritas-065",
+      "tugas": "absensi",
+      "sha256": "483b5d09446450706d65b26d0bb35c2289fe7de41816474d5a639d008a395b72"
+    },
+    {
+      "seed": "seed-paritas-065",
+      "tugas": "penilaian_magang",
+      "sha256": "61cd6a1a361acbe398f85b531e1a1ef997cf210e98f3044a8c5b9ce32191a835"
+    },
+    {
+      "seed": "seed-paritas-066",
+      "tugas": "rekap_penjualan",
+      "sha256": "f35af08fd54ea9ba8336afec8581e5a79311462d471ee89ea47f439d6d4d34e0"
+    },
+    {
+      "seed": "seed-paritas-066",
+      "tugas": "absensi",
+      "sha256": "20004da68075c08210ee7c59daf7449f2c80ab60fb10b1dab9e036c4f230478c"
+    },
+    {
+      "seed": "seed-paritas-066",
+      "tugas": "penilaian_magang",
+      "sha256": "74efdf4b9a97d5dd09d1c609601404081d2def900bff3e193ace081e66d18178"
+    },
+    {
+      "seed": "seed-paritas-067",
+      "tugas": "rekap_penjualan",
+      "sha256": "7fab366a0b236820639f4e4622ae2d6ea7b2ecd05e31a0aefc2058c5fb68c9c2"
+    },
+    {
+      "seed": "seed-paritas-067",
+      "tugas": "absensi",
+      "sha256": "2b44e1ca3370e587d164b25c5dff71d5c9723eb7934a7d9db2846a5e52dc5ba8"
+    },
+    {
+      "seed": "seed-paritas-067",
+      "tugas": "penilaian_magang",
+      "sha256": "be8c739c6a22d3d597961edd49b9c6b8a067225aff354f34cc46db4f4d219856"
+    },
+    {
+      "seed": "seed-paritas-068",
+      "tugas": "rekap_penjualan",
+      "sha256": "66194a744a9b8608666037498657e4cd06902aea9677e66a1d267e5fff1bb98e"
+    },
+    {
+      "seed": "seed-paritas-068",
+      "tugas": "absensi",
+      "sha256": "93a7eb797d3231c0069023e1962cfdcf24f634416661dc5abe0172f579d8a5f5"
+    },
+    {
+      "seed": "seed-paritas-068",
+      "tugas": "penilaian_magang",
+      "sha256": "13439a384df4793dee0e7b79f73eaddd8a74f5e5d8718d3b48758b1ff70128a2"
+    },
+    {
+      "seed": "seed-paritas-069",
+      "tugas": "rekap_penjualan",
+      "sha256": "ff11c63cda24788ee4ae750017c7d991f1c0b5d354fdd66367b20e562aca9bee"
+    },
+    {
+      "seed": "seed-paritas-069",
+      "tugas": "absensi",
+      "sha256": "29ec15422fa6acce0f94c762608aa79507059d8abbf414be01014b86bf29e85b"
+    },
+    {
+      "seed": "seed-paritas-069",
+      "tugas": "penilaian_magang",
+      "sha256": "1ddc64a023bf35487878c0bd656c6fb6eeea5d8cbb1b464b5e2a0aef2b5b63d3"
+    },
+    {
+      "seed": "seed-paritas-070",
+      "tugas": "rekap_penjualan",
+      "sha256": "efbb12c16ad48417ed4d6831e86cdfddc352a030b2604cacf6800a14a9c4fd28"
+    },
+    {
+      "seed": "seed-paritas-070",
+      "tugas": "absensi",
+      "sha256": "2d478cdf8171dd67d0d3cc13fb3c4aef60054e552d066110d0ffe95cccbd3ccf"
+    },
+    {
+      "seed": "seed-paritas-070",
+      "tugas": "penilaian_magang",
+      "sha256": "cddf48f45fd4dfd421fa911582ee31044465d5a6c8288082b0eccd5a0c73662f"
+    },
+    {
+      "seed": "seed-paritas-071",
+      "tugas": "rekap_penjualan",
+      "sha256": "df1136ea6f4510f459e372a027d20ce5310e1b5087264c8130ae7c67f6e4595c"
+    },
+    {
+      "seed": "seed-paritas-071",
+      "tugas": "absensi",
+      "sha256": "27e59a556ae81ab802b8567cb05c539a6fbc627ba21e9e45de60da8dddfc293d"
+    },
+    {
+      "seed": "seed-paritas-071",
+      "tugas": "penilaian_magang",
+      "sha256": "03fa7d9650a9aea58869a15174dd63844fb695b54af9d2c50bb6d42daa910b2d"
+    },
+    {
+      "seed": "seed-paritas-072",
+      "tugas": "rekap_penjualan",
+      "sha256": "6e6493ffc8dc452dcc829e65ca0de129171181f32ac67e9e8c6fbf4241fcc28a"
+    },
+    {
+      "seed": "seed-paritas-072",
+      "tugas": "absensi",
+      "sha256": "aca8c19a90f2875580585d90c19008b5bba87cc5076c33fcc7e98366133aa0e5"
+    },
+    {
+      "seed": "seed-paritas-072",
+      "tugas": "penilaian_magang",
+      "sha256": "ce30d4f59b96ab8b06329ed1aa2ff34fef1a07af7e3d304b881f722678614bf7"
+    },
+    {
+      "seed": "seed-paritas-073",
+      "tugas": "rekap_penjualan",
+      "sha256": "c965085256a5e1b09ba7ca5e1db7e6e38e731210de41e0ea4db596acca480d73"
+    },
+    {
+      "seed": "seed-paritas-073",
+      "tugas": "absensi",
+      "sha256": "bd7b6a035abd64722470cb8a96e5c6321730d1606e67ca347e2f948c66c968db"
+    },
+    {
+      "seed": "seed-paritas-073",
+      "tugas": "penilaian_magang",
+      "sha256": "613a509cbad1b4d2b3e21a78ed55ee17980c17614ae3a82b6a1f5ec95497a0bd"
+    },
+    {
+      "seed": "seed-paritas-074",
+      "tugas": "rekap_penjualan",
+      "sha256": "65a362cec2a6ddff18c2b012fc50ae88f8832ca93f091f29b3e187f9f67fe4c2"
+    },
+    {
+      "seed": "seed-paritas-074",
+      "tugas": "absensi",
+      "sha256": "2b4c852070f46bf635dffa1b690ca3c715e4641e33a239af0245e6b649b0aa21"
+    },
+    {
+      "seed": "seed-paritas-074",
+      "tugas": "penilaian_magang",
+      "sha256": "8fc62ab7f221d0cc77786f6a56ee8e6e34f74346187646c5820d649a1451823a"
+    },
+    {
+      "seed": "seed-paritas-075",
+      "tugas": "rekap_penjualan",
+      "sha256": "5843980e0ace7defa25e5ee5b7c370d467b11f957bec581d9ec0ca48265e7dbd"
+    },
+    {
+      "seed": "seed-paritas-075",
+      "tugas": "absensi",
+      "sha256": "5c1d222ad3a887836c0da8a7c9197cd4451323e5cbacd9c795c51a16e3ab9c78"
+    },
+    {
+      "seed": "seed-paritas-075",
+      "tugas": "penilaian_magang",
+      "sha256": "d5816d1e7bf1f78eddcf20df267a0320e3ac85341bae723b4854730a0b7ac529"
+    },
+    {
+      "seed": "seed-paritas-076",
+      "tugas": "rekap_penjualan",
+      "sha256": "50f2a1675f1977ef92fd83107102a80ccf7b1905c0583c57c23822f7f2984166"
+    },
+    {
+      "seed": "seed-paritas-076",
+      "tugas": "absensi",
+      "sha256": "9346831f07184e1f6846b19cfbaaebadf62c7565c8ddd6b18112a515aa52da1b"
+    },
+    {
+      "seed": "seed-paritas-076",
+      "tugas": "penilaian_magang",
+      "sha256": "27bf9c9886be01362a374774e6d7170174edc5fa362a06e9ee5158df3f539c6b"
+    },
+    {
+      "seed": "seed-paritas-077",
+      "tugas": "rekap_penjualan",
+      "sha256": "c6dff9a91adbe95a996e9da53ef4f65dfdf34d1915523911a2c3a46142320e9b"
+    },
+    {
+      "seed": "seed-paritas-077",
+      "tugas": "absensi",
+      "sha256": "5328bce578710bfd31de9201c9544a5f4caf64e5f531f5b0ba97a1062551a516"
+    },
+    {
+      "seed": "seed-paritas-077",
+      "tugas": "penilaian_magang",
+      "sha256": "59f9aa50afcb7160ade4dd4cf1fd46b9050bdb5be25b402b22fd7ecd44652b0b"
+    },
+    {
+      "seed": "seed-paritas-078",
+      "tugas": "rekap_penjualan",
+      "sha256": "b4379539812e84abda4c22af8acd2cb48a981d450b7d29983d3b9bfbacc29768"
+    },
+    {
+      "seed": "seed-paritas-078",
+      "tugas": "absensi",
+      "sha256": "40cccc07895050bac2aca51a4efb8122cc3953729147b364d2a121cc5146f6c8"
+    },
+    {
+      "seed": "seed-paritas-078",
+      "tugas": "penilaian_magang",
+      "sha256": "935e70c0cbfad492e060636fb3a5fa02901a33fc8c0faee8cdabd47cad0db066"
+    },
+    {
+      "seed": "seed-paritas-079",
+      "tugas": "rekap_penjualan",
+      "sha256": "cb8d85b091fa0bbc3fd2f1b48f2bf598d2d76671246af7c995877ede8c2d70cc"
+    },
+    {
+      "seed": "seed-paritas-079",
+      "tugas": "absensi",
+      "sha256": "bc850b466a65a293629baf5059a7380285bb0940877bd27a145e528d0301e019"
+    },
+    {
+      "seed": "seed-paritas-079",
+      "tugas": "penilaian_magang",
+      "sha256": "79bddb5b6b15759e602ec48729e1da2a07fb9c6197b3231738608c2c296f7abb"
+    },
+    {
+      "seed": "seed-paritas-080",
+      "tugas": "rekap_penjualan",
+      "sha256": "aa1c67a3452b7461957c57ebb0fca0965cc680642a65f5030068549c313d950e"
+    },
+    {
+      "seed": "seed-paritas-080",
+      "tugas": "absensi",
+      "sha256": "25efa729de70a1f1e390229d1ba6111fe0f7ed8a1ecdef9dce7c5937a5969e47"
+    },
+    {
+      "seed": "seed-paritas-080",
+      "tugas": "penilaian_magang",
+      "sha256": "606e48511862ce86c7f9ddba30a3ef50cbd21930b5baa9c520da1426a153ed51"
+    },
+    {
+      "seed": "seed-paritas-081",
+      "tugas": "rekap_penjualan",
+      "sha256": "c668cb8da4973dd84fd6aceee857c2dd41537ee76cc192421eb52673aee5af39"
+    },
+    {
+      "seed": "seed-paritas-081",
+      "tugas": "absensi",
+      "sha256": "d5d23e846cfd0b4b8e615ae61c0cd4a095d40c332efc4156d151f20765318b58"
+    },
+    {
+      "seed": "seed-paritas-081",
+      "tugas": "penilaian_magang",
+      "sha256": "97c7ea97bf1fd450d8353783843f8fc14b830615af06a336de690de7f4e0b4fb"
+    },
+    {
+      "seed": "seed-paritas-082",
+      "tugas": "rekap_penjualan",
+      "sha256": "c540d29940a0a6043838b067c2dbfc4be6a5a228be11fc5faaceb6964cea4c91"
+    },
+    {
+      "seed": "seed-paritas-082",
+      "tugas": "absensi",
+      "sha256": "b94036f6cf3cc7aba2537180168657ade4279310eb5a65fb3da8f4a28108b713"
+    },
+    {
+      "seed": "seed-paritas-082",
+      "tugas": "penilaian_magang",
+      "sha256": "b76c9771e413b3b822d15940334de940c54c60b152c5ad2f8ce0c4fd40bf5f32"
+    },
+    {
+      "seed": "seed-paritas-083",
+      "tugas": "rekap_penjualan",
+      "sha256": "4932ddfcf5485de6dc42ab0e50e6ec32fbb353caeca3d37666ef95adc75943a9"
+    },
+    {
+      "seed": "seed-paritas-083",
+      "tugas": "absensi",
+      "sha256": "e497b96485b7b4a35656e20f54553099e02dfb631e6e9aa769c39e5650eebb52"
+    },
+    {
+      "seed": "seed-paritas-083",
+      "tugas": "penilaian_magang",
+      "sha256": "9453e010bb6d6fe909b189633a0ec78dd7cc8a2f4d2862338db4d60a8e93de53"
+    },
+    {
+      "seed": "seed-paritas-084",
+      "tugas": "rekap_penjualan",
+      "sha256": "11de6dcdfb5b53212b253e677a3591807f15dd796f1357e4eebb49383196c7c0"
+    },
+    {
+      "seed": "seed-paritas-084",
+      "tugas": "absensi",
+      "sha256": "cfeb37866fcb19f3017dffb98d03b2c56e35f7c44d8eaa88ce7137c30a722dd4"
+    },
+    {
+      "seed": "seed-paritas-084",
+      "tugas": "penilaian_magang",
+      "sha256": "f2c3ab36510df302a9d301399386426fcdcdd8c69bb06b47ded3dd07827d1d33"
+    },
+    {
+      "seed": "seed-paritas-085",
+      "tugas": "rekap_penjualan",
+      "sha256": "4ae43c4129cb87a8b626f59d567b8c84166f5cd75a783d530927dc6f14277cea"
+    },
+    {
+      "seed": "seed-paritas-085",
+      "tugas": "absensi",
+      "sha256": "0e2e2ca39a3dfd43250965cb995ec2d045a88baf6c9d495afe98ba5c2d388e49"
+    },
+    {
+      "seed": "seed-paritas-085",
+      "tugas": "penilaian_magang",
+      "sha256": "91db0bb02f5828c8df1e20ec06438872d43aaf65be56edb1ba66bb23a3065f0a"
+    },
+    {
+      "seed": "seed-paritas-086",
+      "tugas": "rekap_penjualan",
+      "sha256": "d381c031187b7251cdf857d31911daa24a03d44e071f91b40c6fe1fb7e6104b9"
+    },
+    {
+      "seed": "seed-paritas-086",
+      "tugas": "absensi",
+      "sha256": "8fadf924de8debc4c616093487a57acb458ec76102e82c3657bbe08650915ce9"
+    },
+    {
+      "seed": "seed-paritas-086",
+      "tugas": "penilaian_magang",
+      "sha256": "e1149ee9a87db2fc236e1547a30c79f7c0efc4ff7a9e21338c56d3fd797a3ec3"
+    },
+    {
+      "seed": "seed-paritas-087",
+      "tugas": "rekap_penjualan",
+      "sha256": "bbd41bd65865ab193a98eaf41f2504c64ff53f202e132c8901dd9cb7880e4cfc"
+    },
+    {
+      "seed": "seed-paritas-087",
+      "tugas": "absensi",
+      "sha256": "473474b64ca4bf8a694b8456add75d1b9034eadea9b7bd24d7798192d1b1c464"
+    },
+    {
+      "seed": "seed-paritas-087",
+      "tugas": "penilaian_magang",
+      "sha256": "920ad3f6e7df7113accdfcf16c4d5e1da00359a988031d13c1f5d71ce45f0f31"
+    },
+    {
+      "seed": "seed-paritas-088",
+      "tugas": "rekap_penjualan",
+      "sha256": "d179d31ce8904d0b71ea425eb05c0c2d43f9174a779c149d19feb26562e40763"
+    },
+    {
+      "seed": "seed-paritas-088",
+      "tugas": "absensi",
+      "sha256": "c846ae4d4a020f94302ad6bb2d4f5304aca271d545c213e9b6e4f4b48d1714fe"
+    },
+    {
+      "seed": "seed-paritas-088",
+      "tugas": "penilaian_magang",
+      "sha256": "055bd5fdcd5d2cf260b6d4acbde028edbf22d599e7f94df240c85186057f70ba"
+    },
+    {
+      "seed": "seed-paritas-089",
+      "tugas": "rekap_penjualan",
+      "sha256": "ef68e68ef8ee38355a0a460d6ff1c6b1b45aec5a8561b7f67a279c5d25864e43"
+    },
+    {
+      "seed": "seed-paritas-089",
+      "tugas": "absensi",
+      "sha256": "8d431928c0ed1d98572efdc3c6e8987ed08ce013f8b91928923a6fba3654f6d5"
+    },
+    {
+      "seed": "seed-paritas-089",
+      "tugas": "penilaian_magang",
+      "sha256": "b91e8c5a817100798f8c87412417d7d6ac14122106067ded8a082d26fe1f7102"
+    },
+    {
+      "seed": "seed-paritas-090",
+      "tugas": "rekap_penjualan",
+      "sha256": "975fb666eb77f63c804995151cf6e217a998d7f4202287beb933c35008df0245"
+    },
+    {
+      "seed": "seed-paritas-090",
+      "tugas": "absensi",
+      "sha256": "9adfd3f0c684eab284998fcbf15cd9190f6ed7566e50a05637427dee2a8a28c5"
+    },
+    {
+      "seed": "seed-paritas-090",
+      "tugas": "penilaian_magang",
+      "sha256": "f6dca839e69bf915abaf5d133a9d32d781e07835272d0c77878bd4612b9ac3e6"
+    },
+    {
+      "seed": "seed-paritas-091",
+      "tugas": "rekap_penjualan",
+      "sha256": "1a5df05fa4c37ce9a91b1c3dafb63fbea7f0e10a74b7219678fafba416805417"
+    },
+    {
+      "seed": "seed-paritas-091",
+      "tugas": "absensi",
+      "sha256": "386b11f045fb73fa9d5b064ab75dc0f6d6011f9531067ea9727e19ba4995d698"
+    },
+    {
+      "seed": "seed-paritas-091",
+      "tugas": "penilaian_magang",
+      "sha256": "a7d1a48c42059fcc12631871748d90f85e5d40b69e5556fb27450a1561016a53"
+    },
+    {
+      "seed": "seed-paritas-092",
+      "tugas": "rekap_penjualan",
+      "sha256": "9fda345f1af51d8a1b63c2272809b1aa5e140c8a293e146f587d41f7de913970"
+    },
+    {
+      "seed": "seed-paritas-092",
+      "tugas": "absensi",
+      "sha256": "291983c1ba6d511dca555f2568a9313910dccb5b38790c1d4cc23f7dd1d5c196"
+    },
+    {
+      "seed": "seed-paritas-092",
+      "tugas": "penilaian_magang",
+      "sha256": "2bec719b8148f0f40075e5ecf02617c2ecffe7957beb9b301cca10f76aef20e9"
+    },
+    {
+      "seed": "seed-paritas-093",
+      "tugas": "rekap_penjualan",
+      "sha256": "b0f091bf450ad2b2682aa97bd5cd0c388ca7e803d89ac81d7e0bfad7c2af0426"
+    },
+    {
+      "seed": "seed-paritas-093",
+      "tugas": "absensi",
+      "sha256": "0fd853a0fa1ff1c87032aa2e21956ea82890c20db4a1009abb70c83063b5e97f"
+    },
+    {
+      "seed": "seed-paritas-093",
+      "tugas": "penilaian_magang",
+      "sha256": "bed75e0d8e6ea859539ea118fa4592dec27c1a436d70af7310e78beccbea6127"
+    },
+    {
+      "seed": "seed-paritas-094",
+      "tugas": "rekap_penjualan",
+      "sha256": "ce4db5fea7bffca6c86d570b3b83ed7706c7bc7078d6769376371a6868007e03"
+    },
+    {
+      "seed": "seed-paritas-094",
+      "tugas": "absensi",
+      "sha256": "aae250b16fc65f7969a455042b0597727c0b6a8f3fbc20af55ad238720faa022"
+    },
+    {
+      "seed": "seed-paritas-094",
+      "tugas": "penilaian_magang",
+      "sha256": "734dd4fa53a858904990459e7144c0caa92c40bedfbf87100c596ef16bb73755"
+    },
+    {
+      "seed": "seed-paritas-095",
+      "tugas": "rekap_penjualan",
+      "sha256": "0ed2559c17f9de264e9ce89492c8c96616807f5ed5b7a1dd55a49434889e8522"
+    },
+    {
+      "seed": "seed-paritas-095",
+      "tugas": "absensi",
+      "sha256": "e6076f04afc2bc99f4b3c65464b6d7fbbdfc21e6c91111f77a21447649420eee"
+    },
+    {
+      "seed": "seed-paritas-095",
+      "tugas": "penilaian_magang",
+      "sha256": "e055a7e8409d81fd0bd4e46a98c7e9ecd3b0d01eca0e622fe113719192e65f5c"
+    },
+    {
+      "seed": "seed-paritas-096",
+      "tugas": "rekap_penjualan",
+      "sha256": "b2e07bab92225ae1eb83dae9ed1372c2223d41be75f2ae301b17a7bad18c8ec5"
+    },
+    {
+      "seed": "seed-paritas-096",
+      "tugas": "absensi",
+      "sha256": "22a3ea603cbc2b221cb1deb83e80ade92164d7da8f4ae84f5cf30faffde30c1b"
+    },
+    {
+      "seed": "seed-paritas-096",
+      "tugas": "penilaian_magang",
+      "sha256": "5019df9f2cfe1afe24deae514e10e30d82eb753641d5244ba8f67b2935eab6d2"
+    },
+    {
+      "seed": "seed-paritas-097",
+      "tugas": "rekap_penjualan",
+      "sha256": "cfd5c2cc9fa52e884da6483e9edd8993265a3536b8da32f738dfda1616cb2405"
+    },
+    {
+      "seed": "seed-paritas-097",
+      "tugas": "absensi",
+      "sha256": "8bd6963e67d35109669cfbbce041f7efddd574b147e72cb7df37fbcd99f17c84"
+    },
+    {
+      "seed": "seed-paritas-097",
+      "tugas": "penilaian_magang",
+      "sha256": "4a5bf6979a941f6cadbac78e9f116a4738bacff13a752880c6c9635a1eb4fa4c"
+    },
+    {
+      "seed": "seed-paritas-098",
+      "tugas": "rekap_penjualan",
+      "sha256": "5534c78182a29df70e47f650607176a8a5667238f3a1bce04f3b9d2508ada1eb"
+    },
+    {
+      "seed": "seed-paritas-098",
+      "tugas": "absensi",
+      "sha256": "2750112afc6201fd4a7e3ad00196fbd158f0fc21b285ca5071beaf440cd7322d"
+    },
+    {
+      "seed": "seed-paritas-098",
+      "tugas": "penilaian_magang",
+      "sha256": "f4b568f74d59371131340eb844f5e4ee347e493d9a8ad43516db1b66ada1e353"
+    },
+    {
+      "seed": "seed-paritas-099",
+      "tugas": "rekap_penjualan",
+      "sha256": "98600d63ac7e97e635cc3b1f2b5ca0acd204aed5aa2749fdee75b4a47c7feace"
+    },
+    {
+      "seed": "seed-paritas-099",
+      "tugas": "absensi",
+      "sha256": "5ff9439c96780fb4581cd234cf57e34b82c278d24dd356216d42d4b2221fb3aa"
+    },
+    {
+      "seed": "seed-paritas-099",
+      "tugas": "penilaian_magang",
+      "sha256": "a49407847836c195f8f1e5d99a1787d31163640f2abace29ddd9a311cccc4412"
+    },
+    {
+      "seed": "seed-paritas-100",
+      "tugas": "rekap_penjualan",
+      "sha256": "394108d287f59fe425ae43387330210c770b97922e38fc1276073014537cc30b"
+    },
+    {
+      "seed": "seed-paritas-100",
+      "tugas": "absensi",
+      "sha256": "1490182df9f25c70fd5138504984b8a0663aac78f4c2237fd1dd09226cf6f762"
+    },
+    {
+      "seed": "seed-paritas-100",
+      "tugas": "penilaian_magang",
+      "sha256": "adec0ba6e453fa0054b2d79b2f64cba44c0aec028593c3567183c944e2fd0431"
+    },
+    {
+      "seed": "seed-paritas-101",
+      "tugas": "rekap_penjualan",
+      "sha256": "947ab2ade624e4456354cfd1335e105ec353247d686e8beb4c3a86f8d3d0dd57"
+    },
+    {
+      "seed": "seed-paritas-101",
+      "tugas": "absensi",
+      "sha256": "445b078aa7e93d6c491ccac1ab9394c8314c0cbcdd46d362a2e659fa1104a8ac"
+    },
+    {
+      "seed": "seed-paritas-101",
+      "tugas": "penilaian_magang",
+      "sha256": "303478ea405c70dc076c8b9ddf6e4a94d8c8639830a8ea639384dc1eadf05307"
+    },
+    {
+      "seed": "seed-paritas-102",
+      "tugas": "rekap_penjualan",
+      "sha256": "988d332c200d41bb04147a15e6eb93817e9d06706314c2863790fce3417193ff"
+    },
+    {
+      "seed": "seed-paritas-102",
+      "tugas": "absensi",
+      "sha256": "289901e16dd4adc74198a51971331f8d52186e2279116b35453befd9b6cbbbdc"
+    },
+    {
+      "seed": "seed-paritas-102",
+      "tugas": "penilaian_magang",
+      "sha256": "f28a83001801e13e13ca3c7e089c9b6894b438cffe19f86ba1d4c02ddd5d60f3"
+    },
+    {
+      "seed": "seed-paritas-103",
+      "tugas": "rekap_penjualan",
+      "sha256": "69e957e4ae76187d5a35b649afd8669b6ed35877134fe9a7f02f1bbe6e8aa97e"
+    },
+    {
+      "seed": "seed-paritas-103",
+      "tugas": "absensi",
+      "sha256": "c0371aedc580752a08d2e5e4080d89b3ef729702dc997cf7c6b0553d40ad07ca"
+    },
+    {
+      "seed": "seed-paritas-103",
+      "tugas": "penilaian_magang",
+      "sha256": "29aa00ef33e2fae2d4c1788554b59486c79608771bf44ed54e8976f73c0b8072"
+    },
+    {
+      "seed": "seed-paritas-104",
+      "tugas": "rekap_penjualan",
+      "sha256": "316ca720d49bb7e80081e15eb482786f6406626f009557a2b57b6478ccffc48d"
+    },
+    {
+      "seed": "seed-paritas-104",
+      "tugas": "absensi",
+      "sha256": "eb5f73f1c93ce377042dad1e9bea7b5044f7ca5ca90b8545648d0f0c43819d1d"
+    },
+    {
+      "seed": "seed-paritas-104",
+      "tugas": "penilaian_magang",
+      "sha256": "de37865fac652235c458d31f56b5df3791cf270651f1d4580407a39ff369f20c"
+    },
+    {
+      "seed": "seed-paritas-105",
+      "tugas": "rekap_penjualan",
+      "sha256": "c48c4f1f2e9ea28d0291e9d0669eb1101a75c986a48c1c6821a7878267b435ac"
+    },
+    {
+      "seed": "seed-paritas-105",
+      "tugas": "absensi",
+      "sha256": "bea764b52f7616ec5513954605af7e8614abff5c72dc8814367e61fc07413085"
+    },
+    {
+      "seed": "seed-paritas-105",
+      "tugas": "penilaian_magang",
+      "sha256": "997b4f6e811deb83baf5f87e26e344e9a79c7dd65c8dfd9d260fad3de3a0ff12"
+    },
+    {
+      "seed": "seed-paritas-106",
+      "tugas": "rekap_penjualan",
+      "sha256": "94122ff5c20fd85464ed6737f4559dac40551f6905095a97e3ce0a02a74d9fef"
+    },
+    {
+      "seed": "seed-paritas-106",
+      "tugas": "absensi",
+      "sha256": "4a329cca705066d42cca7912550aa2eee0c6b7f5de07c5562eede38c305851e0"
+    },
+    {
+      "seed": "seed-paritas-106",
+      "tugas": "penilaian_magang",
+      "sha256": "c789dc3b2c9d316803c79533643ca6c39a0638e8db479c52703c358847ef712d"
+    },
+    {
+      "seed": "seed-paritas-107",
+      "tugas": "rekap_penjualan",
+      "sha256": "23ddb9f9bce044b3d2e7a33eddb9e01fb861a7f619e826e513cabf29aced0eea"
+    },
+    {
+      "seed": "seed-paritas-107",
+      "tugas": "absensi",
+      "sha256": "f7aa9dbbceaeab2f1ed7927bb955698eab82a228dacb2ea6c278be67ed5ef2d1"
+    },
+    {
+      "seed": "seed-paritas-107",
+      "tugas": "penilaian_magang",
+      "sha256": "901555bac1e2af04d771799aa70e5dc3d4ff77b7b190786377ba026dec3a2263"
+    },
+    {
+      "seed": "seed-paritas-108",
+      "tugas": "rekap_penjualan",
+      "sha256": "849f64e2132bd0064c4285d299c5ab5afe678f3c710146bd5bc97a8e1520c487"
+    },
+    {
+      "seed": "seed-paritas-108",
+      "tugas": "absensi",
+      "sha256": "8e749daab921d691b03403ff6b5ec6c9943368bfe2967d7c72344efafed45155"
+    },
+    {
+      "seed": "seed-paritas-108",
+      "tugas": "penilaian_magang",
+      "sha256": "b933edc98cde07d3dfc5892b58d5960272f3217244dbef03072966aa4b25e36e"
+    },
+    {
+      "seed": "seed-paritas-109",
+      "tugas": "rekap_penjualan",
+      "sha256": "9438deeb69616442edb2d7876ca0b452b3a0ab6d73e04ec9585b6766b192c8e7"
+    },
+    {
+      "seed": "seed-paritas-109",
+      "tugas": "absensi",
+      "sha256": "213d488a127d919d3278d6f4c910f8817b4cc37343f9ce529b4291e60426434f"
+    },
+    {
+      "seed": "seed-paritas-109",
+      "tugas": "penilaian_magang",
+      "sha256": "d02ee2f18237545a9de5b8462db1681298ce3f160a7d75dea1ddc971891a4539"
+    },
+    {
+      "seed": "seed-paritas-110",
+      "tugas": "rekap_penjualan",
+      "sha256": "5e3bd5beea435cf182e1113247e351150361b6d84b5be0b179f313ba8d60506b"
+    },
+    {
+      "seed": "seed-paritas-110",
+      "tugas": "absensi",
+      "sha256": "261168d1189918e8ed00495f53f949a9967aec7bebac010d5f2330a5c40795b1"
+    },
+    {
+      "seed": "seed-paritas-110",
+      "tugas": "penilaian_magang",
+      "sha256": "74c571dd1478589b4f7b1b147debf6b93b0aa4c9f1a476de347952042ecc2772"
+    },
+    {
+      "seed": "seed-paritas-111",
+      "tugas": "rekap_penjualan",
+      "sha256": "f6242ed9d490d9937a96ac0a9c58a516ac832b7679ac48357dc3e0b9e16dca6a"
+    },
+    {
+      "seed": "seed-paritas-111",
+      "tugas": "absensi",
+      "sha256": "6c977b4d8369bf94441df7ac1b32c4dbc925640a8e95f57400657652363d8112"
+    },
+    {
+      "seed": "seed-paritas-111",
+      "tugas": "penilaian_magang",
+      "sha256": "84fccb65309e604953c381a5a411fba3acb0e2d4ad031e19f77e411c983ffbb2"
+    },
+    {
+      "seed": "seed-paritas-112",
+      "tugas": "rekap_penjualan",
+      "sha256": "5e1383242db0f4db8146cc08876cf091316e276be01b599a68e6d1d0b41f314d"
+    },
+    {
+      "seed": "seed-paritas-112",
+      "tugas": "absensi",
+      "sha256": "d1cb29664e1906afe212754aea78ab6f1860e38ad22dc0cad243a6d7c5baa4d8"
+    },
+    {
+      "seed": "seed-paritas-112",
+      "tugas": "penilaian_magang",
+      "sha256": "f9b8c12ad24ad4a41372c13f65351855953d7296ffbff5b2cf0fd0c87570ea59"
+    },
+    {
+      "seed": "seed-paritas-113",
+      "tugas": "rekap_penjualan",
+      "sha256": "6e04a6cacb9fbb302b2d8518a8226c8f54cf4f2a67a4c2586d98f6097b98197f"
+    },
+    {
+      "seed": "seed-paritas-113",
+      "tugas": "absensi",
+      "sha256": "6f771bb240d3afaabcfeac41a106e44969f337d1cc2c57a14e4649cba8bcffdc"
+    },
+    {
+      "seed": "seed-paritas-113",
+      "tugas": "penilaian_magang",
+      "sha256": "866fdea98f6bc7708d6887460712e207e2432fca18646a5b518f4f651bb0c1c5"
+    },
+    {
+      "seed": "seed-paritas-114",
+      "tugas": "rekap_penjualan",
+      "sha256": "0093acfca09c12601776f4027f2cf608524ab715617dd93adf31eb0aa0a7ae09"
+    },
+    {
+      "seed": "seed-paritas-114",
+      "tugas": "absensi",
+      "sha256": "5f3f2a79fc65a3eed9016a44847e8a8839ac3e04fd0d485f5d7f70b191a5b951"
+    },
+    {
+      "seed": "seed-paritas-114",
+      "tugas": "penilaian_magang",
+      "sha256": "e0f4b77dfa179c9f60a4a01f56231182db2cc7910642da76884499d2baf51837"
+    },
+    {
+      "seed": "seed-paritas-115",
+      "tugas": "rekap_penjualan",
+      "sha256": "44931dc52c4c23a83394f17d36151bc4ea3a872bc274d5027c8f04fd794086db"
+    },
+    {
+      "seed": "seed-paritas-115",
+      "tugas": "absensi",
+      "sha256": "5c8fe0db3e394e708f241270078d829350784f000a4306fb5c28b6f0f905b4da"
+    },
+    {
+      "seed": "seed-paritas-115",
+      "tugas": "penilaian_magang",
+      "sha256": "69842162b71afc2bc90360d69a62390e6bb889cb185c8f7ce906ba9914a2acbd"
+    },
+    {
+      "seed": "seed-paritas-116",
+      "tugas": "rekap_penjualan",
+      "sha256": "d3dab13d8d95a142e42e1766bc8babe8b19bc0c4400e564205e16e0299b07aba"
+    },
+    {
+      "seed": "seed-paritas-116",
+      "tugas": "absensi",
+      "sha256": "886c38c9b308f4aab0f02d18e8ad42684031a30a54e821fed3c1a9e10084a8b3"
+    },
+    {
+      "seed": "seed-paritas-116",
+      "tugas": "penilaian_magang",
+      "sha256": "561eb29879f3fa82cde1f0273a6476bf657b976e95b64d0f24bd4a3857573ed8"
+    },
+    {
+      "seed": "seed-paritas-117",
+      "tugas": "rekap_penjualan",
+      "sha256": "37eb43888edb159cf90e62c67944ef37468e6b1020d973fbc0d11684450a6213"
+    },
+    {
+      "seed": "seed-paritas-117",
+      "tugas": "absensi",
+      "sha256": "dca652231e1413bb2c3879cf93de89026d6e7fa47a7633fae72393f08c3b79bb"
+    },
+    {
+      "seed": "seed-paritas-117",
+      "tugas": "penilaian_magang",
+      "sha256": "2cb6463e21df3aef8ba450c926265b1e81a3d246c05db9fb6bad02aa64eccdee"
+    },
+    {
+      "seed": "seed-paritas-118",
+      "tugas": "rekap_penjualan",
+      "sha256": "7f8c963abd2cf19e75cac05a73d324a70b78840db6361b3223b0275beb4d3a91"
+    },
+    {
+      "seed": "seed-paritas-118",
+      "tugas": "absensi",
+      "sha256": "3cba8e9a6bf180e07d7ca4634c3f8db61f2cc261de51b6c169c9a86453bd6237"
+    },
+    {
+      "seed": "seed-paritas-118",
+      "tugas": "penilaian_magang",
+      "sha256": "cff1ec8d1eded291e6723802febeb71e087dee974478d93f13fdad3ef46a8edd"
+    },
+    {
+      "seed": "seed-paritas-119",
+      "tugas": "rekap_penjualan",
+      "sha256": "f4289bddeacfce835f66881855d61efd8e4a45430492f390a47d77e88aa21795"
+    },
+    {
+      "seed": "seed-paritas-119",
+      "tugas": "absensi",
+      "sha256": "fd3ff3e9a207eaeea4d85b90d490e0ff064c3b281a329d0808062fb996843c2c"
+    },
+    {
+      "seed": "seed-paritas-119",
+      "tugas": "penilaian_magang",
+      "sha256": "0ffca559f8ff71991f3ff78422ff890de40442f9ac8338baeeb83dbc1f97c3b9"
+    },
+    {
+      "seed": "seed-paritas-120",
+      "tugas": "rekap_penjualan",
+      "sha256": "9266525a373e49c2dd3ee60453ab852fdb20c61eeb88d5902f1486c6c60fb78f"
+    },
+    {
+      "seed": "seed-paritas-120",
+      "tugas": "absensi",
+      "sha256": "d128b459fa66f0f5465458a76c9c2ad77ae8d0806810dc940788518068b2118a"
+    },
+    {
+      "seed": "seed-paritas-120",
+      "tugas": "penilaian_magang",
+      "sha256": "e5a8ef8e5dc58b8109b0486f0bfe614dc0607911acc6d964689aef4206cc0e0b"
+    },
+    {
+      "seed": "seed-paritas-121",
+      "tugas": "rekap_penjualan",
+      "sha256": "8c0d455e348864cac41bfb83b900fb6d8b3ae032195ce45887ef373cba27a741"
+    },
+    {
+      "seed": "seed-paritas-121",
+      "tugas": "absensi",
+      "sha256": "16abb439e88b6a8bea8083b0579dcf7d581b0a09dcacb80d9330c255e0c36aa3"
+    },
+    {
+      "seed": "seed-paritas-121",
+      "tugas": "penilaian_magang",
+      "sha256": "1f6ac6f889fcaf948fa9c4d7bc0abe2ea85e92312f35e3a12162ad6816911564"
+    },
+    {
+      "seed": "seed-paritas-122",
+      "tugas": "rekap_penjualan",
+      "sha256": "275b59e5011d201db7334757dcb5d0a943d6c6bbfbe6c4ea86698cf1d32c84a9"
+    },
+    {
+      "seed": "seed-paritas-122",
+      "tugas": "absensi",
+      "sha256": "ff2ff42edeb6db413d113110975a941ae7a72db9c0750b82b4cf5d5124074b74"
+    },
+    {
+      "seed": "seed-paritas-122",
+      "tugas": "penilaian_magang",
+      "sha256": "d31b4386c5714bc070151e1194db2c1697c46e3a0dee4912e687aecf0304c4f2"
+    },
+    {
+      "seed": "seed-paritas-123",
+      "tugas": "rekap_penjualan",
+      "sha256": "b231a4311407818b4da52a55c35f5b742c3295751acdc06f4bf0e01d95156601"
+    },
+    {
+      "seed": "seed-paritas-123",
+      "tugas": "absensi",
+      "sha256": "9f6129e00faae63b26372ed954a591a630221fa0d9c9b80edb61e5de0787dc47"
+    },
+    {
+      "seed": "seed-paritas-123",
+      "tugas": "penilaian_magang",
+      "sha256": "f53c57b585004b05e7f00898c12f05690b04a12bab613b90a5945dfff0cc0cae"
+    },
+    {
+      "seed": "seed-paritas-124",
+      "tugas": "rekap_penjualan",
+      "sha256": "6abbbff977b8e8d038cf383eb086559b9278c5bc8e002fe35b8075851fddfc2c"
+    },
+    {
+      "seed": "seed-paritas-124",
+      "tugas": "absensi",
+      "sha256": "1d341e1ce5694d3d36708b72fc9a438997d5e1800b8896629496b7a7de3dbe3d"
+    },
+    {
+      "seed": "seed-paritas-124",
+      "tugas": "penilaian_magang",
+      "sha256": "f1720523dee6556a43e0dd4fc9f4322910f2020f50c27b8d46853bb4b1bc97e1"
+    },
+    {
+      "seed": "seed-paritas-125",
+      "tugas": "rekap_penjualan",
+      "sha256": "1db4dadbefaf1736d26ccffb540f0db7ff16f8ce192e4b9dbaca0198370f7691"
+    },
+    {
+      "seed": "seed-paritas-125",
+      "tugas": "absensi",
+      "sha256": "9f5835612f1c7d21a6ef29eeb96095f7ec91a98f4d5125fb20f0c91a94aa135d"
+    },
+    {
+      "seed": "seed-paritas-125",
+      "tugas": "penilaian_magang",
+      "sha256": "c6d46d1cd1ac9db3e9521a78e781ed264d02cbded82a245be82b0d08517d57cd"
+    },
+    {
+      "seed": "seed-paritas-126",
+      "tugas": "rekap_penjualan",
+      "sha256": "8002d4b13e09bfa12f6a68b08a1c72c1a594fe68bc04fb93a82750853cc38afe"
+    },
+    {
+      "seed": "seed-paritas-126",
+      "tugas": "absensi",
+      "sha256": "52830730b16037446e28d604f03e08d950e3a150630b2c7af16bf0021212f3c6"
+    },
+    {
+      "seed": "seed-paritas-126",
+      "tugas": "penilaian_magang",
+      "sha256": "f6289a93d3eb9ef0089ba1f25778d8e06df98bec5b883049aaa19688bbca58bc"
+    },
+    {
+      "seed": "seed-paritas-127",
+      "tugas": "rekap_penjualan",
+      "sha256": "a8ed50934f26ed65907762ce06d1e08ef5a9737c4989f56af07124f676672c21"
+    },
+    {
+      "seed": "seed-paritas-127",
+      "tugas": "absensi",
+      "sha256": "136db4cfbfb3d2cac5d349808721a6cadbdba064b47334a445d9cee0f41de418"
+    },
+    {
+      "seed": "seed-paritas-127",
+      "tugas": "penilaian_magang",
+      "sha256": "391faa802e8ec25dabf2b5e01c41c532031bc2c738a1161c028886abc0ad34d0"
+    },
+    {
+      "seed": "seed-paritas-128",
+      "tugas": "rekap_penjualan",
+      "sha256": "6d0c56328c94e9a358027f10872d70f0e45f30d5edcf2609c164b1251fc4ac08"
+    },
+    {
+      "seed": "seed-paritas-128",
+      "tugas": "absensi",
+      "sha256": "e6fb3717facb376b6fb10d521475b6b573b8b8119161c8f78aadcaccb10d7f1f"
+    },
+    {
+      "seed": "seed-paritas-128",
+      "tugas": "penilaian_magang",
+      "sha256": "bfbada103cd4b923af8d57cf34b51690754ee7bd6517ee0a544705551af81514"
+    },
+    {
+      "seed": "seed-paritas-129",
+      "tugas": "rekap_penjualan",
+      "sha256": "c9202e5ccb96392666692eaa383b2e19cb793f3a90062dab77b9b2194ac6361a"
+    },
+    {
+      "seed": "seed-paritas-129",
+      "tugas": "absensi",
+      "sha256": "45591c434891366b2e9a40076d52fee3250f80f147b18ad8aa244316c0d99f02"
+    },
+    {
+      "seed": "seed-paritas-129",
+      "tugas": "penilaian_magang",
+      "sha256": "8685818c213aa7e29dfdb15475d248dfc791acf6d11536b556756086bf5b3235"
+    },
+    {
+      "seed": "seed-paritas-130",
+      "tugas": "rekap_penjualan",
+      "sha256": "3b2f060e1743d25edb608e21a92869bd7da5d9227f7cc3fb28e6ee1d223a0519"
+    },
+    {
+      "seed": "seed-paritas-130",
+      "tugas": "absensi",
+      "sha256": "37bc12c63cf6f06426f82ff645225e97e3b5feabb43b6e766eaf6cd519ed0fcd"
+    },
+    {
+      "seed": "seed-paritas-130",
+      "tugas": "penilaian_magang",
+      "sha256": "116b3a93e922d50cc80c985f3acb48ae35c41f2abbc12da9834b347ec9d0375d"
+    },
+    {
+      "seed": "seed-paritas-131",
+      "tugas": "rekap_penjualan",
+      "sha256": "68526e7198998ec74e70cbb8491fbb34d3a336f1188b973f6ac0614d705e2ad0"
+    },
+    {
+      "seed": "seed-paritas-131",
+      "tugas": "absensi",
+      "sha256": "110b84fce83f1dcb40c2789d4a7dc7cf683db23b1388702f8c4a50709090edc4"
+    },
+    {
+      "seed": "seed-paritas-131",
+      "tugas": "penilaian_magang",
+      "sha256": "504f632128213f06a331e2ad7acd66436a7ed7704d06e8a21a476391539a3763"
+    },
+    {
+      "seed": "seed-paritas-132",
+      "tugas": "rekap_penjualan",
+      "sha256": "8be61116a748de615f07644002c41a641e539154771a044a11d4b72e90df9544"
+    },
+    {
+      "seed": "seed-paritas-132",
+      "tugas": "absensi",
+      "sha256": "7ba304da285a43a216724b0880da8a1f08a9ac692d823161b63657f38645ee53"
+    },
+    {
+      "seed": "seed-paritas-132",
+      "tugas": "penilaian_magang",
+      "sha256": "35cb98b02d469446704ba83e5900db3348d49b54cffcfe424b4681cfe2f8b480"
+    },
+    {
+      "seed": "seed-paritas-133",
+      "tugas": "rekap_penjualan",
+      "sha256": "5cc0440873b986e42de87f2766826c53bbd0995d6c6e88d60ed26d9e04f626f7"
+    },
+    {
+      "seed": "seed-paritas-133",
+      "tugas": "absensi",
+      "sha256": "52554197a1a6b37c49f88e4d5387825ea02f577c7908fb1ae1fda5adfc746acc"
+    },
+    {
+      "seed": "seed-paritas-133",
+      "tugas": "penilaian_magang",
+      "sha256": "209c9110203b378c36f9302b9463cae45595f169f9ae5f2fd192e394a366bb44"
+    },
+    {
+      "seed": "seed-paritas-134",
+      "tugas": "rekap_penjualan",
+      "sha256": "4eb2e12133e3527b6649d7dcf399950cb3ad76a9d5c129de7e59797a838d88b5"
+    },
+    {
+      "seed": "seed-paritas-134",
+      "tugas": "absensi",
+      "sha256": "7ba5e9c1b3b136833afb89334173f55f58cc45e8c3da9d3ebc09ae41f5ec0dd1"
+    },
+    {
+      "seed": "seed-paritas-134",
+      "tugas": "penilaian_magang",
+      "sha256": "dc88b7f43bc8f2bab8bb9ee43570343aa3abd3a4dac9c312c03a926312e36383"
+    },
+    {
+      "seed": "seed-paritas-135",
+      "tugas": "rekap_penjualan",
+      "sha256": "89955224c98e4f9711e7a248c38be5afd94cebfc5dd9fd224bd66658739f32c4"
+    },
+    {
+      "seed": "seed-paritas-135",
+      "tugas": "absensi",
+      "sha256": "d6848a5cd587bf92086122a2d773c9b859fdf452dd86d79f573124b3696aac3e"
+    },
+    {
+      "seed": "seed-paritas-135",
+      "tugas": "penilaian_magang",
+      "sha256": "0ca470e2ebe41f01d1e95b0ca83adf908c227d8abdc72542fa046d72eac25037"
+    },
+    {
+      "seed": "seed-paritas-136",
+      "tugas": "rekap_penjualan",
+      "sha256": "c6ccf23903047e3707f058209e9532933073ae3d594ce692e9b1c704e3b36262"
+    },
+    {
+      "seed": "seed-paritas-136",
+      "tugas": "absensi",
+      "sha256": "1db008c3343f005675143fd082e3f9e116dff1897dc46a7dd4c8380e07f856c2"
+    },
+    {
+      "seed": "seed-paritas-136",
+      "tugas": "penilaian_magang",
+      "sha256": "5bcc1686395ec608688c64c5e82c98eb89f1acf05021d7fc467cf3e65ea37e8c"
+    },
+    {
+      "seed": "seed-paritas-137",
+      "tugas": "rekap_penjualan",
+      "sha256": "bd9cb688bae200e5392fcb4797a32965b1b932f11082cea4a490a89a76f98e95"
+    },
+    {
+      "seed": "seed-paritas-137",
+      "tugas": "absensi",
+      "sha256": "c0f70d4998faf6cd78ec43898c9acbfe4943a5c0770d3a2d6b102d6d67cb0462"
+    },
+    {
+      "seed": "seed-paritas-137",
+      "tugas": "penilaian_magang",
+      "sha256": "0e59f8d700b83fc11f803695eb2b026293aa6cfe0c1791ef05d9bae44557662e"
+    },
+    {
+      "seed": "seed-paritas-138",
+      "tugas": "rekap_penjualan",
+      "sha256": "9b43530d25805824e88a15295e32ef56aec213f1b4aad35aa207329aa1ef7dfb"
+    },
+    {
+      "seed": "seed-paritas-138",
+      "tugas": "absensi",
+      "sha256": "61b38013134c5800313b9879c9fc08d930c127f13525d1db5fcf6a9cafd77ee9"
+    },
+    {
+      "seed": "seed-paritas-138",
+      "tugas": "penilaian_magang",
+      "sha256": "92f5c71ad2d941acd22c9eb6424bf61a705a3789d98312b50bdb71e2ebb2a346"
+    },
+    {
+      "seed": "seed-paritas-139",
+      "tugas": "rekap_penjualan",
+      "sha256": "a1e35e7d6af8f6897dcbcc7e5ce3051257a427d8f618ab10b6276410a660cad8"
+    },
+    {
+      "seed": "seed-paritas-139",
+      "tugas": "absensi",
+      "sha256": "d84635427da6c9170a25af20595f0e25632ecbe003ba09faa3cb0e6ba8e9a653"
+    },
+    {
+      "seed": "seed-paritas-139",
+      "tugas": "penilaian_magang",
+      "sha256": "1d8e1ac5088d12bf81066caa813a20c2f027e9c9a44f652b8bd1b2b42af73390"
+    },
+    {
+      "seed": "seed-paritas-140",
+      "tugas": "rekap_penjualan",
+      "sha256": "688ab7730a076db2163e6693652aeebe07eb3e92e0e41922685e34386574de4c"
+    },
+    {
+      "seed": "seed-paritas-140",
+      "tugas": "absensi",
+      "sha256": "42671ac6bfbd1e74eb80edf7f538a423826027b06ed32fe9eb4dfb1d593a643e"
+    },
+    {
+      "seed": "seed-paritas-140",
+      "tugas": "penilaian_magang",
+      "sha256": "50715056159c35f4fcbae993230fd7b27158f6a7c663791242248561bf840dac"
+    },
+    {
+      "seed": "seed-paritas-141",
+      "tugas": "rekap_penjualan",
+      "sha256": "e3b3278ba1712656fe641471fe53f42f0eeae4c30fc9c8bfd4a2a1415afec50e"
+    },
+    {
+      "seed": "seed-paritas-141",
+      "tugas": "absensi",
+      "sha256": "cd5be5d0bbcdc437a41e94e2ef932e7d70a8a60e96d44bb700db0dba4502ecd2"
+    },
+    {
+      "seed": "seed-paritas-141",
+      "tugas": "penilaian_magang",
+      "sha256": "f608476d4dffc8a26ad553a08626200826d2bf0578893e0955b810d5f11f647f"
+    },
+    {
+      "seed": "seed-paritas-142",
+      "tugas": "rekap_penjualan",
+      "sha256": "c660c663fee8c421f28f13342f9d7b36258e9ca215c21974826177c95ad659e2"
+    },
+    {
+      "seed": "seed-paritas-142",
+      "tugas": "absensi",
+      "sha256": "549a661df7c3e2fcd5529ec24cbdf93bc3d20859d7553799185aabef72c7bc40"
+    },
+    {
+      "seed": "seed-paritas-142",
+      "tugas": "penilaian_magang",
+      "sha256": "2b31526819bfb114278e7c4d22cf5f1c77f1d3b4f0e85c083790f165e6940ed9"
+    },
+    {
+      "seed": "seed-paritas-143",
+      "tugas": "rekap_penjualan",
+      "sha256": "a7a391048de0ae814711b7c51211d917e08f655a61d6c6fd1bde2f967f20f678"
+    },
+    {
+      "seed": "seed-paritas-143",
+      "tugas": "absensi",
+      "sha256": "49a0a308dd3eeaf301e016ea9f9194ec0e1f861fb3f61209ebeb7cbc0ebbf401"
+    },
+    {
+      "seed": "seed-paritas-143",
+      "tugas": "penilaian_magang",
+      "sha256": "ce0e17a6ed34be5dc2addad2fa5dc6165d0eedae207514f6a041061761c53f57"
+    },
+    {
+      "seed": "seed-paritas-144",
+      "tugas": "rekap_penjualan",
+      "sha256": "2b8f901fe62ff5818233f5d47d3f3b50bee3ce2d263d336f8f3b556bf773fd36"
+    },
+    {
+      "seed": "seed-paritas-144",
+      "tugas": "absensi",
+      "sha256": "3042819d95962c31f05bd630f01595f26bf094b2112dc707893c1d423dc7821c"
+    },
+    {
+      "seed": "seed-paritas-144",
+      "tugas": "penilaian_magang",
+      "sha256": "f43d3cb1f6ff31d367a7515f197bbb78814410e90684a9bdc9b60f1dcd8a7739"
+    },
+    {
+      "seed": "seed-paritas-145",
+      "tugas": "rekap_penjualan",
+      "sha256": "0a22e231dd7b20e59dd11a1cbae7847c08e3762f164064118c5534f6c4802344"
+    },
+    {
+      "seed": "seed-paritas-145",
+      "tugas": "absensi",
+      "sha256": "7fa9acbcaad8c74857f7757de93748f491c6862f22aa4934b527184bd115f622"
+    },
+    {
+      "seed": "seed-paritas-145",
+      "tugas": "penilaian_magang",
+      "sha256": "b479a4969128775fbcaa65cd00fc76b73d333ae1c1cb824196e4ac8000681855"
+    },
+    {
+      "seed": "seed-paritas-146",
+      "tugas": "rekap_penjualan",
+      "sha256": "390788c1e0f957d4111c8f44c5d1077fe23a2f9688b5f57d2090d0742671984d"
+    },
+    {
+      "seed": "seed-paritas-146",
+      "tugas": "absensi",
+      "sha256": "7f8dacb09c70fe455f007a339f49681940ea97c6ecb172a8d4d197fc5fd3fbf2"
+    },
+    {
+      "seed": "seed-paritas-146",
+      "tugas": "penilaian_magang",
+      "sha256": "f89a45c6ed7d8d4ac6c7f6e25f13bc901a79c3aa7b59556f05f345a15d28c2b4"
+    },
+    {
+      "seed": "seed-paritas-147",
+      "tugas": "rekap_penjualan",
+      "sha256": "1d98b5437755b25bd8a5f943e3e72659c8be9ccae47f5b836fa3deea04ee83bb"
+    },
+    {
+      "seed": "seed-paritas-147",
+      "tugas": "absensi",
+      "sha256": "52424a295334c11a6c9b47ac592d1916bd540e2ff6f12bf848ff8c6b38590130"
+    },
+    {
+      "seed": "seed-paritas-147",
+      "tugas": "penilaian_magang",
+      "sha256": "00e7e343c76d7a70811dc8f87ce364095a48f08b410f5d2780c95df855cdda66"
+    },
+    {
+      "seed": "seed-paritas-148",
+      "tugas": "rekap_penjualan",
+      "sha256": "83ae4df1d1fd05c86d35f0e97fe9959f490c0bc8090ad2d9f68b51fd2fd2a288"
+    },
+    {
+      "seed": "seed-paritas-148",
+      "tugas": "absensi",
+      "sha256": "f55b9e6331aaa950b2b8db27a4072c74ca4c3dfa0024478c801852ed1e7fe785"
+    },
+    {
+      "seed": "seed-paritas-148",
+      "tugas": "penilaian_magang",
+      "sha256": "fb0610054c5cf007c0ca99dabd9a59461c6776744828c743e0a065d1ddec82c1"
+    },
+    {
+      "seed": "seed-paritas-149",
+      "tugas": "rekap_penjualan",
+      "sha256": "d3492a42d284b00c0f15c78262992745a114aa93e6f76bff694dec9ac0671b53"
+    },
+    {
+      "seed": "seed-paritas-149",
+      "tugas": "absensi",
+      "sha256": "4c5740a28cff3ae446234da42197861b3f735dc1cf20194529b3118d696020d2"
+    },
+    {
+      "seed": "seed-paritas-149",
+      "tugas": "penilaian_magang",
+      "sha256": "84e15fd7e7e5344c62781ffe78a54047a7a9b8524aedf42c5b71dfbd35291798"
+    },
+    {
+      "seed": "seed-paritas-150",
+      "tugas": "rekap_penjualan",
+      "sha256": "31b7c5e8a14daa07500caffea09fa8cc46f51346ef610f2f79d022e6d335e405"
+    },
+    {
+      "seed": "seed-paritas-150",
+      "tugas": "absensi",
+      "sha256": "8f7b062dd2dafbe6a11f2434a6c5c54a61975df492c53a359a3c7e168ceef49f"
+    },
+    {
+      "seed": "seed-paritas-150",
+      "tugas": "penilaian_magang",
+      "sha256": "449ecd0cdac8428a871cb564bcebfc11b0e5f0aa0b0b08dc4d772a9649fe1759"
+    },
+    {
+      "seed": "seed-paritas-151",
+      "tugas": "rekap_penjualan",
+      "sha256": "a2022c6d27c327bbc6f2ebc43e6ea96bf8280a311758eaee098eae2d1c300f21"
+    },
+    {
+      "seed": "seed-paritas-151",
+      "tugas": "absensi",
+      "sha256": "0bbebf8f40008bbbe10ef998e8cb09e132847cbcf4e85d856d1f9542e09a0fb9"
+    },
+    {
+      "seed": "seed-paritas-151",
+      "tugas": "penilaian_magang",
+      "sha256": "cbbd8524b294d291d46f8fc3de85b6cc69a338316b6ff2d46d2d43e73303ff8e"
+    },
+    {
+      "seed": "seed-paritas-152",
+      "tugas": "rekap_penjualan",
+      "sha256": "59060ea5361f4d3698042ff6962241625ff628feed5caec19d52250633610f3b"
+    },
+    {
+      "seed": "seed-paritas-152",
+      "tugas": "absensi",
+      "sha256": "b4a93ec758fb9556cf681c32a082aba94a27df8ff3dd4e32704ddfadefb85029"
+    },
+    {
+      "seed": "seed-paritas-152",
+      "tugas": "penilaian_magang",
+      "sha256": "bab321cf5a5d96845b4647c24f3c23ea309aacdd51651ef87769649b4e6c724d"
+    },
+    {
+      "seed": "seed-paritas-153",
+      "tugas": "rekap_penjualan",
+      "sha256": "9a30aa137d9185cc626630c1d12788344a90e2540e19c89da9f947ab22ba8c80"
+    },
+    {
+      "seed": "seed-paritas-153",
+      "tugas": "absensi",
+      "sha256": "311015de85a4f6f7f13619b925c4a4c2067ea177a44375a834e725ca3606e426"
+    },
+    {
+      "seed": "seed-paritas-153",
+      "tugas": "penilaian_magang",
+      "sha256": "160225fe5d0b642d5bcb8b29b4b2c35e1c8fc6ce31d318020d2190a02d709df7"
+    },
+    {
+      "seed": "seed-paritas-154",
+      "tugas": "rekap_penjualan",
+      "sha256": "65a46c5512f7a7f733a8ea11c6b72ea810a7db11771678bf6f9891b8f1f798a8"
+    },
+    {
+      "seed": "seed-paritas-154",
+      "tugas": "absensi",
+      "sha256": "54956a857ee87388ac0f5f2a46ae30eb5caaeaa215a57d9ae03d61e77b6340a5"
+    },
+    {
+      "seed": "seed-paritas-154",
+      "tugas": "penilaian_magang",
+      "sha256": "f67f15d7e237db1567a41e328c4f0689e5816ff536e3171122332645f2962217"
+    },
+    {
+      "seed": "seed-paritas-155",
+      "tugas": "rekap_penjualan",
+      "sha256": "1e29214c3d573661ffd8627fa1a13ae208bcd85d4f07e9e23a98e424f0efdca4"
+    },
+    {
+      "seed": "seed-paritas-155",
+      "tugas": "absensi",
+      "sha256": "ab2984f980141cd0f462ff7540a2f8e8c5f63702891dfaf88143497ffd4120cd"
+    },
+    {
+      "seed": "seed-paritas-155",
+      "tugas": "penilaian_magang",
+      "sha256": "59c4496fbef7f85a4fcb0a88bbf30767cb6189409872e61b08f8ee7dcaebe5b3"
+    },
+    {
+      "seed": "seed-paritas-156",
+      "tugas": "rekap_penjualan",
+      "sha256": "158c1a7ae652e0a9f6b15e05cdddbecbefbbac0186b9b0c6e8d8d3ff7caaad3c"
+    },
+    {
+      "seed": "seed-paritas-156",
+      "tugas": "absensi",
+      "sha256": "97ed81ba5b274a68d50e33ad169fe35458b63dc6c88ad5e06a0d1a56e201ca57"
+    },
+    {
+      "seed": "seed-paritas-156",
+      "tugas": "penilaian_magang",
+      "sha256": "58e5df1132408935cb29377e453abceda02396006c06269474e5235f19c95ad0"
+    },
+    {
+      "seed": "seed-paritas-157",
+      "tugas": "rekap_penjualan",
+      "sha256": "f38c8e5a82c75eb0c2be09f0854ba897959f0fd57d7aa31cd43ee38357239d05"
+    },
+    {
+      "seed": "seed-paritas-157",
+      "tugas": "absensi",
+      "sha256": "effd8f65cba352bb42192657a35f72d19f4a1e4ad8c34bceae8f6e1d5e8e9fe2"
+    },
+    {
+      "seed": "seed-paritas-157",
+      "tugas": "penilaian_magang",
+      "sha256": "a9b8dbf6e2debb480f3e954aeaec5db286dd34c471d5b0867b434c1b7003f5ee"
+    },
+    {
+      "seed": "seed-paritas-158",
+      "tugas": "rekap_penjualan",
+      "sha256": "c0ee432795a8ae328459ba73396ae50215b56f58bc2555d5bf4273a796d512af"
+    },
+    {
+      "seed": "seed-paritas-158",
+      "tugas": "absensi",
+      "sha256": "1ea12211c466768421a5f19f87634a9145737ecf5eec241942714dcd580f676c"
+    },
+    {
+      "seed": "seed-paritas-158",
+      "tugas": "penilaian_magang",
+      "sha256": "0bdcfa64af30b8abcf0d3b793fc5d05b2f8ccb763d53d9b7bb1c40ac56ea6d88"
+    },
+    {
+      "seed": "seed-paritas-159",
+      "tugas": "rekap_penjualan",
+      "sha256": "e5a9f1057537e9dae2e77e7e4723d878bd2c4bd2156f62c61d2150ffd74c223c"
+    },
+    {
+      "seed": "seed-paritas-159",
+      "tugas": "absensi",
+      "sha256": "77fcefd43668612262950ddc27ad44b3924c5cd91c2d55a9b52c1052efe909aa"
+    },
+    {
+      "seed": "seed-paritas-159",
+      "tugas": "penilaian_magang",
+      "sha256": "5e66b6f41eb43000a204dae1ecae39556da4fa69b7aa5bb5daa3aea5e141306a"
+    },
+    {
+      "seed": "seed-paritas-160",
+      "tugas": "rekap_penjualan",
+      "sha256": "4178f07d7541521e78ad67349d1767b7ea4a5c20efb4a211b9f59671e4ceff3c"
+    },
+    {
+      "seed": "seed-paritas-160",
+      "tugas": "absensi",
+      "sha256": "338cec851c8738ba5e81f8027f71dcae905ca642221bb19a541af18da352ed13"
+    },
+    {
+      "seed": "seed-paritas-160",
+      "tugas": "penilaian_magang",
+      "sha256": "e3300c2ef1ef16ad5e734a3a7ad45951645aa1ad83fb8f9adaa5c33dc56128f3"
+    },
+    {
+      "seed": "seed-paritas-161",
+      "tugas": "rekap_penjualan",
+      "sha256": "6c066915e5ca998f19130629b317dfd97a41a74b9cbfa9ec885dea062d1ab4df"
+    },
+    {
+      "seed": "seed-paritas-161",
+      "tugas": "absensi",
+      "sha256": "675879fb01c99aa47cc1a08e04cec02d938df8cc6a720ffce3dffd7cde914b56"
+    },
+    {
+      "seed": "seed-paritas-161",
+      "tugas": "penilaian_magang",
+      "sha256": "1977c3b73ea356eca77ebb6e763017c72fbd94dd107107fab3290d1c1391d24b"
+    },
+    {
+      "seed": "seed-paritas-162",
+      "tugas": "rekap_penjualan",
+      "sha256": "b60f880645732298e22f96542b0f9edfe4cb1e036a9f2fb679b92b03eda8ed01"
+    },
+    {
+      "seed": "seed-paritas-162",
+      "tugas": "absensi",
+      "sha256": "119e6dad067f9eb6ee15a837df0a4edc09428516a0a0ca8d13f341e37be5cf28"
+    },
+    {
+      "seed": "seed-paritas-162",
+      "tugas": "penilaian_magang",
+      "sha256": "6807f53acda1f9be4c8e3da228ccbca816cc01460c2af5aeca313f83fcf8bdfb"
+    },
+    {
+      "seed": "seed-paritas-163",
+      "tugas": "rekap_penjualan",
+      "sha256": "3e84f0b901fe52ad135a1ad6130a1e10974a30148b9d6495c92ef4fe8935babe"
+    },
+    {
+      "seed": "seed-paritas-163",
+      "tugas": "absensi",
+      "sha256": "d5341d4224a28e8b85deb875de585e606eda4b8e8a634087f72cad9cb6821ad5"
+    },
+    {
+      "seed": "seed-paritas-163",
+      "tugas": "penilaian_magang",
+      "sha256": "3ea9759f57521204abe7a5d206060a042f0fdb2603f80825225c2b7451de6c59"
+    },
+    {
+      "seed": "seed-paritas-164",
+      "tugas": "rekap_penjualan",
+      "sha256": "756ec0f3d161432dccb01ee9feb271b3164387f195e57fd0f2180d4a95419dab"
+    },
+    {
+      "seed": "seed-paritas-164",
+      "tugas": "absensi",
+      "sha256": "d2c3d7f0b10c555b9599adf182ce261d868655d98c04948c26dc3c4a35bd52e0"
+    },
+    {
+      "seed": "seed-paritas-164",
+      "tugas": "penilaian_magang",
+      "sha256": "8f2c02b386a26b1be03021dda52d7d6bb3036ea29c771458ec6c526418f4f404"
+    },
+    {
+      "seed": "seed-paritas-165",
+      "tugas": "rekap_penjualan",
+      "sha256": "c0aa3c56fb687d25a289e8d2d9c5f2ca1159b60edda30e051c8afb95ad44f4ab"
+    },
+    {
+      "seed": "seed-paritas-165",
+      "tugas": "absensi",
+      "sha256": "e15eafcc1a11c867ede0466d565c0c5680551a34aa6107d134d933e5afd77f12"
+    },
+    {
+      "seed": "seed-paritas-165",
+      "tugas": "penilaian_magang",
+      "sha256": "9820dfa3ce2272521dbeaf39c02273b286e2a4b827c194839e5254dc4a2ba8e3"
+    },
+    {
+      "seed": "seed-paritas-166",
+      "tugas": "rekap_penjualan",
+      "sha256": "24013eb7d279c4e30db858794faa325edd47547f64c0950244baeab8cc8d485c"
+    },
+    {
+      "seed": "seed-paritas-166",
+      "tugas": "absensi",
+      "sha256": "f48859acc80e85891398a2daa1e8e8118fe344d7635a234dd2aab37c4c5a0cbb"
+    },
+    {
+      "seed": "seed-paritas-166",
+      "tugas": "penilaian_magang",
+      "sha256": "c176f4217e9fe5ba7663906f5f123ad7c342f421913aa4f807249ae72c919e42"
+    },
+    {
+      "seed": "seed-paritas-167",
+      "tugas": "rekap_penjualan",
+      "sha256": "69ac01d161ce4feae0ca34d6cf182f2ef9c206ff1ecd37a6b17ebaeb7a2eeec2"
+    },
+    {
+      "seed": "seed-paritas-167",
+      "tugas": "absensi",
+      "sha256": "e41efb369be76e0af25190d86abf707cf2dcb800250dffe4284e6066a3e26b99"
+    },
+    {
+      "seed": "seed-paritas-167",
+      "tugas": "penilaian_magang",
+      "sha256": "1f06bf2cb5f38d3ac6c291c6c62241fcad2fa424d995c19b5441db53e9d6b03c"
+    },
+    {
+      "seed": "seed-paritas-168",
+      "tugas": "rekap_penjualan",
+      "sha256": "73f342038a8ec824822bcffc30e0153043b126bf44d97fa91182383d9cfe89b6"
+    },
+    {
+      "seed": "seed-paritas-168",
+      "tugas": "absensi",
+      "sha256": "525623c10df5e170aa8be4c1b8541dbc620634b1a63c249abe64b13312dd7b1e"
+    },
+    {
+      "seed": "seed-paritas-168",
+      "tugas": "penilaian_magang",
+      "sha256": "9e1606ac7ed3a0e325720fbbbcc1065c9587e8059c44a185cace4c6053a3af78"
+    },
+    {
+      "seed": "seed-paritas-169",
+      "tugas": "rekap_penjualan",
+      "sha256": "49e770634029cc25dabd8c96fe3fe4e2d764e81651787ae607162ad2419b3229"
+    },
+    {
+      "seed": "seed-paritas-169",
+      "tugas": "absensi",
+      "sha256": "0baa392b77d870485a69ee1ce70083cc0a9ec66db4a9e6afc4e5231bc9e7f4d4"
+    },
+    {
+      "seed": "seed-paritas-169",
+      "tugas": "penilaian_magang",
+      "sha256": "dd025bb9b05ff8b966bf7b150ebd67a9695b199754e4ea1d8734bd7010e0b254"
+    },
+    {
+      "seed": "seed-paritas-170",
+      "tugas": "rekap_penjualan",
+      "sha256": "7e22bddec685b788392840ef898205384e9f0d7fa4985cf3d8d7053a985f758d"
+    },
+    {
+      "seed": "seed-paritas-170",
+      "tugas": "absensi",
+      "sha256": "22c6de47d78f21e3e2b8582b6d9b63d0e9e596ecf887e315d995adbef57f1c2a"
+    },
+    {
+      "seed": "seed-paritas-170",
+      "tugas": "penilaian_magang",
+      "sha256": "96e18f4fe7ea4c3b6affab8ef4dcf759544d83f5380d217d93c1343344b087db"
+    },
+    {
+      "seed": "seed-paritas-171",
+      "tugas": "rekap_penjualan",
+      "sha256": "7fde404810435125f68377bc02d65b60a95418238e33d3842ab03fb64995af04"
+    },
+    {
+      "seed": "seed-paritas-171",
+      "tugas": "absensi",
+      "sha256": "cb2fa0d4223247e7ffeb58ae0bde850836f08c8230070ceb150f7458b78164d9"
+    },
+    {
+      "seed": "seed-paritas-171",
+      "tugas": "penilaian_magang",
+      "sha256": "9c445bb135c611d5b79c7f1806bddf15ed816d95671f8a079634549c4e819cf0"
+    },
+    {
+      "seed": "seed-paritas-172",
+      "tugas": "rekap_penjualan",
+      "sha256": "6068b4a626168ecc47d45990672a04be52e2f06653f43cc57708977d3cc774b6"
+    },
+    {
+      "seed": "seed-paritas-172",
+      "tugas": "absensi",
+      "sha256": "9f18e0d29631cae969916b50fda3e6cfdab4d0a388006086c1a67e01ce8043e6"
+    },
+    {
+      "seed": "seed-paritas-172",
+      "tugas": "penilaian_magang",
+      "sha256": "41fa09cbbe9b1b3c6131949761e91045a48eb675e8c85a6d59368e315230c862"
+    },
+    {
+      "seed": "seed-paritas-173",
+      "tugas": "rekap_penjualan",
+      "sha256": "868fe4b03e9970a4e4fadaaf8c8ee6676d57448946f659bf96390d64da48b8cd"
+    },
+    {
+      "seed": "seed-paritas-173",
+      "tugas": "absensi",
+      "sha256": "cbca4dd7392e4ab4e831f952510b99943f55aaa47213789aee05f456816c7d90"
+    },
+    {
+      "seed": "seed-paritas-173",
+      "tugas": "penilaian_magang",
+      "sha256": "2087a9c5ae5ccaaab10636cb3897b859100103196b3f4d1e14c0f52eabc52ebb"
+    },
+    {
+      "seed": "seed-paritas-174",
+      "tugas": "rekap_penjualan",
+      "sha256": "23bd6cc6bd87078e953293d01489fcd2546affaf7662ef4033e1f344be4b3fd3"
+    },
+    {
+      "seed": "seed-paritas-174",
+      "tugas": "absensi",
+      "sha256": "1ee1875dc0dc8021028a10aef21862ae148c346ecd59dc6917c223f273947006"
+    },
+    {
+      "seed": "seed-paritas-174",
+      "tugas": "penilaian_magang",
+      "sha256": "18454441ccdc25256db3df91250e58777e83bcaaab3788bb646d4375da1de4a5"
+    },
+    {
+      "seed": "seed-paritas-175",
+      "tugas": "rekap_penjualan",
+      "sha256": "e290bb30c0bbd9a44bc1f8bd36a7b018540528d51feb04f8e2e72a10c6ad6330"
+    },
+    {
+      "seed": "seed-paritas-175",
+      "tugas": "absensi",
+      "sha256": "aa324aebc74ffd2f0beded04d73d241d5591e1fe540acb48bbe9f56de91a9017"
+    },
+    {
+      "seed": "seed-paritas-175",
+      "tugas": "penilaian_magang",
+      "sha256": "3438a95bb7cb0eb4950e6637d25f1e6e2133453610707ed44881fcc72774ebe7"
+    },
+    {
+      "seed": "seed-paritas-176",
+      "tugas": "rekap_penjualan",
+      "sha256": "2cf86c4e45e9e5d292d4feb6cd9b708b57dfd741e5ab651f2374e883adac1e42"
+    },
+    {
+      "seed": "seed-paritas-176",
+      "tugas": "absensi",
+      "sha256": "cf32a23deab3c3e510df2943f3e9454dca2da3a19a03e8bf011fcd713b247e4e"
+    },
+    {
+      "seed": "seed-paritas-176",
+      "tugas": "penilaian_magang",
+      "sha256": "471824567247483c5a0dad9e6c992221e44947e2f2515e703c371ebe6c89a52c"
+    },
+    {
+      "seed": "seed-paritas-177",
+      "tugas": "rekap_penjualan",
+      "sha256": "654dea75f232a04ac5738460f700d0e9525ccfbdf44f3d21098f364cbfa2d6a6"
+    },
+    {
+      "seed": "seed-paritas-177",
+      "tugas": "absensi",
+      "sha256": "1d8ff8cc972ba85ac5bd4e73c89ac6d29f8989e37a8cec19ee020a8384ff2dfa"
+    },
+    {
+      "seed": "seed-paritas-177",
+      "tugas": "penilaian_magang",
+      "sha256": "074c1719e2fa65dc3f1ae3dabc3b5f77b59713196cfda4f4284f6dbd8f5af860"
+    },
+    {
+      "seed": "seed-paritas-178",
+      "tugas": "rekap_penjualan",
+      "sha256": "69df532f86e89f2786f1575d384e9e991e69bb1f946997dee870c0f1bf389d51"
+    },
+    {
+      "seed": "seed-paritas-178",
+      "tugas": "absensi",
+      "sha256": "d761328cbcee594b7dfe58dfc2279d5326934f03b173af611b48d9a1b8a7300e"
+    },
+    {
+      "seed": "seed-paritas-178",
+      "tugas": "penilaian_magang",
+      "sha256": "b906dd757e964886249a30b98709a64db97701411434de2a14bf52c9704093b1"
+    },
+    {
+      "seed": "seed-paritas-179",
+      "tugas": "rekap_penjualan",
+      "sha256": "4aa6d9d5b900ce12993edc0109ce1665ef08c576ffdf40e91a20a2f4b2732130"
+    },
+    {
+      "seed": "seed-paritas-179",
+      "tugas": "absensi",
+      "sha256": "33204af787e2d625f8ed31425934add99920a348eea5fd0bcf0eda6324f480cc"
+    },
+    {
+      "seed": "seed-paritas-179",
+      "tugas": "penilaian_magang",
+      "sha256": "8998ba9a7eeda89370197fcc0e3d082a4931163ae062520f97b56567e1fcf93e"
+    },
+    {
+      "seed": "seed-paritas-180",
+      "tugas": "rekap_penjualan",
+      "sha256": "26d782accb4d39c88225ce4e1510c0d48bdd3b9cda123643340246639b25bb02"
+    },
+    {
+      "seed": "seed-paritas-180",
+      "tugas": "absensi",
+      "sha256": "77488dfc17ce0df0fc446e666efbae56318f6de22ab67d64d3d77bff053a37cc"
+    },
+    {
+      "seed": "seed-paritas-180",
+      "tugas": "penilaian_magang",
+      "sha256": "0f0eb544624f780f0b74b66d7ac4b0a7a0ed9cd14ea8ec539684be42d955b001"
+    },
+    {
+      "seed": "seed-paritas-181",
+      "tugas": "rekap_penjualan",
+      "sha256": "64c72fde20ba5d0f18b8e086f96a91eec143117526902c570139d0a37aae90d4"
+    },
+    {
+      "seed": "seed-paritas-181",
+      "tugas": "absensi",
+      "sha256": "492a3e5f85a71bb2d754719d4746d77a8a45c06b51ab8a517f27b4483dbd37b8"
+    },
+    {
+      "seed": "seed-paritas-181",
+      "tugas": "penilaian_magang",
+      "sha256": "72f7b18fbfe892a024df877e0c6dd99f4afd907cd27c0e6923555ceb424826de"
+    },
+    {
+      "seed": "seed-paritas-182",
+      "tugas": "rekap_penjualan",
+      "sha256": "44880811cd49c9711051a79034b6ad33392044a5c1d0238675c157769b8d9b1f"
+    },
+    {
+      "seed": "seed-paritas-182",
+      "tugas": "absensi",
+      "sha256": "ecf11975732c8883ecf04b8dd4db12d369091bf27b1bf91087cfb9a7d77a0273"
+    },
+    {
+      "seed": "seed-paritas-182",
+      "tugas": "penilaian_magang",
+      "sha256": "89d28fe3505d5ae629dc4cf6101a74b7b8692fc12f364b5881749fa91d2945df"
+    },
+    {
+      "seed": "seed-paritas-183",
+      "tugas": "rekap_penjualan",
+      "sha256": "487b23450f039813cb10dfcf57f89dee75b57409af8e77deb66b6c5e830ab23c"
+    },
+    {
+      "seed": "seed-paritas-183",
+      "tugas": "absensi",
+      "sha256": "996b238e6c6e9b20ab0d900c63fb3f980b699f2eb90ae757f60107e3a8968e19"
+    },
+    {
+      "seed": "seed-paritas-183",
+      "tugas": "penilaian_magang",
+      "sha256": "37029bbf462b6099a338745748464956101d881f489cc74687480765d3957267"
+    },
+    {
+      "seed": "seed-paritas-184",
+      "tugas": "rekap_penjualan",
+      "sha256": "b2cc35a1f6af97b4316c5b4fa52e0d83b0643aea07204e7f47cb396583473574"
+    },
+    {
+      "seed": "seed-paritas-184",
+      "tugas": "absensi",
+      "sha256": "35d1991dd6222a0e7856d1291b959a6231d14a98266a9be328ea334ba2ed1618"
+    },
+    {
+      "seed": "seed-paritas-184",
+      "tugas": "penilaian_magang",
+      "sha256": "5f366a23a0d7f29d1b05cf698c08c69595b6530080ba374fb5d3601892d492d6"
+    },
+    {
+      "seed": "seed-paritas-185",
+      "tugas": "rekap_penjualan",
+      "sha256": "33e2827cc8410ff8d90b0bd45131eb54d7d4d39df8b474f0a90804248cd4a33c"
+    },
+    {
+      "seed": "seed-paritas-185",
+      "tugas": "absensi",
+      "sha256": "28971ece5c9dd06adeac3719730ce9ce6e3c890ed62724a6750a01684a6528b2"
+    },
+    {
+      "seed": "seed-paritas-185",
+      "tugas": "penilaian_magang",
+      "sha256": "32f0b5b5e6c41ab37c9981cf79dff4c0a0b8b799085e5ef3d457c730ae6217db"
+    },
+    {
+      "seed": "seed-paritas-186",
+      "tugas": "rekap_penjualan",
+      "sha256": "4bd1ae966b4560b0d5d9d361279e3470f8f7f6a00c1b9d7b68b8c1fa1e083e77"
+    },
+    {
+      "seed": "seed-paritas-186",
+      "tugas": "absensi",
+      "sha256": "72cb4ecb8493174e5797fd0458f73275681f9f9adab147906170b63648840c2c"
+    },
+    {
+      "seed": "seed-paritas-186",
+      "tugas": "penilaian_magang",
+      "sha256": "62b16a71da2070db722188245ffa7a67b32ea1c2b978ae6a2c1f12a0a49efbce"
+    },
+    {
+      "seed": "seed-paritas-187",
+      "tugas": "rekap_penjualan",
+      "sha256": "e632377a124257f3a47a2692c58914a68668311c87ded9d14bf94c7dbfb33ebb"
+    },
+    {
+      "seed": "seed-paritas-187",
+      "tugas": "absensi",
+      "sha256": "51d24baaa9c060a1ec79a0baad663735f69ed62130052b784f4010f03f7f82ea"
+    },
+    {
+      "seed": "seed-paritas-187",
+      "tugas": "penilaian_magang",
+      "sha256": "a7850a7f07d80d45fb4e6cfd2a95134e05d64e8d37fb5d13d9a70d21435e0176"
+    },
+    {
+      "seed": "seed-paritas-188",
+      "tugas": "rekap_penjualan",
+      "sha256": "b4b87066a18a912c5718832ab0302ac7e692a141e932b9eaf3fbc6f68ce27759"
+    },
+    {
+      "seed": "seed-paritas-188",
+      "tugas": "absensi",
+      "sha256": "0775b53244b19c035000bd370af3c39dcf94c007bba2330eb9a42fbb4fc4fee9"
+    },
+    {
+      "seed": "seed-paritas-188",
+      "tugas": "penilaian_magang",
+      "sha256": "8a010d1e511ddf2552bded3233387b9c970010ca88db7c0d929d290814b60f97"
+    },
+    {
+      "seed": "seed-paritas-189",
+      "tugas": "rekap_penjualan",
+      "sha256": "2760d8b1925daf93584ddfb24bdf60fc25ea8d1a98dcc530abff0c41a59b8d22"
+    },
+    {
+      "seed": "seed-paritas-189",
+      "tugas": "absensi",
+      "sha256": "2d0c8d80c16258adb65db1447c351a77608d2b1e26861d621aa1a27ac2dfc557"
+    },
+    {
+      "seed": "seed-paritas-189",
+      "tugas": "penilaian_magang",
+      "sha256": "58ea4d252bf2a290454115e213ff743e9834edd3398d2e092d1395dde1325624"
+    },
+    {
+      "seed": "seed-paritas-190",
+      "tugas": "rekap_penjualan",
+      "sha256": "5406dd65693cdde8301f3669e7d25213e44e00acfbedfb73eb458a561ea690ea"
+    },
+    {
+      "seed": "seed-paritas-190",
+      "tugas": "absensi",
+      "sha256": "f0e92a3656772985f65fc20a42a775c22816638b437516e5d9919ebc4776292e"
+    },
+    {
+      "seed": "seed-paritas-190",
+      "tugas": "penilaian_magang",
+      "sha256": "34c81adf53985ee3b767c306319077320bba60552f496a3d7942e8b217d0c1b3"
+    },
+    {
+      "seed": "seed-paritas-191",
+      "tugas": "rekap_penjualan",
+      "sha256": "d867c9afe62f67b9e91a73681b201c7f790dbd1fe9ec5f87b4955df90c257035"
+    },
+    {
+      "seed": "seed-paritas-191",
+      "tugas": "absensi",
+      "sha256": "bb2436bf020f06c4cd8793cf085abcd810bc999ea21a7621ed92d90ecd89663d"
+    },
+    {
+      "seed": "seed-paritas-191",
+      "tugas": "penilaian_magang",
+      "sha256": "2fae6f8782d837db48719bb0ae879894e1a2106b1dee1cbd2f55ef3190f2792d"
+    },
+    {
+      "seed": "seed-paritas-192",
+      "tugas": "rekap_penjualan",
+      "sha256": "2e83f7f28aafa9cc3f8079f294215845ef3229bb0457383e7e27a20b2fa5d7cd"
+    },
+    {
+      "seed": "seed-paritas-192",
+      "tugas": "absensi",
+      "sha256": "5fcb199497845ca5dd13d328bb6c94ce57365ea31c7ce9422c1536fd5f941c1e"
+    },
+    {
+      "seed": "seed-paritas-192",
+      "tugas": "penilaian_magang",
+      "sha256": "3b98d5a4b77c1e78ef3db0d38a0a14161c73137f4e1ce503e9fdc9b659dd4b23"
+    },
+    {
+      "seed": "seed-paritas-193",
+      "tugas": "rekap_penjualan",
+      "sha256": "11312e9529f4327c11af3101fc4c540f58175ec37b37730e4400b4a3d00726c9"
+    },
+    {
+      "seed": "seed-paritas-193",
+      "tugas": "absensi",
+      "sha256": "0e5797c6ff6ee23ea42b4ede334c9a66176497bd23c12f68292ba4cedc6d58ed"
+    },
+    {
+      "seed": "seed-paritas-193",
+      "tugas": "penilaian_magang",
+      "sha256": "cbe70c52df38866bc4e29a64dc1931c0da4b9bed48ef239caa5e86d8353be5c2"
+    },
+    {
+      "seed": "seed-paritas-194",
+      "tugas": "rekap_penjualan",
+      "sha256": "c6e984898d74bd1cddead15b1d3672c827a5b60fddd7a8068c3f5cfc071dcecd"
+    },
+    {
+      "seed": "seed-paritas-194",
+      "tugas": "absensi",
+      "sha256": "a6a4bf4edd7f5cc9bb6af468b87a20bf83109efc55c6818c2c96d22244849fe4"
+    },
+    {
+      "seed": "seed-paritas-194",
+      "tugas": "penilaian_magang",
+      "sha256": "0d5c6da1631cac4c92d07aac9550d0858719d91e4d9b00a6c89074658af9e16b"
+    },
+    {
+      "seed": "seed-paritas-195",
+      "tugas": "rekap_penjualan",
+      "sha256": "e1b4905cbc0af7e9608f833e3c7b753750a49eef9994117ecbb3afc42c42bfdd"
+    },
+    {
+      "seed": "seed-paritas-195",
+      "tugas": "absensi",
+      "sha256": "982476dea3ea29876c1b88f0db209f7a2fa1343cc329d3c445b4db21d908ce37"
+    },
+    {
+      "seed": "seed-paritas-195",
+      "tugas": "penilaian_magang",
+      "sha256": "d08a18df024fdf65d55a6d67248b66a4824f65aad046e429da5ec4a3c51f3544"
+    },
+    {
+      "seed": "seed-paritas-196",
+      "tugas": "rekap_penjualan",
+      "sha256": "f68d64242b870c57be66ca33fa8d2102b33f8e67e488fa81fa0f839fa3441b6a"
+    },
+    {
+      "seed": "seed-paritas-196",
+      "tugas": "absensi",
+      "sha256": "23dafecaab56894ff95284a4569fdec002ef2cdcc931deb16c8231982d0fac79"
+    },
+    {
+      "seed": "seed-paritas-196",
+      "tugas": "penilaian_magang",
+      "sha256": "edcf1c3a1e0a4feb9228709c0a73872a8355656b4815004ed8cf3f48072d073e"
+    },
+    {
+      "seed": "seed-paritas-197",
+      "tugas": "rekap_penjualan",
+      "sha256": "ec7b8a60d8f81eab4370a0aa4e2e3e91a98bea7d17d87eb16e8ab3d080520f78"
+    },
+    {
+      "seed": "seed-paritas-197",
+      "tugas": "absensi",
+      "sha256": "f3f27d91e9cc17fc9dd5e779104b3f1373be87a212c435d99773189d8b2fd353"
+    },
+    {
+      "seed": "seed-paritas-197",
+      "tugas": "penilaian_magang",
+      "sha256": "8b2b9699ce6104d351c682275de0212087fb12c203f1eaea9abde2b34bf53c78"
+    }
+  ]
+}

@@ -39,11 +39,15 @@ pytest
 backend/
   app/            kode layanan (FastAPI)
     main.py       titik masuk + endpoint /sehat
-  tests/          tes pytest + fixtures .xlsx
+    generator.py  generator data tugas (port persis dari JS, mode paritas)
+  tests/          tes pytest + fixtures
     fixtures/     15 file uji pemeriksa (#uji) + manifest.json
+                  paritas-generator.json (sha256 AOA JS untuk 200 seed)
+    test_sehat.py
+    test_generator_paritas.py
   requirements.txt
 ```
 
-Langkah berikutnya (Fase 3): 3.2 generator data, 3.3 pembuat template .xlsx,
-3.4 mesin pemeriksa, 3.5 validasi unggahan, 3.6 garam + tiket, 3.7 endpoint
-tugas, 3.8 ukur beban.
+Langkah berikutnya (Fase 3): 3.3 pembuat template .xlsx, 3.4 mesin
+pemeriksa, 3.5 validasi unggahan, 3.6 garam + tiket, 3.7 endpoint tugas,
+3.8 ukur beban.
