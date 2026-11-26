@@ -1,0 +1,53 @@
+# Workflow tes (4.1): jalan tiap dorongan ke main dan tiap pull request.
+# - backend: pytest (tes backend, 55 tes)
+# - konten: validasi JSON content/ (node scripts/validasi-konten.js)
+# - frontend: regresi pemeriksa JS (node scripts/uji-frontend.js, 138 cek)
+# - rahasia: pindai rahasia dengan gitleaks
+# Push dengan tes gagal ditandai merah; push bersih hijau.
+name: Tes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r backend/requirements.txt
+      - run: cd backend && python -m pytest -q
+
+  konten:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: node scripts/validasi-konten.js
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install --no-save xlsx@0.18.5
+      - run: node scripts/uji-frontend.js
+
+  rahasia:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
