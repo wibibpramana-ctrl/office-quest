@@ -4,9 +4,9 @@ Layanan API game Office Quest (Python, FastAPI). Frontend statis tetap di
 GitHub Pages; layanan ini dihosting terpisah (lihat D1 di
 `docs/project_tahap2_poppi.md` — Render, tier gratis).
 
-> Mode paritas (sampai Langkah 3.6): endpoint di sini belum memakai garam
-> rahasia. Kunci jawaban dan garam tidak pernah ada di frontend. Jangan
-> simpan rahasia apa pun di repo ini — repositori bersifat publik.
+> Kunci jawaban dan garam tidak pernah ada di frontend. Garam rahasia
+> hanya ada di variabel lingkungan hosting (`OFFICE_QUEST_GARAM`).
+> Jangan simpan rahasia apa pun di repo ini — repositori bersifat publik.
 
 ## Menjalankan
 
@@ -33,6 +33,14 @@ cd backend
 pytest
 ```
 
+## Variabel lingkungan
+
+| Variabel | Isi |
+| --- | --- |
+| `OFFICE_QUEST_GARAM` | Garam rahasia untuk tanda tangan tiket (buat dengan `python -c "import secrets; print(secrets.token_hex(32))"`). Isi di dashboard hosting, bukan di repo. |
+
+Contoh nama variabel (tanpa nilai) ada di `.env.example`.
+
 ## Struktur
 
 ```
@@ -43,6 +51,7 @@ backend/
     template.py   pembuat template .xlsx (openpyxl, sheet "Data")
     checker.py    mesin pemeriksa file .xlsx (port periksaWorkbook)
     validasi.py   validasi unggahan (ukuran, .xlsm, arsip, sel, waktu)
+    tiket.py      tiket tugas bertanda tangan HMAC + seed dari garam
   rules/          aturan cek tiap tugas (JSON, evaluator)
   tests/          tes pytest + fixtures
     fixtures/     15 file uji pemeriksa (#uji) + manifest.json
@@ -53,11 +62,13 @@ backend/
     test_template.py
     test_checker.py
     test_validasi.py
+    test_tiket.py
   requirements.txt
+  .env.example
 ```
 
 Batas unggahan (validasi.py): file 2 MB, dekompresi 20 MB, 100.000 sel,
-waktu proses 10 detik; file .xlsm ditolak.
+waktu proses 10 detik; file .xlsm ditolak. Tiket berlaku sampai 02.00 WIB
+hari berikutnya.
 
-Langkah berikutnya (Fase 3): 3.6 garam + tiket, 3.7 endpoint tugas,
-3.8 ukur beban.
+Langkah berikutnya (Fase 3): 3.7 endpoint tugas, 3.8 ukur beban.
