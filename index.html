@@ -5371,6 +5371,129 @@
         }
       }
 
+      /* ============================================================
+         5.3: LAYAR MASUK — gerbang akun.
+         Bar atas, rel ikon, dan menu bawah disembunyikan supaya
+         pemain tidak bisa masuk game tanpa akun; susunan jadi
+         satu kolom dan kartu masuk di tengah layar.
+         ============================================================ */
+      body.layar-masuk .topbar,
+      body.layar-masuk .sidebar,
+      body.layar-masuk .bottomnav {
+        display: none;
+      }
+
+      body.layar-masuk .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      body.layar-masuk .screen--masuk {
+        grid-column: 1 / -1;
+      }
+
+      .masuk {
+        max-width: 420px;
+        margin: 24px auto 0;
+      }
+
+      .masuk__salam {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+      }
+
+      .masuk__sub {
+        margin: 4px 0 16px;
+        color: var(--card-muted);
+      }
+
+      .masuk__tab {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .masuk__tab-btn {
+        flex: 1;
+        min-height: 44px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--card-text);
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .masuk__tab-btn--aktif {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #0f2a24;
+        font-weight: 700;
+      }
+
+      .masuk__status {
+        margin: 0 0 12px;
+        color: var(--card-muted);
+      }
+
+      .masuk__galat {
+        margin: 0 0 12px;
+        padding: 10px 12px;
+        border: 1px solid #b3261e;
+        border-radius: 8px;
+        background: #fdecea;
+        color: #7a1f1a;
+      }
+
+      .masuk__label {
+        display: block;
+        margin: 12px 0 4px;
+        font-weight: 700;
+      }
+
+      .masuk__label:first-of-type {
+        margin-top: 0;
+      }
+
+      .masuk__input {
+        display: block;
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+      }
+
+      .masuk__petunjuk {
+        margin: 4px 0 0;
+        font-size: 0.85rem;
+        color: var(--card-muted);
+      }
+
+      .masuk__lupa {
+        display: block;
+        margin: 12px auto 0;
+        padding: 10px;
+        border: 0;
+        background: none;
+        color: var(--card-muted);
+        font: inherit;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .masuk__lupa-panel p {
+        margin: 0 0 16px;
+      }
+
+      #masuk-form-masuk .btn-primary,
+      #masuk-form-daftar .btn-primary {
+        margin-top: 16px;
+      }
+
 </style>
   </head>
   <body class="layar-kantor">
@@ -5992,6 +6115,55 @@
         </section>
 
         <!-- ============ LAYAR UJI (tersembunyi: hanya tampil bila alamat berakhiran #uji; tidak ada item navigasi) ============ -->
+        <!-- ============ LAYAR MASUK (5.3) ============
+             Gerbang akun: tampil sebelum game bila pemain belum
+             masuk. Tab Masuk / Daftar, dan tautan "Lupa kata
+             sandi?" yang membuka panel penjelasan (pemulihan
+             lewat email belum tersedia). Bukan bagian dari 6
+             menu navigasi, jadi tidak punya tombol data-screen. -->
+        <section class="screen screen--masuk" data-layar="masuk" aria-labelledby="masuk-title" hidden>
+          <h1 class="scene-title" id="masuk-title" tabindex="-1">Masuk</h1>
+          <div class="card masuk">
+            <p class="masuk__salam" id="masuk-salam">Selamat datang di kantor!</p>
+            <p class="masuk__sub">Masuk dulu sebelum mulai bekerja.</p>
+            <div class="masuk__tab" role="group" aria-label="Pilih masuk atau daftar">
+              <button type="button" class="masuk__tab-btn masuk__tab-btn--aktif" id="masuk-tab-masuk" aria-pressed="true">Masuk</button>
+              <button type="button" class="masuk__tab-btn" id="masuk-tab-daftar" aria-pressed="false">Daftar</button>
+            </div>
+            <p class="masuk__status" id="masuk-status" role="status" aria-live="polite" hidden></p>
+            <p class="masuk__galat" id="masuk-galat" role="alert" hidden></p>
+            <form id="masuk-form-masuk" novalidate>
+              <label class="masuk__label" for="masuk-nama">Nama akun</label>
+              <input class="masuk__input" id="masuk-nama" name="nama_akun" type="text" autocomplete="username" required>
+              <label class="masuk__label" for="masuk-sandi">Kata sandi</label>
+              <input class="masuk__input" id="masuk-sandi" name="kata_sandi" type="password" autocomplete="current-password" required>
+              <button type="submit" class="btn-primary btn-primary--full" id="masuk-btn-masuk">Masuk</button>
+              <button type="button" class="masuk__lupa" id="masuk-btn-lupa">Lupa kata sandi?</button>
+            </form>
+            <form id="masuk-form-daftar" novalidate hidden>
+              <label class="masuk__label" for="daftar-nama">Nama akun</label>
+              <input class="masuk__input" id="daftar-nama" name="nama_akun" type="text" autocomplete="username" required>
+              <p class="masuk__petunjuk">3–30 karakter, diawali huruf, hanya huruf, angka, dan garis bawah.</p>
+              <label class="masuk__label" for="daftar-sandi">Kata sandi</label>
+              <input class="masuk__input" id="daftar-sandi" name="kata_sandi" type="password" autocomplete="new-password" required>
+              <p class="masuk__petunjuk">Minimal 8 karakter.</p>
+              <label class="masuk__label" for="daftar-sandi-ulang">Ulangi kata sandi</label>
+              <input class="masuk__input" id="daftar-sandi-ulang" name="kata_sandi_ulang" type="password" autocomplete="new-password" required>
+              <label class="masuk__label" for="daftar-panggilan">Nama panggilan (boleh kosong)</label>
+              <input class="masuk__input" id="daftar-panggilan" name="nama_panggilan" type="text" autocomplete="nickname" maxlength="30">
+              <label class="masuk__label" for="daftar-email">Email (boleh kosong, untuk lupa kata sandi)</label>
+              <input class="masuk__input" id="daftar-email" name="email" type="email" autocomplete="email">
+              <button type="submit" class="btn-primary btn-primary--full" id="daftar-btn-buat">Buat akun</button>
+            </form>
+            <div class="masuk__lupa-panel" id="masuk-lupa-panel" hidden>
+              <p>
+                Pemulihan kata sandi lewat email belum tersedia. Bila kamu lupa kata sandi dan tidak bisa masuk,
+                buat akun baru dari tab “Daftar”.
+              </p>
+              <button type="button" class="btn-secondary" id="masuk-lupa-tutup">Kembali</button>
+            </div>
+          </div>
+        </section>
         <section class="screen" data-layar="uji" aria-labelledby="uji-title" hidden>
           <h1 class="scene-title" id="uji-title" tabindex="-1">Uji Pemeriksa</h1>
           <p class="screen__desc">
@@ -6071,6 +6243,7 @@
           <p class="popup__level" id="popup-level" hidden></p>
           <div class="popup__aksi">
             <button type="button" class="btn-primary" id="popup-btn-utama">Lanjut ke chat</button>
+            <button type="button" class="btn-secondary" id="popup-btn-keluar" hidden>Keluar</button>
             <button type="button" class="btn-secondary" id="popup-btn-tutup">Tutup</button>
           </div>
         </div>
@@ -6589,6 +6762,7 @@
       // Judul tiap layar, untuk memindahkan fokus saat pindah layar
       const JUDUL_LAYAR = {
         kantor: "kantor-title",
+        masuk: "masuk-title",
         chat: "chat-title",
         tugas: "tugas-title",
         toko: "toko-title",
@@ -6598,8 +6772,9 @@
       };
 
       // 2. STATE
-      // chatAktif dan layar adalah state UI sesaat — keduanya
-      // TIDAK ikut disimpan ke penyimpanan.
+      // chatAktif, layar, dan akun adalah state sesaat — ketiganya
+      // TIDAK ikut disimpan ke penyimpanan (akun hanya hidup
+      // selama sesi masuk; tokennya di kunci sesi sendiri).
       const state = {
         seed: null,
         xp: 0,
@@ -6612,6 +6787,7 @@
         chatAktif: null,
         belumDibaca: {},
         layar: "kantor",
+        akun: null,
         kostum: null,
         karakter: "beruang",
         meja: "set_meja_1",
@@ -6626,6 +6802,11 @@
       // berjalan segar dari memori.
       // ============================================================
       const KUNCI_PENYIMPANAN = "office-quest-v1";
+
+      // 5.3: alamat backend (satu tempat; tanpa rahasia) dan
+      // kunci token sesi di localStorage.
+      const ALAMAT_SERVER = "https://Wibi.pythonanywhere.com";
+      const KUNCI_SESI = "office-quest-sesi";
 
       // Seed acak dibuat sekali saat pertama kali bermain (atau
       // setelah "Ulang"); belum dipakai fitur lain — nanti
@@ -6974,6 +7155,287 @@
         "Sabun Mandi",
         "Sampo",
       ];
+
+      // ============================================================
+      // AKUN (5.3) — gerbang masuk: daftar, masuk, keluar, dan
+      // pemeriksaan sesi tersimpan. Token sesi disimpan di
+      // localStorage (KUNCI_SESI); kata sandi TIDAK PERNAH
+      // disimpan di perangkat. Semua pesan galat ramah dan
+      // berbahasa Indonesia; pesan persis dari server dipakai
+      // bila ada (detail.pesan).
+      // ============================================================
+
+      // Pola validasi sisi klien — sama dengan aturan server
+      // (backend/app/akun.py): nama 3–30 karakter diawali huruf.
+      const POLA_NAMA_AKUN = /^[A-Za-z][A-Za-z0-9_]{2,29}$/;
+      const POLA_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function simpanSesi(token) {
+        try {
+          localStorage.setItem(KUNCI_SESI, token);
+        } catch (e) {
+          /* penyimpanan diblokir: sesi hanya hidup di memori */
+        }
+      }
+
+      function muatSesi() {
+        try {
+          return localStorage.getItem(KUNCI_SESI);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function hapusSesi() {
+        try {
+          localStorage.removeItem(KUNCI_SESI);
+        } catch (e) {
+          /* abaikan */
+        }
+      }
+
+      // Panggil API backend. Mengembalikan {ok, status, data,
+      // jaringan}: jaringan true bila fetch tidak ada atau
+      // permintaan gagal total (offline). Tanpa pewaktu:
+      // setTimeout tidak dipakai supaya perilaku di lingkungan
+      // uji tetap sinkron.
+      async function panggilApi(jalur, opsi) {
+        const pilihan = opsi || {};
+        if (typeof fetch !== "function") {
+          return { ok: false, status: 0, data: null, jaringan: true };
+        }
+        const kepala = { "Content-Type": "application/json" };
+        if (pilihan.token) kepala.Authorization = "Bearer " + pilihan.token;
+        try {
+          const jawaban = await fetch(ALAMAT_SERVER + jalur, {
+            method: pilihan.metode || "GET",
+            headers: kepala,
+            body: pilihan.badan ? JSON.stringify(pilihan.badan) : undefined,
+          });
+          let data = null;
+          try {
+            data = await jawaban.json();
+          } catch (e) {
+            data = null;
+          }
+          return { ok: jawaban.ok, status: jawaban.status, data: data, jaringan: false };
+        } catch (e) {
+          return { ok: false, status: 0, data: null, jaringan: true };
+        }
+      }
+
+      // Pesan galat ramah untuk jawaban API akun.
+      function pesanGalatAkun(respons, bawaan) {
+        if (respons.jaringan) {
+          return "Tidak bisa terhubung ke server. Periksa internet, lalu coba lagi.";
+        }
+        if (respons.status === 429) {
+          return "Terlalu sering mencoba. Tunggu sebentar, lalu coba lagi.";
+        }
+        const detail = respons.data && respons.data.detail;
+        const kode = detail && detail.kode;
+        if (kode === "kredensial_salah") return "Nama akun atau kata sandi salah. Coba lagi ya.";
+        if (kode === "nama_sudah_dipakai") return "Nama akun ini sudah dipakai. Coba nama lain.";
+        if (kode === "email_sudah_dipakai") return "Email ini sudah dipakai akun lain.";
+        if (kode === "sesi_kedaluwarsa" || kode === "belum_masuk") {
+          return "Sesi habis. Masuk lagi ya.";
+        }
+        if (detail && typeof detail.pesan === "string" && detail.pesan) return detail.pesan;
+        return bawaan || "Terjadi galat. Coba lagi.";
+      }
+
+      function tampilkanStatusMasuk(pesan) {
+        const elStatus = document.getElementById("masuk-status");
+        const elGalat = document.getElementById("masuk-galat");
+        if (elGalat) elGalat.hidden = true;
+        if (!elStatus) return;
+        if (pesan) {
+          elStatus.textContent = pesan;
+          elStatus.hidden = false;
+        } else {
+          elStatus.hidden = true;
+        }
+      }
+
+      function tampilkanGalatMasuk(pesan) {
+        const elStatus = document.getElementById("masuk-status");
+        const elGalat = document.getElementById("masuk-galat");
+        if (elStatus) elStatus.hidden = true;
+        if (!elGalat) return;
+        elGalat.textContent = pesan;
+        elGalat.hidden = false;
+      }
+
+      // Alih tab Masuk/Daftar di layar masuk.
+      function aturTabMasuk(tab) {
+        const masukAktif = tab !== "daftar";
+        const btnMasuk = document.getElementById("masuk-tab-masuk");
+        const btnDaftar = document.getElementById("masuk-tab-daftar");
+        if (btnMasuk) {
+          btnMasuk.classList.toggle("masuk__tab-btn--aktif", masukAktif);
+          btnMasuk.setAttribute("aria-pressed", masukAktif ? "true" : "false");
+        }
+        if (btnDaftar) {
+          btnDaftar.classList.toggle("masuk__tab-btn--aktif", !masukAktif);
+          btnDaftar.setAttribute("aria-pressed", !masukAktif ? "true" : "false");
+        }
+        const formMasuk = document.getElementById("masuk-form-masuk");
+        const formDaftar = document.getElementById("masuk-form-daftar");
+        if (formMasuk) formMasuk.hidden = !masukAktif;
+        if (formDaftar) formDaftar.hidden = masukAktif;
+        const panelLupa = document.getElementById("masuk-lupa-panel");
+        if (panelLupa) panelLupa.hidden = true;
+        const elGalat = document.getElementById("masuk-galat");
+        if (elGalat) elGalat.hidden = true;
+        const elStatus = document.getElementById("masuk-status");
+        if (elStatus) elStatus.hidden = true;
+      }
+
+      // Masuk ke game setelah akun terbukti: simpan profil di
+      // state, buka layar Kantor, dan tampilkan panel "Sebelum
+      // mulai" bila belum pernah dilihat.
+      function masukKeGame(profil) {
+        state.akun = profil || null;
+        tampilkanStatusMasuk(null);
+        const elGalat = document.getElementById("masuk-galat");
+        if (elGalat) elGalat.hidden = true;
+        tampilkanLayar("kantor");
+        if (!panduanSudahDilihat()) bukaPanelPanduan();
+        const panggilan =
+          (profil && profil.nama_panggilan) || (profil && profil.nama_akun) || "Kamu";
+        tampilkanToast("Selamat datang, " + panggilan + "!");
+      }
+
+      // Kirim formulir Masuk. Mengembalikan true bila masuk
+      // berhasil (lalu layar Kantor tampil).
+      async function kirimMasuk(event) {
+        if (event) event.preventDefault();
+        const namaEl = document.getElementById("masuk-nama");
+        const sandiEl = document.getElementById("masuk-sandi");
+        const nama = ((namaEl && namaEl.value) || "").trim();
+        const sandi = (sandiEl && sandiEl.value) || "";
+        if (!nama || !sandi) {
+          tampilkanGalatMasuk("Isi nama akun dan kata sandi dulu.");
+          return false;
+        }
+        const tombol = document.getElementById("masuk-btn-masuk");
+        if (tombol) tombol.disabled = true;
+        tampilkanStatusMasuk("Masuk…");
+        const respons = await panggilApi("/akun/masuk", {
+          metode: "POST",
+          badan: { nama_akun: nama, kata_sandi: sandi, perangkat: "web" },
+        });
+        if (tombol) tombol.disabled = false;
+        if (respons.ok && respons.data && respons.data.token) {
+          simpanSesi(respons.data.token);
+          masukKeGame(respons.data.akun || null);
+          return true;
+        }
+        tampilkanGalatMasuk(pesanGalatAkun(respons, "Tidak bisa masuk. Coba lagi."));
+        return false;
+      }
+
+      // Kirim formulir Daftar. Validasi sisi klien memakai
+      // aturan yang sama dengan server; galat server tetap
+      // ditampilkan apa adanya.
+      async function kirimDaftar(event) {
+        if (event) event.preventDefault();
+        const namaEl = document.getElementById("daftar-nama");
+        const sandiEl = document.getElementById("daftar-sandi");
+        const ulangEl = document.getElementById("daftar-sandi-ulang");
+        const panggilanEl = document.getElementById("daftar-panggilan");
+        const emailEl = document.getElementById("daftar-email");
+        const nama = ((namaEl && namaEl.value) || "").trim();
+        const sandi = (sandiEl && sandiEl.value) || "";
+        const ulang = (ulangEl && ulangEl.value) || "";
+        const panggilan = ((panggilanEl && panggilanEl.value) || "").trim();
+        const email = ((emailEl && emailEl.value) || "").trim();
+        if (!POLA_NAMA_AKUN.test(nama)) {
+          tampilkanGalatMasuk("Nama akun 3–30 karakter, diawali huruf, hanya huruf, angka, dan garis bawah.");
+          return false;
+        }
+        if (sandi.length < 8 || sandi.length > 128) {
+          tampilkanGalatMasuk("Kata sandi 8–128 karakter.");
+          return false;
+        }
+        if (ulang !== sandi) {
+          tampilkanGalatMasuk("Ulangi kata sandi tidak sama dengan kata sandi.");
+          return false;
+        }
+        if (panggilan.length > 30) {
+          tampilkanGalatMasuk("Nama panggilan maksimal 30 karakter.");
+          return false;
+        }
+        if (email && !POLA_EMAIL.test(email)) {
+          tampilkanGalatMasuk("Alamat email tidak valid.");
+          return false;
+        }
+        const tombol = document.getElementById("daftar-btn-buat");
+        if (tombol) tombol.disabled = true;
+        tampilkanStatusMasuk("Membuat akun…");
+        const respons = await panggilApi("/akun/daftar", {
+          metode: "POST",
+          badan: {
+            nama_akun: nama,
+            kata_sandi: sandi,
+            nama_panggilan: panggilan || null,
+            email: email || null,
+            perangkat: "web",
+          },
+        });
+        if (tombol) tombol.disabled = false;
+        if (respons.ok && respons.data && respons.data.token) {
+          simpanSesi(respons.data.token);
+          const profil = Object.assign({}, respons.data);
+          delete profil.token;
+          masukKeGame(profil);
+          return true;
+        }
+        tampilkanGalatMasuk(pesanGalatAkun(respons, "Tidak bisa membuat akun. Coba lagi."));
+        return false;
+      }
+
+      // Keluar akun: hapus sesi di server (bila terjangkau)
+      // dan di perangkat, lalu kembali ke layar Masuk.
+      async function keluarAkun() {
+        const token = muatSesi();
+        if (token) {
+          await panggilApi("/akun/keluar", { metode: "POST", token: token });
+        }
+        hapusSesi();
+        state.akun = null;
+        tutupPopup(false);
+        tampilkanLayar("masuk");
+        tampilkanStatusMasuk("Kamu sudah keluar. Masuk lagi bila mau bermain.");
+        return true;
+      }
+
+      // Periksa sesi tersimpan saat halaman dimuat. Selalu
+      // menampilkan layar Masuk dulu (tanpa sesi, langsung
+      // berhenti di sana); bila token ada dan masih berlaku,
+      // pemain langsung masuk game. Halaman #uji tidak memakai
+      // gerbang ini.
+      async function periksaSesiTersimpan() {
+        if (window.location.hash === "#uji") return false;
+        tampilkanLayar("masuk");
+        const token = muatSesi();
+        if (!token) return false;
+        tampilkanStatusMasuk("Memeriksa sesi…");
+        const respons = await panggilApi("/akun/saya", { token: token });
+        if (respons.ok && respons.data && respons.data.nama_akun) {
+          masukKeGame(respons.data);
+          return true;
+        }
+        hapusSesi();
+        if (respons.status === 401) {
+          tampilkanGalatMasuk("Sesi habis. Masuk lagi ya.");
+        } else {
+          tampilkanGalatMasuk(
+            pesanGalatAkun(respons, "Tidak bisa memeriksa sesi. Coba masuk lagi.")
+          );
+        }
+        return false;
+      }
 
       // Hash FNV-1a 32-bit untuk string seed.
       function hashSeedFNV1a(str) {
@@ -8248,7 +8710,7 @@
           tampilkanLayar("uji");
           renderHasilUji();
         } else if (state.layar === "uji") {
-          tampilkanLayar("kantor");
+          tampilkanLayar(state.akun ? "kantor" : "masuk");
         }
       }
 
@@ -9932,6 +10394,10 @@
         // (bagian CSS 8C/8G, rekonstruksi 6.1).
         document.body.classList.toggle("layar-koleksi", namaLayar === "koleksi");
 
+        // Kelas penanda gerbang masuk (5.3): menyembunyikan
+        // bar atas, rel ikon, dan menu bawah.
+        document.body.classList.toggle("layar-masuk", namaLayar === "masuk");
+
         // Draf kostum hanya hidup selama di halaman Koleksi:
         // keluar dari Koleksi membuang perubahan yang belum
         // disimpan (6.1).
@@ -10794,6 +11260,7 @@
         const elUcapan = document.getElementById("popup-ucapan");
         const elLevel = document.getElementById("popup-level");
         const btnUtama = document.getElementById("popup-btn-utama");
+        const btnKeluar = document.getElementById("popup-btn-keluar");
         if (idKarakter === "kamu") {
           // Pop-up profil pemain: tanpa kalimat ucapan, diganti
           // baris level dan jabatan yang dihitung dari total XP.
@@ -10802,11 +11269,13 @@
           elLevel.hidden = false;
           elLevel.textContent = "Level " + levelKamu + " · " + jabatanDariLevel(levelKamu);
           btnUtama.textContent = "Buka Koleksi";
+          if (btnKeluar) btnKeluar.hidden = false;
         } else {
           elUcapan.hidden = false;
           elUcapan.textContent = data.ucapan[kondisiTugas()];
           elLevel.hidden = true;
           btnUtama.textContent = "Lanjut ke chat";
+          if (btnKeluar) btnKeluar.hidden = true;
         }
 
         const latar = document.getElementById("popup-karakter");
@@ -11378,7 +11847,14 @@
         });
         latarPopup.addEventListener("keydown", function (event) {
           if (event.key !== "Tab") return;
-          const tombol = latarPopup.querySelectorAll("button");
+          // Tombol tersembunyi (mis. "Keluar" untuk karakter
+          // lain) tidak ikut dalam perangkap fokus.
+          const tombol = Array.prototype.filter.call(
+            latarPopup.querySelectorAll("button"),
+            function (b) {
+              return !b.hidden;
+            }
+          );
           const pertama = tombol[0];
           const terakhir = tombol[tombol.length - 1];
           if (event.shiftKey && document.activeElement === pertama) {
@@ -11399,6 +11875,58 @@
           });
         });
 
+        // 5.3: layar Masuk — salam Pak Bima, tab, formulir,
+        // panel lupa kata sandi, dan tombol Keluar di pop-up
+        // profil.
+        const salamMasuk = document.getElementById("masuk-salam");
+        if (salamMasuk && DATA_KARAKTER.bima && DATA_KARAKTER.bima.sapaan) {
+          salamMasuk.textContent = "Pak Bima: “" + DATA_KARAKTER.bima.sapaan + "”";
+        }
+        const tabMasuk = document.getElementById("masuk-tab-masuk");
+        if (tabMasuk) {
+          tabMasuk.addEventListener("click", function () {
+            aturTabMasuk("masuk");
+          });
+        }
+        const tabDaftar = document.getElementById("masuk-tab-daftar");
+        if (tabDaftar) {
+          tabDaftar.addEventListener("click", function () {
+            aturTabMasuk("daftar");
+          });
+        }
+        const formMasuk = document.getElementById("masuk-form-masuk");
+        if (formMasuk) {
+          formMasuk.addEventListener("submit", kirimMasuk);
+        }
+        const formDaftar = document.getElementById("masuk-form-daftar");
+        if (formDaftar) {
+          formDaftar.addEventListener("submit", kirimDaftar);
+        }
+        const btnLupa = document.getElementById("masuk-btn-lupa");
+        if (btnLupa) {
+          btnLupa.addEventListener("click", function () {
+            const panelLupa = document.getElementById("masuk-lupa-panel");
+            const formMasukEl = document.getElementById("masuk-form-masuk");
+            if (panelLupa) panelLupa.hidden = false;
+            if (formMasukEl) formMasukEl.hidden = true;
+            const btnTutupLupa = document.getElementById("masuk-lupa-tutup");
+            if (btnTutupLupa) btnTutupLupa.focus();
+          });
+        }
+        const btnTutupLupa = document.getElementById("masuk-lupa-tutup");
+        if (btnTutupLupa) {
+          btnTutupLupa.addEventListener("click", function () {
+            const panelLupa = document.getElementById("masuk-lupa-panel");
+            const formMasukEl = document.getElementById("masuk-form-masuk");
+            if (panelLupa) panelLupa.hidden = true;
+            if (formMasukEl) formMasukEl.hidden = false;
+          });
+        }
+        const btnKeluar = document.getElementById("popup-btn-keluar");
+        if (btnKeluar) {
+          btnKeluar.addEventListener("click", keluarAkun);
+        }
+
         // Halaman uji tersembunyi (#uji): "Jalankan ulang"
         // menjalankan ulang pengujian dari seed saat ini;
         // "Kembali ke Kantor" membuka layar Kantor dan
@@ -11417,7 +11945,7 @@
             } catch (e) {
               /* hash tidak terhapus pun layar tetap kembali */
             }
-            tampilkanLayar("kantor");
+            tampilkanLayar(state.akun ? "kantor" : "masuk");
           });
         }
         window.addEventListener("hashchange", tanganiHashUji);
@@ -11463,8 +11991,13 @@
             pertama.focus();
           }
         });
-        if (!panduanSudahDilihat() && window.location.hash !== "#uji") {
-          bukaPanelPanduan();
+        // 5.3: gerbang masuk — pemain tanpa sesi melihat layar
+        // Masuk; pemain dengan sesi yang masih berlaku langsung
+        // masuk game (panel "Sebelum mulai" dibuka dari
+        // masukKeGame bila belum pernah dilihat). Halaman #uji
+        // tidak memakai gerbang ini.
+        if (window.location.hash !== "#uji") {
+          periksaSesiTersimpan();
         }
 
         // 1.5: muat konten dari content/*.json di latar belakang.
