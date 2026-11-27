@@ -1,0 +1,23 @@
+name: Perbarui backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+  workflow_dispatch:
+
+jobs:
+  muat-ulang:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Muat ulang webapp PythonAnywhere
+        run: |
+          curl -s -o /dev/null -w "HTTP %{http_code}\n" -X POST \
+            "https://www.pythonanywhere.com/api/v1/user/Wibi/websites/Wibi.pythonanywhere.com/reload/" \
+            -H "Authorization: Token ${{ secrets.PYTHONANYWHERE_API_TOKEN }}"
+      - name: Tunggu server nyala lagi
+        run: sleep 30
+      - name: Periksa /sehat
+        run: |
+          curl -s -w "\nHTTP %{http_code}\n" --max-time 60 https://Wibi.pythonanywhere.com/sehat
