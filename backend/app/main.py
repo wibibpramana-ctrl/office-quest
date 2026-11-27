@@ -5,18 +5,28 @@ Endpoint:
 - POST /tugas/tiket      — terbitkan tiket satu jenis tugas
 - GET  /tugas/template   — unduh template .xlsx (pakai tiket)
 - POST /periksa          — periksa file jawaban (tiket + file)
+- POST /akun/daftar      — daftar akun baru (Fase 5.2)
+- POST /akun/masuk       — masuk, terbitkan token sesi (Fase 5.2)
+- POST /akun/keluar      — keluar, hapus sesi (Fase 5.2)
+- GET  /akun/saya        — info akun sendiri (Fase 5.2)
+- POST /akun/ganti-kata-sandi — ganti kata sandi (Fase 5.2)
 
 Aturan keamanan (3.5–3.7):
 - CORS hanya untuk alamat GitHub Pages game.
-- Pembatas laju per IP (jendela geser 60 detik) untuk endpoint tugas.
+- Pembatas laju per IP (jendela geser 60 detik) untuk endpoint tugas,
+  periksa, dan akun.
 - Log hanya mencatat metode/jalan/status/waktu/ukuran/skor/kode —
-  TIDAK PERNAH isi file, string tiket, atau garam.
+  TIDAK PERNAH isi file, string tiket, token sesi, atau garam.
 - Garam dibaca dari variabel lingkungan OFFICE_QUEST_GARAM (malas:
   dibaca saat pertama dipakai; bila belum diatur endpoint tugas
-  menjawab 503). Login/sesi menyusul di Fase 5 — endpoint ini belum
-  memakai otentikasi (mode tamu diizinkan Tahap 2).
+  menjawab 503). Akun/sesi (Fase 5.2): kata sandi hanya hash argon2id,
+  token sesi disimpan sebagai hash SHA-256; basis data SQLite dari
+  OFFICE_QUEST_DB (bila belum diatur endpoint akun menjawab 503).
+  Endpoint tugas/periksa belum memakai otentikasi (mode tamu diizinkan
+  Tahap 2).
 
-Kode galat: 400 permintaan tidak valid, 403 tiket tidak sah,
+Kode galat: 400 permintaan tidak valid, 401 belum masuk / sesi habis /
+kredensial salah, 403 tiket tidak sah, 409 nama/email sudah dipakai,
 410 tiket kedaluwarsa, 413 file terlalu besar, 415 bukan .xlsx,
 429 terlalu sering, 503 server belum dikonfigurasi / waktu habis.
 """
@@ -24,6 +34,7 @@ Kode galat: 400 permintaan tidak valid, 403 tiket tidak sah,
 import json
 import logging
 import time
+from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
 
@@ -32,7 +43,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
 
+from app import akun as layanan_akun
+from app.akun import GalatAkun
 from app.checker import muat_aturan, periksa_bytes
+from app.db import buka_db
 from app.template import nama_file_template, template_ke_bytes
 from app.tiket import (
     WIB,
@@ -165,7 +179,11 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
     async def pembatas_dan_catat(request, call_next):
         mulai = time.monotonic()
         jalan = request.url.path
-        if jalan.startswith("/tugas/") or jalan == "/periksa":
+        if (
+            jalan.startswith("/tugas/")
+            or jalan == "/periksa"
+            or jalan.startswith("/akun/")
+        ):
             if request.method in ("GET", "POST") and not request.app.state.pembatas.izinkan(_ip_klien(request)):
                 catat("terlalu_sering", metode=request.method, jalan=jalan, ip=_ip_klien(request))
                 return JSONResponse(
@@ -188,7 +206,7 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
         CORSMiddleware,
         allow_origins=[ASAL_PAGES],
         allow_methods=["GET", "POST"],
-        allow_headers=["Content-Type"],
+        allow_headers=["Content-Type", "Authorization"],  # Authorization: token sesi (5.2)
     )
 
     @app.get("/sehat")
@@ -269,6 +287,121 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
             "kode": hasil["kode"],
             "batas_waktu": "ok",
         }
+
+    # --- Akun & sesi (Fase 5.2) ---
+
+    @contextmanager
+    def _db():
+        conn = buka_db()
+        if conn is None:
+            raise HTTPException(
+                503,
+                detail={
+                    "kode": "basis_data_belum_diatur",
+                    "pesan": "Basis data belum diatur di server.",
+                },
+            )
+        try:
+            yield conn
+        finally:
+            conn.close()
+
+    def _galat_akun_http(e):
+        return HTTPException(e.status, detail={"kode": e.kode, "pesan": e.pesan})
+
+    def _token_dari_header(request):
+        auth = request.headers.get("authorization", "")
+        if auth.lower().startswith("bearer "):
+            return auth[7:].strip()
+        return None
+
+    def _akun_saat_ini(request, conn):
+        try:
+            akun, _sesi = layanan_akun.akun_dari_token(
+                conn, _token_dari_header(request)
+            )
+        except GalatAkun as e:
+            raise _galat_akun_http(e) from None
+        return akun
+
+    class DaftarMinta(BaseModel):
+        nama_akun: str
+        kata_sandi: str
+        nama_panggilan: str | None = None
+        email: str | None = None
+        perangkat: str | None = None
+
+    class MasukMinta(BaseModel):
+        nama_akun: str
+        kata_sandi: str
+        perangkat: str | None = None
+
+    class GantiKataSandiMinta(BaseModel):
+        kata_sandi_lama: str
+        kata_sandi_baru: str
+
+    @app.post("/akun/daftar", status_code=201)
+    def daftar(data: DaftarMinta, request: Request):
+        with _db() as conn:
+            try:
+                akun_id = layanan_akun.buat_akun(
+                    conn, data.nama_akun, data.nama_panggilan, data.email, data.kata_sandi
+                )
+                token = layanan_akun.buat_sesi(conn, akun_id, data.perangkat)
+            except GalatAkun as e:
+                raise _galat_akun_http(e) from None
+            akun = layanan_akun.cari_akun_id(conn, akun_id)
+        catat("daftar", ip=_ip_klien(request))
+        return {**layanan_akun.info_akun_publik(akun), "token": token}
+
+    @app.post("/akun/masuk")
+    def masuk(data: MasukMinta, request: Request):
+        with _db() as conn:
+            try:
+                akun = layanan_akun.periksa_masuk(conn, data.nama_akun, data.kata_sandi)
+                token = layanan_akun.buat_sesi(conn, akun["id"], data.perangkat)
+            except GalatAkun as e:
+                raise _galat_akun_http(e) from None
+        catat("masuk", ip=_ip_klien(request))
+        return {"token": token, "akun": layanan_akun.info_akun_publik(akun)}
+
+    @app.post("/akun/keluar")
+    def keluar(request: Request):
+        with _db() as conn:
+            try:
+                token = _token_dari_header(request)
+                layanan_akun.akun_dari_token(conn, token)
+                layanan_akun.hapus_sesi(conn, token)
+            except GalatAkun as e:
+                raise _galat_akun_http(e) from None
+        catat("keluar", ip=_ip_klien(request))
+        return {"status": "ok"}
+
+    @app.get("/akun/saya")
+    def saya(request: Request):
+        with _db() as conn:
+            akun = _akun_saat_ini(request, conn)
+        return layanan_akun.info_akun_publik(akun)
+
+    @app.post("/akun/ganti-kata-sandi")
+    def ganti_kata_sandi(data: GantiKataSandiMinta, request: Request):
+        with _db() as conn:
+            try:
+                token = _token_dari_header(request)
+                akun, _sesi = layanan_akun.akun_dari_token(conn, token)
+                if not layanan_akun.periksa_kata_sandi(
+                    akun["hash_kata_sandi"], data.kata_sandi_lama
+                ):
+                    raise GalatAkun("kredensial_salah", "Kata sandi lama salah.", 401)
+                layanan_akun.validasi_kata_sandi(data.kata_sandi_baru)
+                layanan_akun.ganti_kata_sandi(
+                    conn, akun["id"], layanan_akun.hash_kata_sandi(data.kata_sandi_baru)
+                )
+                layanan_akun.hapus_sesi_lain(conn, akun["id"], token)
+            except GalatAkun as e:
+                raise _galat_akun_http(e) from None
+        catat("ganti_kata_sandi", ip=_ip_klien(request))
+        return {"status": "ok"}
 
     return app
 

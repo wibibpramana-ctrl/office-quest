@@ -1,6 +1,10 @@
 # Skema Database Office Quest (Fase 5, Langkah 5.1)
 
-Status: **RANCANGAN — untuk ditinjau Wibi sebelum 5.2.**
+Status: **DISETUJUI Wibi 27 Nov 2026, 18.20 WIB — "Setuju semua".** Keputusan §5:
+(1) D6 = ya, nama panggilan ditanyakan di awal; (2) email opsional untuk lupa
+kata sandi; (3) sesi 30 hari; (4) slot outfit mengikuti harga yang disetujui;
+(5) pergantian hari 00.00 WIB; (6) file database di luar repo + cadangan salin
+file. File `database/skema.sql` dibuat di 5.2 dari rancangan ini.
 Dokumen ini adalah rancangan (5.1); file `database/skema.sql` dibuat di 5.2 dari
 rancangan ini. Tabel inti mengikuti rencana (`akun`, `progres`, `tugas_harian`,
 `inventori`, `wawancara`); tabel tambahan di bagian 2 adalah yang sudah pasti
