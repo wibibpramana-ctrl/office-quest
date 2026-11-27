@@ -8,7 +8,10 @@ mengubah target.
 
 Sel dibaca dengan openpyxl dua kali: sekali tanpa ``data_only`` (rumus)
 dan sekali dengan ``data_only`` (nilai cache), karena satu pemuatan
-openpyxl tidak bisa memberi keduanya sekaligus. Model selnya meniru
+openpyxl tidak bisa memberi keduanya sekaligus. Kedua pembacaan memakai
+mode aliran (``read_only``) dan hanya sheet yang diperiksa — sheet lain
+di file tidak pernah dibaca, supaya file besar dengan sheet tambahan
+tidak memperlambat pemeriksa. Model selnya meniru
 sel SheetJS: ``rumus`` (= ``sel.f``, tanpa "="), ``nilai`` (= ``sel.v``,
 nilai cache atau literal), ``error`` (= ``sel.t === "e"``).
 
@@ -116,34 +119,66 @@ class Lembar:
     sel: dict = field(default_factory=dict)  # (kolom, baris) -> Sel
 
 
-def _sel_dari_openpyxl(ws_rumus, ws_cache):
-    """Gabung dua pemuatan openpyxl menjadi peta sel model SheetJS."""
+def _peta_sel_aliran(data, nama_sheet):
+    """Gabung dua pembacaan aliran (read_only) satu sheet menjadi peta sel
+    model SheetJS: sekali tanpa ``data_only`` (rumus), sekali dengan
+    ``data_only`` (nilai cache). Hanya sheet bernama itu yang dibaca —
+    sheet lain tidak pernah disentuh. Kembalikan peta {(kolom, baris):
+    Sel} atau None bila sheet tidak ada / file tidak bisa dibaca."""
+    try:
+        wb_rumus = load_workbook(io.BytesIO(data), data_only=False, read_only=True)
+        wb_cache = load_workbook(io.BytesIO(data), data_only=True, read_only=True)
+    except Exception:
+        return None
+    if nama_sheet not in wb_rumus.sheetnames:
+        return None
+    ws_rumus = wb_rumus[nama_sheet]
+    ws_cache = wb_cache[nama_sheet] if nama_sheet in wb_cache.sheetnames else None
+    # Peta nilai cache dulu (dipakai saat menggabungkan + untuk sel yang
+    # hanya ada di pemuatan cache).
+    cache = {}
+    if ws_cache is not None:
+        for baris in ws_cache.iter_rows():
+            for sel in baris:
+                if getattr(sel, "column", None) is None:
+                    continue
+                cache[(sel.column - 1, sel.row)] = sel
     peta = {}
-    coords = set()
-    for ws in (ws_rumus, ws_cache):
-        if ws is None:
-            continue
-        for (baris, kolom), _sel in ws._cells.items():
-            coords.add((kolom - 1, baris))
-    for (kolom, baris) in coords:
-        sel_rumus = ws_rumus.cell(row=baris, column=kolom + 1) if ws_rumus is not None else None
-        sel_cache = ws_cache.cell(row=baris, column=kolom + 1) if ws_cache is not None else None
-        rumus = None
-        error = False
-        if sel_rumus is not None:
-            if sel_rumus.data_type == "f":
-                rumus = str(sel_rumus.value)[1:] if str(sel_rumus.value).startswith("=") else str(sel_rumus.value)
-            if sel_rumus.data_type == "e":
+    for baris in ws_rumus.iter_rows():
+        for sel in baris:
+            # Baris aliran diisi EmptyCell (tanpa kolom/baris) untuk sel
+            # yang tidak ada di XML — lewati, sama seperti _cells.
+            if getattr(sel, "column", None) is None:
+                continue
+            kolom = sel.column - 1
+            baris_no = sel.row
+            rumus = None
+            error = False
+            if sel.data_type == "f":
+                rumus = str(sel.value)[1:] if str(sel.value).startswith("=") else str(sel.value)
+            if sel.data_type == "e":
                 error = True
-        nilai = None
-        if sel_cache is not None:
-            nilai = sel_cache.value
-            if sel_cache.data_type == "e":
-                error = True
-        # Sel yang benar-benar kosong di kedua pemuatan tidak dicatat.
-        if rumus is None and nilai is None and not error:
+            sel_cache = cache.get((kolom, baris_no))
+            nilai = None
+            if sel_cache is not None:
+                nilai = sel_cache.value
+                if sel_cache.data_type == "e":
+                    error = True
+            # Sel yang benar-benar kosong di kedua pemuatan tidak dicatat.
+            if rumus is None and nilai is None and not error:
+                continue
+            peta[(kolom, baris_no)] = Sel(rumus=rumus, nilai=nilai, error=error)
+    # Sel yang hanya ada di pemuatan cache (nilai tanpa rumus).
+    for (kolom, baris_no), sel_cache in cache.items():
+        if (kolom, baris_no) in peta:
             continue
-        peta[(kolom, baris)] = Sel(rumus=rumus, nilai=nilai, error=error)
+        nilai = sel_cache.value
+        error = sel_cache.data_type == "e"
+        if nilai is None and not error:
+            continue
+        peta[(kolom, baris_no)] = Sel(rumus=None, nilai=nilai, error=error)
+    wb_rumus.close()
+    wb_cache.close()
     return peta
 
 
@@ -151,16 +186,10 @@ def muat_lembar(data, nama_sheet):
     """Baca bytes .xlsx, kembalikan Lembar bernama itu, atau None bila
     sheet tidak ada / file tidak bisa dibaca (diperlakukan seperti
     sheet tidak ada, sama seperti wb null di periksaWorkbook)."""
-    try:
-        wb_rumus = load_workbook(io.BytesIO(data), data_only=False)
-        wb_cache = load_workbook(io.BytesIO(data), data_only=True)
-    except Exception:
+    peta = _peta_sel_aliran(data, nama_sheet)
+    if peta is None:
         return None
-    if nama_sheet not in wb_rumus.sheetnames:
-        return None
-    ws_rumus = wb_rumus[nama_sheet]
-    ws_cache = wb_cache[nama_sheet] if nama_sheet in wb_cache.sheetnames else None
-    return Lembar(nama=nama_sheet, sel=_sel_dari_openpyxl(ws_rumus, ws_cache))
+    return Lembar(nama=nama_sheet, sel=peta)
 
 
 def ambil_sel(lembar, kolom, baris):
