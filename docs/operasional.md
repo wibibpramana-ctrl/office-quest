@@ -22,6 +22,13 @@ otomatis maupun manual — menarik kode terbaru dulu.
 - Memeriksa: tab Actions di GitHub (run harus hijau), lalu buka `/sehat`.
 - Perubahan di luar `backend/` (mis. dokumen, `.gitignore`) TIDAK memicu reload —
   server memang tidak perlu diperbarui untuk itu.
+- **Dependensi baru:** bila pembaruan menambah paket di
+  `backend/requirements.txt`, pasang dulu dari konsol Bash PythonAnywhere
+  (`/home/Wibi/.virtualenvs/office-quest/bin/pip install -r
+  ~/office-quest/backend/requirements.txt`) SEBELUM reload — proses webapp di
+  paket gratis tidak bisa mengunduh dari PyPI, dan skrip peluncur tidak lagi
+  mencoba `pip install` (dihapus 27 Nov 2026 setelah insiden argon2-cffi
+  membuat server 502).
 
 ## 3. Pembaruan manual (bila otomatis gagal)
 
