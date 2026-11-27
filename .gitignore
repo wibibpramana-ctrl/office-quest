@@ -7,3 +7,6 @@ venv/
 
 # Node (dipasang CI/lokal untuk uji frontend)
 node_modules/
+
+# Rahasia lokal (jangan masuk repo)
+.env
