@@ -6360,6 +6360,24 @@
         </div>
       </div>
 
+      <!-- ============ DIALOG MIGRASI PROGRES (5.4) ============
+           Tawaran memindahkan progres lokal (simpanan lama atau
+           Tamu) ke akun saat pertama masuk. "Pindahkan ke akun"
+           mengirim XP/koin/chat ke server lalu memakai kunci v2;
+           "Mulai dari awal" membuang progres lokal dan mulai segar. -->
+      <div class="dialog-backdrop" id="dialog-migrasi" hidden>
+        <div class="popup" role="dialog" aria-modal="true" aria-labelledby="dialog-migrasi-judul">
+          <h2 class="popup__nama" id="dialog-migrasi-judul">Pindahkan progres lamamu?</h2>
+          <p class="popup__ucapan" id="dialog-migrasi-teks">
+            Kamu punya progres di HP ini. Pindahkan ke akun supaya tidak hilang?
+          </p>
+          <div class="popup__aksi">
+            <button type="button" class="btn-primary" id="dialog-migrasi-ya">Pindahkan ke akun</button>
+            <button type="button" class="btn-secondary" id="dialog-migrasi-batal">Mulai dari awal</button>
+          </div>
+        </div>
+      </div>
+
       <!-- ============ PANEL "SEBELUM MULAI" ============
            Panel perkenalan yang muncul sekali saja, saat game
            pertama kali dibuka di browser ini: cara bermain
@@ -6889,6 +6907,16 @@
       // berjalan segar dari memori.
       // ============================================================
       const KUNCI_PENYIMPANAN = "office-quest-v1";
+      // 5.4: kunci simpanan baru. Setelah migrasi (atau memilih
+      // mulai dari awal), game memakai kunci v2; kunci v1 dibaca
+      // sekali untuk migrasi lalu dibiarkan, tidak lagi dipakai.
+      const KUNCI_PENYIMPANAN_V2 = "office-quest-v2";
+      // 5.4: keputusan migrasi ("sudah" / "baru"), supaya tawaran
+      // hanya muncul sekali.
+      const KUNCI_MIGRASI = "office-quest-migrasi";
+      // 5.4: kunci yang dipakai simpanProgres — v1 sampai pemain
+      // migrasi/memilih mulai dari awal, lalu v2.
+      let kunciSimpan = KUNCI_PENYIMPANAN;
 
       // 5.3: alamat backend (satu tempat; tanpa rahasia) dan
       // kunci token sesi di localStorage.
@@ -6971,9 +6999,11 @@
       // mulai segar. Validasi bentuknya minimal: objek dengan
       // seed, angka xp/koin, dan objek tugas/hint/chat/
       // belumDibaca; riwayat chat per kontak harus berupa array.
-      function muatProgres() {
+      // 5.4: baca satu kunci simpanan dengan validasi yang sama
+      // seperti muatProgres dulu (bentuk rusak -> null).
+      function bacaSimpananKunci(kunci) {
         try {
-          const mentah = localStorage.getItem(KUNCI_PENYIMPANAN);
+          const mentah = localStorage.getItem(kunci);
           if (!mentah) return null;
           const data = JSON.parse(mentah);
           if (!data || typeof data !== "object" || Array.isArray(data)) return null;
@@ -6984,8 +7014,8 @@
             const nilai = data[kolomObjek[i]];
             if (!nilai || typeof nilai !== "object" || Array.isArray(nilai)) return null;
           }
-          Object.keys(data.chat).forEach(function (kunci) {
-            if (!Array.isArray(data.chat[kunci])) data.chat[kunci] = [];
+          Object.keys(data.chat).forEach(function (kunciChat) {
+            if (!Array.isArray(data.chat[kunciChat])) data.chat[kunciChat] = [];
           });
           // Status tugas dinormalisasi ke bentuk baru supaya
           // tidak ada status yang bertentangan antarlayar;
@@ -6997,6 +7027,25 @@
         } catch (e) {
           return null;
         }
+      }
+
+      // 5.4: kunci v2 didahulukan; v1 hanya dibaca bila v2 belum
+      // ada (pemain lama yang belum migrasi). Kunci yang dipakai
+      // dicatat di kunciSimpan supaya simpanProgres menulis ke
+      // tempat yang sama; tanpa simpanan apa pun kembali ke v1.
+      function muatProgres() {
+        const dariV2 = bacaSimpananKunci(KUNCI_PENYIMPANAN_V2);
+        if (dariV2) {
+          kunciSimpan = KUNCI_PENYIMPANAN_V2;
+          return dariV2;
+        }
+        const dariV1 = bacaSimpananKunci(KUNCI_PENYIMPANAN);
+        if (dariV1) {
+          kunciSimpan = KUNCI_PENYIMPANAN;
+          return dariV1;
+        }
+        kunciSimpan = KUNCI_PENYIMPANAN;
+        return null;
       }
 
       // ============================================================
@@ -7204,7 +7253,7 @@
       function simpanProgres() {
         try {
           localStorage.setItem(
-            KUNCI_PENYIMPANAN,
+            kunciSimpan,
             JSON.stringify({
               seed: state.seed,
               xp: state.xp,
@@ -7416,6 +7465,7 @@
         if (kode === "kredensial_salah") return "Nama akun atau kata sandi salah. Coba lagi ya.";
         if (kode === "nama_sudah_dipakai") return "Nama akun ini sudah dipakai. Coba nama lain.";
         if (kode === "email_sudah_dipakai") return "Email ini sudah dipakai akun lain.";
+        if (kode === "sudah_punya_progres") return "Akun ini sudah punya progres.";
         if (kode === "sesi_kedaluwarsa" || kode === "belum_masuk") {
           return "Sesi habis. Masuk lagi ya.";
         }
@@ -7481,10 +7531,207 @@
         const elGalat = document.getElementById("masuk-galat");
         if (elGalat) elGalat.hidden = true;
         tampilkanLayar("kantor");
-        if (!panduanSudahDilihat()) bukaPanelPanduan();
+        // 5.4: pemain lama ditawari migrasi dulu; panel "Sebelum
+        // mulai" hanya untuk pemain yang benar-benar baru.
+        if (!tawarkanMigrasi() && !panduanSudahDilihat()) bukaPanelPanduan();
         const panggilan =
           (profil && profil.nama_panggilan) || (profil && profil.nama_akun) || "Kamu";
         tampilkanToast("Selamat datang, " + panggilan + "!");
+      }
+
+      // ============================================================
+      // 5.4: MIGRASI SIMPANAN LOKAL KE AKUN
+      // Saat pertama masuk, pemain lama (simpanan v1 atau progres
+      // Tamu) ditawari memindahkan XP, koin, dan riwayat chat ke
+      // akun. Status 3 tugas lama TIDAK pindah (diputuskan Wibi
+      // 28 Nov 2026 — tugas lama diganti sistem tugas harian);
+      // jatah hint ikut tersimpan di kunci v2, belum di server
+      // (sinkronisasi penuh di 5.5). Setelah migrasi, simpanan
+      // memakai kunci v2; v1 dibiarkan, tidak lagi dipakai.
+      // ============================================================
+      function bacaKeputusanMigrasi() {
+        try {
+          return localStorage.getItem(KUNCI_MIGRASI);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function simpanKeputusanMigrasi(nilai) {
+        try {
+          localStorage.setItem(KUNCI_MIGRASI, nilai);
+        } catch (e) {
+          /* gagal menyimpan tanda tidak menghalangi migrasi */
+        }
+      }
+
+      function jumlahPesanChat(chat) {
+        let total = 0;
+        Object.keys(chat || {}).forEach(function (kunci) {
+          if (Array.isArray(chat[kunci])) total += chat[kunci].length;
+        });
+        return total;
+      }
+
+      // Pesan otomatis: sapaan awal dari seedChat (pesan pertama
+      // kontak yang teksnya sama dengan sapaan karakter) dan brief
+      // tugas (berpenanda briefUntuk). Keduanya dikirim game
+      // sendiri, bukan hasil main pemain — pemain baru yang
+      // chat-nya hanya berisi ini tidak punya progres untuk
+      // dipindahkan.
+      function pesanOtomatis(pesan, karakter, idx) {
+        if (!pesan || typeof pesan.teks !== "string") return true;
+        const sapaan =
+          DATA_KARAKTER[karakter] && DATA_KARAKTER[karakter].sapaan;
+        if (idx === 0 && pesan.dari === karakter && pesan.teks === sapaan) return true;
+        if (pesan.briefUntuk) return true;
+        return false;
+      }
+
+      function jumlahPesanChatAsli(chat) {
+        let total = 0;
+        Object.keys(chat || {}).forEach(function (karakter) {
+          const daftarPesan = chat[karakter];
+          if (!Array.isArray(daftarPesan)) return;
+          daftarPesan.forEach(function (pesan, idx) {
+            if (!pesanOtomatis(pesan, karakter, idx)) total++;
+          });
+        });
+        return total;
+      }
+
+      function adaProgresLokalUntukMigrasi(data) {
+        if (!data) return false;
+        return (
+          (typeof data.xp === "number" && data.xp > 0) ||
+          (typeof data.koin === "number" && data.koin > 0) ||
+          jumlahPesanChatAsli(data.chat) > 0
+        );
+      }
+
+      // Ratakan riwayat chat lokal ke bentuk pesan_chat server:
+      // [{karakter, pengirim, isi, dibuat_pada, dibaca}]. Pesan
+      // dari pemain selalu sudah dibaca; pesan karakter ditandai
+      // belum dibaca bila kontak itu masih punya hitungan belum
+      // dibaca (perkiraan terbaik — jumlahnya yang tersimpan,
+      // bukan pesan mana saja yang belum dibaca).
+      function ratakanChatUntukMigrasi(chat, belumDibaca) {
+        const daftar = [];
+        Object.keys(chat || {}).forEach(function (karakter) {
+          const daftarPesan = chat[karakter];
+          if (!Array.isArray(daftarPesan)) return;
+          daftarPesan.forEach(function (pesan) {
+            if (!pesan || typeof pesan.teks !== "string") return;
+            const waktu =
+              typeof pesan.waktu === "number" && isFinite(pesan.waktu)
+                ? pesan.waktu
+                : Date.now();
+            daftar.push({
+              karakter: karakter,
+              pengirim:
+                typeof pesan.dari === "string" && pesan.dari ? pesan.dari : "kamu",
+              isi: pesan.teks,
+              dibuat_pada: new Date(waktu).toISOString(),
+              dibaca:
+                pesan.dari === "kamu" ||
+                !(belumDibaca && belumDibaca[karakter] > 0),
+            });
+          });
+        });
+        return daftar;
+      }
+
+      // Tawarkan migrasi setelah masuk ke game. Mengembalikan
+      // true bila dialog dibuka. Dipanggil dari masukKeGame.
+      function tawarkanMigrasi() {
+        if (!state.akun) return false;
+        if (bacaKeputusanMigrasi()) return false;
+        if (bacaSimpananKunci(KUNCI_PENYIMPANAN_V2)) return false;
+        const lokal = bacaSimpananKunci(KUNCI_PENYIMPANAN);
+        if (!adaProgresLokalUntukMigrasi(lokal)) return false;
+        const teks = document.getElementById("dialog-migrasi-teks");
+        if (teks) {
+          teks.textContent =
+            "Kamu punya progres di HP ini: " +
+            lokal.xp +
+            " XP, " +
+            lokal.koin +
+            " koin, " +
+            jumlahPesanChat(lokal.chat) +
+            " pesan chat. Pindahkan ke akun supaya tidak hilang?";
+        }
+        const latar = document.getElementById("dialog-migrasi");
+        if (latar) latar.hidden = false;
+        const tombolYa = document.getElementById("dialog-migrasi-ya");
+        if (tombolYa) tombolYa.focus();
+        return true;
+      }
+
+      function tutupDialogMigrasi() {
+        const latar = document.getElementById("dialog-migrasi");
+        if (latar) latar.hidden = true;
+      }
+
+      // "Pindahkan ke akun": kirim XP/koin/chat v1 ke server, lalu
+      // pakai kunci v2 untuk simpanan selanjutnya. Mengembalikan
+      // true bila migrasi berhasil.
+      async function kirimMigrasi() {
+        const lokal = bacaSimpananKunci(KUNCI_PENYIMPANAN);
+        if (!lokal || !state.akun) {
+          tutupDialogMigrasi();
+          return false;
+        }
+        const tombol = document.getElementById("dialog-migrasi-ya");
+        if (tombol) {
+          tombol.disabled = true;
+          tombol.textContent = "Memindahkan…";
+        }
+        const respons = await panggilApi("/akun/migrasi", {
+          metode: "POST",
+          token: muatSesi(),
+          badan: {
+            xp: lokal.xp,
+            koin: lokal.koin,
+            chat: ratakanChatUntukMigrasi(lokal.chat, lokal.belumDibaca),
+          },
+        });
+        if (tombol) {
+          tombol.disabled = false;
+          tombol.textContent = "Pindahkan ke akun";
+        }
+        if (respons.ok && respons.data && respons.data.progres) {
+          // Pindah ke kunci v2: simpan state yang sama (sudah
+          // dimuat dari v1) ke v2; v1 dibiarkan, tidak dipakai lagi.
+          kunciSimpan = KUNCI_PENYIMPANAN_V2;
+          simpanProgres();
+          simpanKeputusanMigrasi("sudah");
+          tutupDialogMigrasi();
+          tampilkanToast("Progresmu sudah pindah ke akun.");
+          return true;
+        }
+        if (respons.status === 409) {
+          // Akun sudah punya progres (misalnya sudah migrasi di
+          // HP lain): progres lokal tetap di HP ini, jangan tanya
+          // lagi. Sinkronisasi antar-HP datang di 5.5.
+          simpanKeputusanMigrasi("sudah");
+          tutupDialogMigrasi();
+          tampilkanToast("Akun ini sudah punya progres — progres lokal tetap di HP ini.");
+          return false;
+        }
+        // Galat lain (jaringan/server): dialog tetap terbuka supaya
+        // pemain bisa mencoba lagi; keputusan belum dicatat.
+        tampilkanToast(pesanGalatAkun(respons, "Gagal memindahkan progres. Coba lagi."));
+        return false;
+      }
+
+      // "Mulai dari awal": buang progres lokal, mulai segar dengan
+      // kunci v2 (memakai reset yang sama dengan tombol Ulang).
+      function tolakMigrasi() {
+        simpanKeputusanMigrasi("baru");
+        kunciSimpan = KUNCI_PENYIMPANAN_V2;
+        tutupDialogMigrasi();
+        ulangDariAwal();
+        tampilkanToast("Mulai dari awal — progres lama tidak dipindahkan.");
       }
 
       // Kirim formulir Masuk. Mengembalikan true bila masuk
@@ -11583,6 +11830,7 @@
       function ulangDariAwal() {
         try {
           localStorage.removeItem(KUNCI_PENYIMPANAN);
+          localStorage.removeItem(KUNCI_PENYIMPANAN_V2);
         } catch (e) {
           /* gagal hapus tidak menghalangi mulai ulang di memori */
         }
@@ -12132,6 +12380,15 @@
         const btnKeluarAtas = document.getElementById("btn-keluar");
         if (btnKeluarAtas) {
           btnKeluarAtas.addEventListener("click", keluarAkun);
+        }
+        // 5.4: tombol dialog migrasi progres.
+        const btnMigrasiYa = document.getElementById("dialog-migrasi-ya");
+        if (btnMigrasiYa) {
+          btnMigrasiYa.addEventListener("click", kirimMigrasi);
+        }
+        const btnMigrasiBatal = document.getElementById("dialog-migrasi-batal");
+        if (btnMigrasiBatal) {
+          btnMigrasiBatal.addEventListener("click", tolakMigrasi);
         }
         // 5.3b: mode Tamu — tombol, panel nama, dan "Mulai".
         const btnTamu = document.getElementById("masuk-btn-tamu");

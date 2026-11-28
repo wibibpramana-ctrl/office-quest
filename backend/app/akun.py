@@ -211,3 +211,142 @@ def info_akun_publik(baris):
         "email": baris["email"],
         "dibuat_pada": baris["dibuat_pada"],
     }
+
+
+# --- Migrasi progres lokal ke akun (Fase 5.4) ---
+
+
+def hitung_level(xp):
+    """Level dari XP — sama dengan hitungLevel di frontend (model lama:
+    250 XP/level, maks 4). Model ekonomi baru (Fase 6) akan menggantikannya."""
+    n = xp if isinstance(xp, int) and not isinstance(xp, bool) and xp > 0 else 0
+    return min(n // 250 + 1, 4)
+
+
+def _validasi_nilai_migrasi(nama, nilai):
+    if (
+        isinstance(nilai, bool)
+        or not isinstance(nilai, int)
+        or not 0 <= nilai <= 10_000_000
+    ):
+        raise GalatAkun(
+            "migrasi_tidak_valid",
+            f"{nama} migrasi harus bilangan bulat 0–10.000.000.",
+            400,
+        )
+
+
+def _validasi_butir_chat(butir):
+    """Kembalikan butir chat yang sudah dinormalisasi (dibaca -> 0/1)."""
+    if not isinstance(butir, dict):
+        raise GalatAkun(
+            "migrasi_tidak_valid", "Tiap pesan chat harus berupa objek.", 400
+        )
+    for nama in ("karakter", "pengirim"):
+        nilai = butir.get(nama)
+        if (
+            not isinstance(nilai, str)
+            or not 1 <= len(nilai) <= 30
+            or any(ord(c) < 32 for c in nilai)
+        ):
+            raise GalatAkun(
+                "migrasi_tidak_valid",
+                f"{nama} pesan chat 1–30 karakter tanpa karakter kontrol.",
+                400,
+            )
+    isi = butir.get("isi")
+    if not isinstance(isi, str) or not 1 <= len(isi) <= 2000:
+        raise GalatAkun(
+            "migrasi_tidak_valid", "Isi pesan chat 1–2000 karakter.", 400
+        )
+    dibuat_pada = butir.get("dibuat_pada")
+    if not isinstance(dibuat_pada, str):
+        raise GalatAkun(
+            "migrasi_tidak_valid",
+            "dibuat_pada pesan chat harus tanggal ISO.",
+            400,
+        )
+    try:
+        datetime.fromisoformat(dibuat_pada)
+    except ValueError:
+        raise GalatAkun(
+            "migrasi_tidak_valid",
+            "dibuat_pada pesan chat harus tanggal ISO.",
+            400,
+        ) from None
+    dibaca = butir.get("dibaca", True)
+    if not isinstance(dibaca, bool):
+        raise GalatAkun(
+            "migrasi_tidak_valid",
+            "dibaca pesan chat harus benar atau salah.",
+            400,
+        )
+    return {
+        "karakter": butir["karakter"],
+        "pengirim": butir["pengirim"],
+        "isi": isi,
+        "dibuat_pada": dibuat_pada,
+        "dibaca": 1 if dibaca else 0,
+    }
+
+
+def migrasi_progres(conn, akun_id, xp, koin, chat):
+    """Pindahkan progres lokal (simpanan lama / Tamu) ke akun — sekali saja.
+
+    Hanya bila akun belum punya progres (xp=0, koin=0, level=1). Semua
+    tulis dilakukan dalam satu transaksi: progres + pesan_chat. Status
+    tugas lama sengaja tidak ikut (diputuskan Wibi 28 Nov 2026).
+    """
+    _validasi_nilai_migrasi("XP", xp)
+    _validasi_nilai_migrasi("Koin", koin)
+    if not isinstance(chat, list) or len(chat) > 500:
+        raise GalatAkun(
+            "migrasi_tidak_valid", "Chat migrasi maksimal 500 butir.", 400
+        )
+    butir_chat = [_validasi_butir_chat(b) for b in chat]
+    baris = conn.execute(
+        "SELECT xp, koin, level FROM progres WHERE akun_id = ?", (akun_id,)
+    ).fetchone()
+    if baris is None:
+        lama = (0, 0, 1)
+    else:
+        lama = (baris["xp"], baris["koin"], baris["level"])
+    if lama[0] > 0 or lama[1] > 0 or lama[2] > 1:
+        raise GalatAkun(
+            "sudah_punya_progres", "Akun ini sudah punya progres.", 409
+        )
+    sekarang = _iso(_sekarang())
+    level = hitung_level(xp)
+    try:
+        if baris is None:
+            conn.execute(
+                "INSERT INTO progres (akun_id, xp, koin, level, energi,"
+                " energi_dihitung_pada, streak_absen, terakhir_absen, diperbarui_pada)"
+                " VALUES (?, ?, ?, ?, 100, ?, 0, NULL, ?)",
+                (akun_id, xp, koin, level, sekarang, sekarang),
+            )
+        else:
+            conn.execute(
+                "UPDATE progres SET xp = ?, koin = ?, level = ?,"
+                " diperbarui_pada = ? WHERE akun_id = ?",
+                (xp, koin, level, sekarang, akun_id),
+            )
+        conn.execute("DELETE FROM pesan_chat WHERE akun_id = ?", (akun_id,))
+        for b in butir_chat:
+            conn.execute(
+                "INSERT INTO pesan_chat (akun_id, karakter, pengirim, isi,"
+                " dibuat_pada, dibaca) VALUES (?, ?, ?, ?, ?, ?)",
+                (
+                    akun_id,
+                    b["karakter"],
+                    b["pengirim"],
+                    b["isi"],
+                    b["dibuat_pada"],
+                    b["dibaca"],
+                ),
+            )
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    return {"xp": xp, "koin": koin, "level": level, "pesan_chat": len(butir_chat)}

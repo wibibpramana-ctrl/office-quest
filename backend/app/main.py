@@ -10,6 +10,7 @@ Endpoint:
 - POST /akun/keluar      — keluar, hapus sesi (Fase 5.2)
 - GET  /akun/saya        — info akun sendiri (Fase 5.2)
 - POST /akun/ganti-kata-sandi — ganti kata sandi (Fase 5.2)
+- POST /akun/migrasi      — pindahkan progres lokal ke akun (Fase 5.4)
 
 Aturan keamanan (3.5–3.7):
 - CORS hanya untuk alamat GitHub Pages game.
@@ -340,6 +341,11 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
         kata_sandi_lama: str
         kata_sandi_baru: str
 
+    class MigrasiMinta(BaseModel):
+        xp: int
+        koin: int
+        chat: list[dict] = []
+
     @app.post("/akun/daftar", status_code=201)
     def daftar(data: DaftarMinta, request: Request):
         with _db() as conn:
@@ -402,6 +408,25 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
                 raise _galat_akun_http(e) from None
         catat("ganti_kata_sandi", ip=_ip_klien(request))
         return {"status": "ok"}
+
+    @app.post("/akun/migrasi")
+    def migrasi(data: MigrasiMinta, request: Request):
+        with _db() as conn:
+            try:
+                akun = _akun_saat_ini(request, conn)
+                hasil = layanan_akun.migrasi_progres(
+                    conn, akun["id"], data.xp, data.koin, data.chat
+                )
+            except GalatAkun as e:
+                raise _galat_akun_http(e) from None
+        catat(
+            "migrasi",
+            akun_id=akun["id"],
+            xp=data.xp,
+            koin=data.koin,
+            pesan=hasil["pesan_chat"],
+        )
+        return {"status": "ok", "progres": hasil}
 
     return app
 
