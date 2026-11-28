@@ -628,3 +628,64 @@ def simpan_progres(conn, akun_id, xp, koin, chat, hint, inventori, terpasang):
         conn.rollback()
         raise
     return baca_progres(conn, akun_id)
+
+
+def baca_wawancara(conn, akun_id):
+    """Baca hasil wawancara akun (5.6); None bila belum pernah."""
+    baris = conn.execute(
+        "SELECT skor_json, dilewati, selesai_pada FROM wawancara"
+        " WHERE akun_id = ?",
+        (akun_id,),
+    ).fetchone()
+    if baris is None:
+        return None
+    try:
+        skor = json.loads(baris["skor_json"])
+    except (TypeError, ValueError):
+        skor = {}
+    return {
+        "skor": skor if isinstance(skor, dict) else {},
+        "dilewati": bool(baris["dilewati"]),
+        "selesai_pada": baris["selesai_pada"],
+    }
+
+
+def simpan_wawancara(conn, akun_id, skor, dilewati):
+    """Simpan hasil wawancara akun (5.6) — sekali per akun, boleh ditimpa.
+
+    skor: dict {benar, total, jawaban, tingkat}; dilewati: bool.
+    Bila dilewati, skor boleh kosong.
+    """
+    if not isinstance(dilewati, bool):
+        raise GalatAkun(
+            "wawancara_tidak_valid", "Dilewati harus benar/salah.", 400
+        )
+    if skor is None:
+        skor = {}
+    if not isinstance(skor, dict):
+        raise GalatAkun(
+            "wawancara_tidak_valid", "Skor harus berupa objek.", 400
+        )
+    if not dilewati:
+        benar = skor.get("benar")
+        total = skor.get("total")
+        if (
+            not isinstance(benar, int)
+            or not isinstance(total, int)
+            or benar < 0
+            or total <= 0
+            or benar > total
+        ):
+            raise GalatAkun(
+                "wawancara_tidak_valid", "Skor tidak valid.", 400
+            )
+    sekarang = _iso(_sekarang())
+    conn.execute(
+        "INSERT INTO wawancara (akun_id, skor_json, dilewati, selesai_pada)"
+        " VALUES (?, ?, ?, ?)"
+        " ON CONFLICT(akun_id) DO UPDATE SET skor_json = excluded.skor_json,"
+        " dilewati = excluded.dilewati, selesai_pada = excluded.selesai_pada",
+        (akun_id, json.dumps(skor, ensure_ascii=False), 1 if dilewati else 0, sekarang),
+    )
+    conn.commit()
+    return baca_wawancara(conn, akun_id)

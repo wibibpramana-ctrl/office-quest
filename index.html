@@ -1747,6 +1747,21 @@
         border-color: var(--btn-bg-hover);
       }
 
+      /* 5.6: wadah pilihan jawaban wawancara di bar aksi Chat. */
+      .chat__wawancara {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        flex: 1 1 100%;
+      }
+
+      .chat__wawancara-pilihan {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        flex: 1 1 100%;
+      }
+
       .pesan-baris {
         display: flex;
         align-items: flex-end;
@@ -5896,6 +5911,10 @@
                      ada tugas aktif, supaya bar aksi tidak hilang
                      dan percakapan tidak tampak terpotong. -->
                 <span class="chat__aksi-selesai" id="chat-aksi-selesai" hidden>Semua tugas selesai 🎉</span>
+                <div class="chat__wawancara" id="chat-wawancara" hidden>
+                  <div class="chat__wawancara-pilihan" id="chat-wawancara-pilihan"></div>
+                  <button type="button" class="chat__chip" id="chat-wawancara-lewati">Lewati wawancara</button>
+                </div>
               </div>
             </div>
 
@@ -6738,10 +6757,86 @@
         kamu: { nama: "Kamu", peran: "Magang", avatar: "🐻" },
       };
 
+      // 5.6: naskah wawancara awal (cadangan; sumber utama
+      // content/wawancara.json, dimuat pemuat 1.5 bila berbeda).
+      let DATA_WAWANCARA = {
+  "lewati": "Lewati wawancara",
+  "lewatiBalasan": "Tidak apa-apa, kita belajar sambil jalan. Nanti kalau butuh bantuan, tanya Rina atau Dito saja.",
+  "penutup": "Terima kasih! Kamu menjawab {benar} dari {total} dengan benar. Tingkatmu: {tingkat}. Kita mulai dari tugas yang pas buatmu.",
+  "sapaan": "Selamat datang di hari pertamamu! Sebelum mulai kerja, aku mau kenalan dulu sama kemampuan Excel-mu. Ada 5 pertanyaan singkat, jawab santai saja — tidak ada nilai jelek di sini. Kalau mau, kamu bisa lewati wawancara ini.",
+  "soal": [
+    {
+      "benar": "Betul! Februari paling tinggi dengan 150.",
+      "id": "w1",
+      "jawaban": "Februari",
+      "pilihan": [
+        "Januari",
+        "Februari",
+        "Maret"
+      ],
+      "salah": "Belum tepat. Yang paling tinggi Februari dengan 150 — bandingkan angkanya satu per satu.",
+      "skill": "membaca-tabel",
+      "teks": "Pertanyaan 1 dari 5. Di tabel penjualan ini, bulan apa penjualannya paling tinggi? Januari 120, Februari 150, Maret 90."
+    },
+    {
+      "benar": "Betul! 10 + 20 + 30 = 60.",
+      "id": "w2",
+      "jawaban": "60",
+      "pilihan": [
+        "50",
+        "60",
+        "70"
+      ],
+      "salah": "Belum tepat. 10 + 20 + 30 = 60.",
+      "skill": "menjumlahkan",
+      "teks": "Pertanyaan 2 dari 5. Kolom A berisi 10, 20, dan 30. Berapa jumlah ketiganya?"
+    },
+    {
+      "benar": "Betul! SUM adalah rumus penjumlahan di Excel.",
+      "id": "w3",
+      "jawaban": "=SUM(A1:A5)",
+      "pilihan": [
+        "=SUM(A1:A5)",
+        "=TOTAL(A1:A5)",
+        "=JUMLAH(A1:A5)"
+      ],
+      "salah": "Belum tepat. Rumus penjumlahan di Excel adalah =SUM(A1:A5).",
+      "skill": "rumus-sum",
+      "teks": "Pertanyaan 3 dari 5. Rumus apa yang dipakai untuk menjumlahkan sel A1 sampai A5?"
+    },
+    {
+      "benar": "Betul! AVERAGE menghitung rata-rata.",
+      "id": "w4",
+      "jawaban": "=AVERAGE(B1:B4)",
+      "pilihan": [
+        "=AVERAGE(B1:B4)",
+        "=RATA(B1:B4)",
+        "=MEAN(B1:B4)"
+      ],
+      "salah": "Belum tepat. Rumus rata-rata di Excel adalah =AVERAGE(B1:B4).",
+      "skill": "rumus-average",
+      "teks": "Pertanyaan 4 dari 5. Untuk menghitung rata-rata nilai di B1 sampai B4, rumus yang benar?"
+    },
+    {
+      "benar": "Betul! Dito paling tinggi dengan 60.",
+      "id": "w5",
+      "jawaban": "Dito",
+      "pilihan": [
+        "Rina",
+        "Dito",
+        "Bima"
+      ],
+      "salah": "Belum tepat. Dito paling tinggi dengan 60.",
+      "skill": "membaca-tabel",
+      "teks": "Pertanyaan 5 dari 5. Dari tabel ini, siapa penjual dengan penjualan tertinggi? Rina 45, Dito 60, Bima 52."
+    }
+  ]
+};
+
       // ============================================================
       // 1.5: PEMUAT KONTEN — memuat content/*.json saat start.
       // Data tertanam di atas (DATA_TUGAS, DATA_FEEDBACK,
-      // DATA_KARAKTER) adalah CADANGAN: bila pemuatan gagal
+      // DATA_KARAKTER, DATA_WAWANCARA) adalah CADANGAN: bila pemuatan gagal
       // (dibuka langsung dari file, offline, file belum ada),
       // game tetap jalan dengan data cadangan itu. Karena itu
       // pemuat berjalan di latar belakang SETELAH render awal,
@@ -6753,6 +6848,7 @@
         { kunci: "tugas", berkas: "content/tugas/rekap_penjualan.json" },
         { kunci: "tugas", berkas: "content/tugas/absensi.json" },
         { kunci: "tugas", berkas: "content/tugas/penilaian_magang.json" },
+        { kunci: "wawancara", berkas: "content/wawancara.json" },
       ];
 
       function tampilkanIndikatorMuat(tampil) {
@@ -6784,6 +6880,20 @@
             Array.isArray(data.hint) && data.hint.length === 3 &&
             Array.isArray(data.trik) && data.trik.length === 3 &&
             !("checks" in data)
+          );
+        }
+        if (kunci === "wawancara") {
+          return !!(
+            typeof data.sapaan === "string" && data.sapaan &&
+            typeof data.penutup === "string" && data.penutup &&
+            Array.isArray(data.soal) && data.soal.length > 0 &&
+            data.soal.every(function (s) {
+              return (
+                s.id && s.teks && s.skill && s.jawaban &&
+                Array.isArray(s.pilihan) && s.pilihan.length >= 2 &&
+                s.pilihan.indexOf(s.jawaban) !== -1
+              );
+            })
           );
         }
         return false;
@@ -6822,6 +6932,11 @@
             }
             if (feedbackBaru && JSON.stringify(feedbackBaru.data) !== JSON.stringify(DATA_FEEDBACK)) {
               DATA_FEEDBACK = feedbackBaru.data;
+              berubah = true;
+            }
+            const wawancaraBaru = hasil.find(function (h) { return h.kunci === "wawancara"; });
+            if (wawancaraBaru && JSON.stringify(wawancaraBaru.data) !== JSON.stringify(DATA_WAWANCARA)) {
+              DATA_WAWANCARA = wawancaraBaru.data;
               berubah = true;
             }
             const tugasGabung = {};
@@ -7559,6 +7674,17 @@
       // state, buka layar Kantor, dan tampilkan panel "Sebelum
       // mulai" bila belum pernah dilihat.
       async function masukKeGame(profil, akunBaru) {
+        // 5.6: hanya Daftar yang menandai sesi ini sebagai akun
+        // baru — Masuk biasa, refresh, dan Tamu tidak memicu
+        // wawancara.
+        akunBaruSesi = !!akunBaru;
+        // 5.6: wawancara adalah urusan login ini saja — bila login
+        // sebelumnya berhenti di tengah wawancara (atau akun
+        // berganti), mulai dari keadaan bersih; wawancara hanya
+        // jalan bila akun ini baru daftar (akunBaruSesi).
+        wawancara = { aktif: false, soalKe: 0, jawaban: {} };
+        const areaWawancara = document.getElementById("chat-wawancara");
+        if (areaWawancara) areaWawancara.hidden = true;
         state.akun = profil || null;
         tampilkanStatusMasuk(null);
         const elGalat = document.getElementById("masuk-galat");
@@ -7574,7 +7700,13 @@
         // 5.4: pemain lama ditawari migrasi dulu; panel "Sebelum
         // mulai" hanya untuk pemain yang benar-benar baru.
         const migrasiDitawarkan = serverDimuat ? false : tawarkanMigrasi(akunBaru);
-        if (!migrasiDitawarkan && !panduanSudahDilihat()) bukaPanelPanduan();
+        // 5.6: panel panduan dulu bila perlu; bila tidak ada
+        // dialog dan tidak ada panel, wawancara langsung mulai.
+        // Bila dialog ditawarkan, wawancara menunggu dialog
+        // ditutup (kirimMigrasi/tolakMigrasi memanggilnya).
+        const panduanDibuka = !migrasiDitawarkan && !panduanSudahDilihat();
+        if (panduanDibuka) bukaPanelPanduan();
+        else if (!migrasiDitawarkan) cobaMulaiWawancara();
         const panggilan =
           (profil && profil.nama_panggilan) || (profil && profil.nama_akun) || "Kamu";
         tampilkanToast("Selamat datang, " + panggilan + "!");
@@ -7779,6 +7911,8 @@
           simpanKeputusanMigrasi("sudah");
           tutupDialogMigrasi();
           tampilkanToast("Progresmu sudah pindah ke akun.");
+          // 5.6: wawancara mulai setelah dialog ditutup.
+          cobaMulaiWawancara();
           return true;
         }
         if (respons.status === 409) {
@@ -7791,6 +7925,8 @@
           tutupDialogMigrasi();
           tampilkanToast("Akun ini sudah punya progres — progres akunmu dimuat dari server.");
           await muatProgresDariServer(true);
+          // 5.6: wawancara mulai setelah dialog ditutup.
+          cobaMulaiWawancara();
           return false;
         }
         // Galat lain (jaringan/server): dialog tetap terbuka supaya
@@ -7819,6 +7955,8 @@
           tutupDialogMigrasi();
           await muatProgresDariServer(true);
           tampilkanToast("Progres akunmu dimuat dari server.");
+          // 5.6: wawancara mulai setelah dialog ditutup.
+          cobaMulaiWawancara();
           return;
         }
         if (!respons.ok) {
@@ -7830,6 +7968,8 @@
         tutupDialogMigrasi();
         ulangDariAwal();
         tampilkanToast("Mulai dari awal — progres lama tidak dipindahkan.");
+        // 5.6: wawancara mulai setelah dialog ditutup.
+        cobaMulaiWawancara();
       }
 
       // ============================================================
@@ -11677,10 +11817,19 @@
           btn.textContent = "Minta " + konfig.kata + " (" + terpakai + "/" + daftar.length + ")";
           btn.disabled = terpakai >= daftar.length;
         }
-        btn.hidden = !bantuanTampil;
+        // 5.6: selama wawancara aktif di chat Pak Bima, tombol
+        // biasa disembunyikan dan yang tampil hanya pilihan
+        // jawaban wawancara.
+        const wawancaraEl = document.getElementById("chat-wawancara");
+        const wawancaraTampil =
+          wawancara.aktif &&
+          state.chatAktif === "bima" &&
+          wawancaraEl &&
+          !wawancaraEl.hidden;
+        btn.hidden = !bantuanTampil || wawancaraTampil;
         const kirimTampil = state.chatAktif === "bima" && tugasId !== null;
-        if (btnKirim) btnKirim.hidden = !kirimTampil;
-        if (btnJelaskan) btnJelaskan.hidden = !kirimTampil;
+        if (btnKirim) btnKirim.hidden = !kirimTampil || wawancaraTampil;
+        if (btnJelaskan) btnJelaskan.hidden = !kirimTampil || wawancaraTampil;
         // 12.5: bila semua tugas sudah selesai (tidak ada tugas
         // aktif), tampilkan penanda "Semua tugas selesai" dan
         // biarkan bar aksi tetap terlihat — sebelumnya bar
@@ -11692,7 +11841,7 @@
             return state.tugas[id] && state.tugas[id].status === "selesai";
           });
         if (selesai) selesai.hidden = !semuaSelesai;
-        wadah.hidden = !bantuanTampil && !kirimTampil && !semuaSelesai;
+        wadah.hidden = !bantuanTampil && !kirimTampil && !semuaSelesai && !wawancaraTampil;
       }
 
       // ============================================================
@@ -11800,6 +11949,151 @@
         renderPercakapan("bima");
         gulirPesanKeBawah();
         kirimBalasanNpc("bima", { dari: "bima", teks: DATA_TUGAS[tugasId].brief, waktu: kini });
+      }
+
+      // ============================================================
+      // 5.6: WAWANCARA AWAL — hanya untuk akun baru Daftar.
+      // Percakapan santai dengan Pak Bima di Chat: sapaan, 5 soal
+      // pilihan ganda (jawaban diketuk, bukan diketik — Chat memang
+      // tidak punya kolom ketik bebas), umpan balik per soal, lalu
+      // penutup berisi skor. Hasil disimpan ke server
+      // (POST /akun/wawancara); bila dilewati, yang disimpan
+      // dilewati=true. Pemicu: akunBaruSesi — hanya kirimDaftar
+      // yang memanggil masukKeGame(profil, true). Masuk biasa,
+      // refresh, dan Tamu TIDAK PERNAH memicu wawancara, begitu
+      // pula akun lama yang daftar sebelum 5.6 tayang.
+      // ============================================================
+      let wawancara = { aktif: false, soalKe: 0, jawaban: {} };
+      let akunBaruSesi = false;
+
+      function tingkatWawancara(benar, total) {
+        if (benar >= total) return "mahir";
+        if (benar >= 3) return "menengah";
+        return "pemula";
+      }
+
+      function simpanWawancaraKeServer(skor, dilewati) {
+        if (!state.akun) return Promise.resolve();
+        return panggilApi("/akun/wawancara", {
+          metode: "POST",
+          badan: { skor: skor, dilewati: dilewati },
+          token: muatSesi(),
+        });
+      }
+
+      function tampilkanPilihanWawancara() {
+        const wadah = document.getElementById("chat-wawancara-pilihan");
+        const area = document.getElementById("chat-wawancara");
+        if (!wadah || !area) return;
+        const soal = DATA_WAWANCARA.soal[wawancara.soalKe];
+        if (!soal) return;
+        wadah.innerHTML = "";
+        soal.pilihan.forEach(function (teks) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "chat__chip chat__chip--utama";
+          btn.textContent = teks;
+          btn.addEventListener("click", function () {
+            jawabWawancara(teks);
+          });
+          wadah.appendChild(btn);
+        });
+        area.hidden = false;
+        perbaruiTombolBantuan();
+      }
+
+      function sembunyikanPilihanWawancara() {
+        const area = document.getElementById("chat-wawancara");
+        if (area) area.hidden = true;
+        perbaruiTombolBantuan();
+      }
+
+      function jawabWawancara(teks) {
+        if (!wawancara.aktif) return;
+        const soal = DATA_WAWANCARA.soal[wawancara.soalKe];
+        if (!soal) return;
+        wawancara.jawaban[soal.id] = teks;
+        if (!state.chat.bima) state.chat.bima = [];
+        state.chat.bima.push({ dari: "kamu", teks: teks, waktu: Date.now() });
+        simpanProgres();
+        renderPercakapan("bima");
+        gulirPesanKeBawah();
+        sembunyikanPilihanWawancara();
+        const umpan = teks === soal.jawaban ? soal.benar : soal.salah;
+        wawancara.soalKe += 1;
+        const lanjut = wawancara.soalKe < DATA_WAWANCARA.soal.length;
+        kirimBalasanNpc(
+          "bima",
+          { dari: "bima", teks: umpan, waktu: Date.now() },
+          function () {
+            if (lanjut) tanyaWawancaraBerikutnya();
+            else selesaiWawancara();
+          }
+        );
+      }
+
+      function tanyaWawancaraBerikutnya() {
+        const soal = DATA_WAWANCARA.soal[wawancara.soalKe];
+        if (!soal) {
+          selesaiWawancara();
+          return;
+        }
+        kirimBalasanNpc(
+          "bima",
+          { dari: "bima", teks: soal.teks, waktu: Date.now() },
+          function () {
+            tampilkanPilihanWawancara();
+          }
+        );
+      }
+
+      function selesaiWawancara() {
+        const total = DATA_WAWANCARA.soal.length;
+        let benar = 0;
+        DATA_WAWANCARA.soal.forEach(function (soal) {
+          if (wawancara.jawaban[soal.id] === soal.jawaban) benar += 1;
+        });
+        const tingkat = tingkatWawancara(benar, total);
+        const penutup = DATA_WAWANCARA.penutup
+          .replace("{benar}", String(benar))
+          .replace("{total}", String(total))
+          .replace("{tingkat}", tingkat);
+        wawancara.aktif = false;
+        sembunyikanPilihanWawancara();
+        kirimBalasanNpc("bima", { dari: "bima", teks: penutup, waktu: Date.now() });
+        simpanWawancaraKeServer(
+          { benar: benar, total: total, jawaban: wawancara.jawaban, tingkat: tingkat },
+          false
+        );
+        akunBaruSesi = false;
+      }
+
+      function lewatiWawancara() {
+        if (!wawancara.aktif) return;
+        wawancara.aktif = false;
+        sembunyikanPilihanWawancara();
+        kirimBalasanNpc("bima", { dari: "bima", teks: DATA_WAWANCARA.lewatiBalasan, waktu: Date.now() });
+        simpanWawancaraKeServer({}, true);
+        akunBaruSesi = false;
+      }
+
+      function mulaiWawancara() {
+        if (!state.akun || wawancara.aktif) return;
+        wawancara = { aktif: true, soalKe: 0, jawaban: {} };
+        tampilkanLayar("chat");
+        bukaPercakapan("bima");
+        kirimBalasanNpc(
+          "bima",
+          { dari: "bima", teks: DATA_WAWANCARA.sapaan, waktu: Date.now() },
+          function () {
+            tanyaWawancaraBerikutnya();
+          }
+        );
+      }
+
+      function cobaMulaiWawancara() {
+        if (!akunBaruSesi || wawancara.aktif || !state.akun) return;
+        mulaiWawancara();
       }
 
       // Membuka percakapan menandai pesannya sudah dibaca:
@@ -12207,6 +12501,8 @@
         tandaiPanduanDilihat();
         const judul = document.getElementById("kantor-title");
         if (judul) judul.focus();
+        // 5.6: wawancara mulai setelah panel panduan ditutup.
+        cobaMulaiWawancara();
       }
 
       function init() {
@@ -12477,6 +12773,7 @@
         });
 
         document.getElementById("chat-btn-bantuan").addEventListener("click", mintaBantuan);
+        document.getElementById("chat-wawancara-lewati").addEventListener("click", lewatiWawancara);
 
         // Tombol "Kirim laporan" di chat Pak Bima: membuka layar
         // Tugas, yang menampilkan tugas aktif beserta kontrol

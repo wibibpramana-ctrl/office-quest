@@ -256,7 +256,10 @@ function cekWawancara() {
       }
     }
   }
-  cekUmum(file, data, false);
+  // 5.6: soal wawancara memang berisi rumus (=SUM, =AVERAGE) —
+  // itu isi soalnya, bukan kebocoran jawaban — jadi cek rumus
+  // dilewati; cek apostrof/kutip/placeholder tetap jalan.
+  cekUmum(file, data, true);
   if (jumlahGagal === gagalSebelum) lolos(file);
 }
 

@@ -13,6 +13,8 @@ Endpoint:
 - POST /akun/migrasi      — pindahkan progres lokal ke akun (Fase 5.4)
 - GET  /akun/progres      — baca progres tersimpan (Fase 5.5)
 - POST /akun/progres      — simpan progres (Fase 5.5)
+- GET  /akun/wawancara    — baca hasil wawancara (Fase 5.6)
+- POST /akun/wawancara    — simpan hasil wawancara (Fase 5.6)
 
 Aturan keamanan (3.5–3.7):
 - CORS hanya untuk alamat GitHub Pages game.
@@ -356,6 +358,10 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
         inventori: list[str] = []
         terpasang: dict = {}
 
+    class WawancaraMinta(BaseModel):
+        skor: dict | None = None
+        dilewati: bool = False
+
     @app.post("/akun/daftar", status_code=201)
     def daftar(data: DaftarMinta, request: Request):
         with _db() as conn:
@@ -464,6 +470,26 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
                 raise _galat_akun_http(e) from None
         catat("simpan_progres", ip=_ip_klien(request))
         return {"status": "ok", "progres": hasil}
+
+    @app.get("/akun/wawancara")
+    def baca_wawancara(request: Request):
+        with _db() as conn:
+            akun = _akun_saat_ini(request, conn)
+            hasil = layanan_akun.baca_wawancara(conn, akun["id"])
+        return {"status": "ok", "wawancara": hasil}
+
+    @app.post("/akun/wawancara")
+    def simpan_wawancara(data: WawancaraMinta, request: Request):
+        with _db() as conn:
+            try:
+                akun = _akun_saat_ini(request, conn)
+                hasil = layanan_akun.simpan_wawancara(
+                    conn, akun["id"], data.skor, data.dilewati
+                )
+            except GalatAkun as e:
+                raise _galat_akun_http(e) from None
+        catat("simpan_wawancara", ip=_ip_klien(request))
+        return {"status": "ok", "wawancara": hasil}
 
     return app
 
