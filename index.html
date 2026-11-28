@@ -7255,6 +7255,20 @@
         return null;
       }
 
+      // 5.5b: pemilik simpanan lokal — akun yang masuk, atau cap
+      // lama bila tidak ada akun yang masuk (misalnya simpanan
+      // ulang saat buka halaman sebelum masuk).
+      function capPemilikSimpanan() {
+        if (state.akun && state.akun.nama_akun) return state.akun.nama_akun;
+        try {
+          const lama = JSON.parse(localStorage.getItem(kunciSimpan) || "null");
+          if (lama && typeof lama.akun === "string") return lama.akun;
+        } catch (e) {
+          /* berkas rusak: tidak ada pemilik */
+        }
+        return null;
+      }
+
       // Simpan seluruh progres saat ini. Dipanggil setelah tiap
       // perubahan state (seedChat, tandaiSudahDibaca,
       // mintaBantuan, dan ulang dari awal). Gagal tulis tidak
@@ -7275,6 +7289,10 @@
               kostum: state.kostum,
               karakter: state.karakter,
               meja: state.meja,
+              // 5.5b: cap pemilik simpanan lokal (nama akun, atau
+              // null bila tamu) — dipakai tawaran migrasi supaya
+              // progres tidak diam-diam pindah ke akun lain.
+              akun: capPemilikSimpanan(),
               // 5.5: cap waktu simpanan lokal (ms) — pembanding
               // dengan diperbarui_pada server saat memuat.
               disimpan_pada: Date.now(),
@@ -7540,7 +7558,7 @@
       // Masuk ke game setelah akun terbukti: simpan profil di
       // state, buka layar Kantor, dan tampilkan panel "Sebelum
       // mulai" bila belum pernah dilihat.
-      function masukKeGame(profil) {
+      function masukKeGame(profil, akunBaru) {
         state.akun = profil || null;
         tampilkanStatusMasuk(null);
         const elGalat = document.getElementById("masuk-galat");
@@ -7548,7 +7566,7 @@
         tampilkanLayar("kantor");
         // 5.4: pemain lama ditawari migrasi dulu; panel "Sebelum
         // mulai" hanya untuk pemain yang benar-benar baru.
-        const migrasiDitawarkan = tawarkanMigrasi();
+        const migrasiDitawarkan = tawarkanMigrasi(akunBaru);
         if (!migrasiDitawarkan && !panduanSudahDilihat()) bukaPanelPanduan();
         // 5.5: muat progres dari server (bila lebih baru dari
         // simpanan lokal) — hanya bila tidak ada tawaran migrasi
@@ -7568,6 +7586,8 @@
       // jatah hint ikut tersimpan di kunci v2, belum di server
       // (sinkronisasi penuh di 5.5). Setelah migrasi, simpanan
       // memakai kunci v2; v1 dibiarkan, tidak lagi dipakai.
+      // 5.5b: tawaran mengikuti akun (cap akun di simpanan);
+      // sumber migrasi = simpanan aktif (v2 bila ada).
       // ============================================================
       function bacaKeputusanMigrasi() {
         try {
@@ -7663,12 +7683,36 @@
 
       // Tawarkan migrasi setelah masuk ke game. Mengembalikan
       // true bila dialog dibuka. Dipanggil dari masukKeGame.
-      function tawarkanMigrasi() {
+      // 5.5b: tawaran mengikuti AKUN, bukan perangkat. Simpanan
+      // lokal dicap nama akun pemiliknya (simpanProgres); bila
+      // simpanan itu milik akun lain atau tamu dan ada progres,
+      // akun yang masuk ditawari memindahkannya atau mulai dari
+      // awal — supaya progres tidak diam-diam pindah akun lalu
+      // ikut tersimpan ke server akun yang salah. Parameter
+      // akunBaru (dari kirimDaftar): akun yang baru dibuat belum
+      // pernah punya klaim atas simpanan perangkat ini, jadi
+      // tawarannya tidak boleh dibatalkan keputusan lama.
+      function tawarkanMigrasi(akunBaru) {
         if (!state.akun) return false;
-        if (bacaKeputusanMigrasi()) return false;
-        if (bacaSimpananKunci(KUNCI_PENYIMPANAN_V2)) return false;
-        const lokal = bacaSimpananKunci(KUNCI_PENYIMPANAN);
+        const nama = state.akun.nama_akun;
+        // Simpanan aktif: v2 dulu, lalu v1.
+        let lokal = bacaSimpananKunci(KUNCI_PENYIMPANAN_V2);
+        let dariV2 = true;
+        if (!lokal) {
+          lokal = bacaSimpananKunci(KUNCI_PENYIMPANAN);
+          dariV2 = false;
+        }
         if (!adaProgresLokalUntukMigrasi(lokal)) return false;
+        // Simpanan sudah milik akun ini -> tidak perlu ditawarkan.
+        if (lokal.akun === nama) return false;
+        // Simpanan lama tanpa cap akun (sebelum 5.5b): ikuti
+        // aturan lama — bila keputusan sudah dicatat, atau v2
+        // sudah ada, jangan tanya lagi; kecuali akun baru saja
+        // dibuat, yang belum pernah memutuskan apa-apa.
+        if (!lokal.akun && !akunBaru) {
+          if (bacaKeputusanMigrasi()) return false;
+          if (dariV2) return false;
+        }
         const teks = document.getElementById("dialog-migrasi-teks");
         if (teks) {
           teks.textContent =
@@ -7696,7 +7740,12 @@
       // pakai kunci v2 untuk simpanan selanjutnya. Mengembalikan
       // true bila migrasi berhasil.
       async function kirimMigrasi() {
-        const lokal = bacaSimpananKunci(KUNCI_PENYIMPANAN);
+        // 5.5b: sumbernya simpanan aktif (v2 bila ada, kalau
+        // tidak v1) — progres akun lain di perangkat ini hidup
+        // di v2, bukan v1.
+        const lokal =
+          bacaSimpananKunci(KUNCI_PENYIMPANAN_V2) ||
+          bacaSimpananKunci(KUNCI_PENYIMPANAN);
         if (!lokal || !state.akun) {
           tutupDialogMigrasi();
           return false;
@@ -8009,7 +8058,7 @@
           simpanSesi(respons.data.token);
           const profil = Object.assign({}, respons.data);
           delete profil.token;
-          masukKeGame(profil);
+          masukKeGame(profil, true);
           return true;
         }
         tampilkanGalatMasuk(pesanGalatAkun(respons, "Tidak bisa membuat akun. Coba lagi."));
