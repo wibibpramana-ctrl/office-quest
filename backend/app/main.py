@@ -11,6 +11,8 @@ Endpoint:
 - GET  /akun/saya        — info akun sendiri (Fase 5.2)
 - POST /akun/ganti-kata-sandi — ganti kata sandi (Fase 5.2)
 - POST /akun/migrasi      — pindahkan progres lokal ke akun (Fase 5.4)
+- GET  /akun/progres      — baca progres tersimpan (Fase 5.5)
+- POST /akun/progres      — simpan progres (Fase 5.5)
 
 Aturan keamanan (3.5–3.7):
 - CORS hanya untuk alamat GitHub Pages game.
@@ -346,6 +348,14 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
         koin: int
         chat: list[dict] = []
 
+    class ProgresMinta(BaseModel):
+        xp: int
+        koin: int
+        chat: list[dict] = []
+        hint: dict = {}
+        inventori: list[str] = []
+        terpasang: dict = {}
+
     @app.post("/akun/daftar", status_code=201)
     def daftar(data: DaftarMinta, request: Request):
         with _db() as conn:
@@ -426,6 +436,33 @@ def buat_app(garam=None, batas_laju_per_menit=BATAS_LAJU_PER_MENIT):
             koin=data.koin,
             pesan=hasil["pesan_chat"],
         )
+        return {"status": "ok", "progres": hasil}
+
+    @app.get("/akun/progres")
+    def baca_progres(request: Request):
+        with _db() as conn:
+            akun = _akun_saat_ini(request, conn)
+            hasil = layanan_akun.baca_progres(conn, akun["id"])
+        return {"status": "ok", "progres": hasil}
+
+    @app.post("/akun/progres")
+    def simpan_progres(data: ProgresMinta, request: Request):
+        with _db() as conn:
+            try:
+                akun = _akun_saat_ini(request, conn)
+                hasil = layanan_akun.simpan_progres(
+                    conn,
+                    akun["id"],
+                    data.xp,
+                    data.koin,
+                    data.chat,
+                    data.hint,
+                    data.inventori,
+                    data.terpasang,
+                )
+            except GalatAkun as e:
+                raise _galat_akun_http(e) from None
+        catat("simpan_progres", ip=_ip_klien(request))
         return {"status": "ok", "progres": hasil}
 
     return app

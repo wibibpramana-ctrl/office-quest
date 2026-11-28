@@ -6917,6 +6917,10 @@
       // 5.4: kunci yang dipakai simpanProgres — v1 sampai pemain
       // migrasi/memilih mulai dari awal, lalu v2.
       let kunciSimpan = KUNCI_PENYIMPANAN;
+      // 5.5: cap waktu simpanan saat dimuat (ms) — umur isi lokal
+      // untuk muatProgresDariServer. simpanProgres saat init tidak
+      // boleh menaikkan cap ini (isinya tidak berubah).
+      let capWaktuMuat = 0;
 
       // 5.3: alamat backend (satu tempat; tanpa rahasia) dan
       // kunci token sesi di localStorage.
@@ -7037,14 +7041,19 @@
         const dariV2 = bacaSimpananKunci(KUNCI_PENYIMPANAN_V2);
         if (dariV2) {
           kunciSimpan = KUNCI_PENYIMPANAN_V2;
+          capWaktuMuat =
+            typeof dariV2.disimpan_pada === "number" ? dariV2.disimpan_pada : 0;
           return dariV2;
         }
         const dariV1 = bacaSimpananKunci(KUNCI_PENYIMPANAN);
         if (dariV1) {
           kunciSimpan = KUNCI_PENYIMPANAN;
+          capWaktuMuat =
+            typeof dariV1.disimpan_pada === "number" ? dariV1.disimpan_pada : 0;
           return dariV1;
         }
         kunciSimpan = KUNCI_PENYIMPANAN;
+        capWaktuMuat = 0;
         return null;
       }
 
@@ -7266,11 +7275,17 @@
               kostum: state.kostum,
               karakter: state.karakter,
               meja: state.meja,
+              // 5.5: cap waktu simpanan lokal (ms) — pembanding
+              // dengan diperbarui_pada server saat memuat.
+              disimpan_pada: Date.now(),
             }),
           );
         } catch (e) {
           /* penyimpanan diblokir/penuh: lanjut di memori saja */
         }
+        // 5.5: perubahan progres juga disimpan ke server
+        // (tertunda 2 detik; diam-diam bila gagal).
+        jadwalkanSimpanServer();
       }
 
       // ============================================================
@@ -7533,7 +7548,12 @@
         tampilkanLayar("kantor");
         // 5.4: pemain lama ditawari migrasi dulu; panel "Sebelum
         // mulai" hanya untuk pemain yang benar-benar baru.
-        if (!tawarkanMigrasi() && !panduanSudahDilihat()) bukaPanelPanduan();
+        const migrasiDitawarkan = tawarkanMigrasi();
+        if (!migrasiDitawarkan && !panduanSudahDilihat()) bukaPanelPanduan();
+        // 5.5: muat progres dari server (bila lebih baru dari
+        // simpanan lokal) — hanya bila tidak ada tawaran migrasi
+        // yang menunggu dijawab; berjalan di latar, tanpa menunggu.
+        if (!migrasiDitawarkan) muatProgresDariServer();
         const panggilan =
           (profil && profil.nama_panggilan) || (profil && profil.nama_akun) || "Kamu";
         tampilkanToast("Selamat datang, " + panggilan + "!");
@@ -7732,6 +7752,167 @@
         tutupDialogMigrasi();
         ulangDariAwal();
         tampilkanToast("Mulai dari awal — progres lama tidak dipindahkan.");
+      }
+
+      // ============================================================
+      // 5.5: PROGRES TERSIMPAN DI SERVER
+      // Setelah masuk, progres dibaca dari server (bila ada) dan
+      // setiap perubahan disimpan ke server otomatis (tunda 2 detik
+      // supaya tidak membanjiri server). Bila server tidak bisa
+      // dihubungi, game tetap jalan dari simpanan HP dan mencoba
+      // lagi di perubahan berikutnya. Status 3 tugas lama TIDAK
+      // ikut (diputuskan Wibi 28 Nov 2026). Aturan tulis-terakhir-
+      // menang: yang paling baru (lokal/server, dari cap waktu)
+      // yang dipakai; migrasi 5.4 tetap tidak pernah menimpa.
+      // ============================================================
+      const JEDA_SIMPAN_SERVER = 2000;
+      let timerSimpanServer = null;
+      let sedangSimpanServer = false;
+      let simpanServerTertunda = false;
+
+      // Kostum + meja yang dipakai -> bentuk terpasang server
+      // {kepala, wajah, baju, celana, sepatu, meja}. Inventori
+      // (daftar item yang dimiliki) belum dilacak frontend —
+      // semua item Toko dimiliki bawaan — jadi yang dikirim
+      // inventori kosong; daftar kepemilikan menyusul di Fase 8.
+      function terpasangDariState() {
+        const kostum = state.kostum || kostumAwal();
+        return {
+          kepala: kostum.kepala || null,
+          wajah: kostum.wajah || null,
+          baju: kostum.baju || null,
+          celana: kostum.celana || null,
+          sepatu: kostum.sepatu || null,
+          meja: state.meja || null,
+        };
+      }
+
+      // Terapkan terpasang server ke state. Slot yang tidak
+      // dikirim server dibiarkan (supaya kostum bawaan tidak
+      // hilang saat server belum menyimpan apa-apa).
+      function terapkanTerpasang(terpasang) {
+        if (!terpasang || typeof terpasang !== "object" || Array.isArray(terpasang)) return;
+        const kostum = Object.assign({}, state.kostum || kostumAwal());
+        SLOT_KOSTUM.forEach(function (slot) {
+          if (!(slot in terpasang)) return;
+          const id = terpasang[slot];
+          kostum[slot] =
+            typeof id === "string" && DATA_TOKO[id] && DATA_TOKO[id].kategori === slot
+              ? id
+              : null;
+        });
+        state.kostum = kostum;
+        if ("meja" in terpasang) state.meja = normalisasiMeja(terpasang.meja);
+      }
+
+      // Daftar datar server -> chat lokal {kontak: [{dari, teks,
+      // waktu}]} + hitungan belum dibaca per kontak.
+      function bangunChatDariDaftar(daftar) {
+        const chat = {};
+        const belumDibaca = {};
+        (daftar || []).forEach(function (butir) {
+          if (!butir || typeof butir.isi !== "string") return;
+          const karakter = butir.karakter;
+          if (typeof karakter !== "string" || !karakter) return;
+          if (!Array.isArray(chat[karakter])) chat[karakter] = [];
+          const waktu = Date.parse(butir.dibuat_pada);
+          chat[karakter].push({
+            dari: butir.pengirim === "kamu" ? "kamu" : karakter,
+            teks: butir.isi,
+            waktu: isFinite(waktu) ? waktu : Date.now(),
+          });
+          if (butir.pengirim !== "kamu" && butir.dibaca === false) {
+            belumDibaca[karakter] = (belumDibaca[karakter] || 0) + 1;
+          }
+        });
+        return { chat: chat, belumDibaca: belumDibaca };
+      }
+
+      // Simpan progres ke server (diam-diam, tanpa toast).
+      // Mengembalikan true bila tersimpan. 401 = sesi habis,
+      // jangan coba lagi; galat lain = coba lagi di perubahan
+      // berikutnya.
+      async function simpanProgresKeServer() {
+        if (!state.akun) return false;
+        if (sedangSimpanServer) {
+          simpanServerTertunda = true;
+          return false;
+        }
+        sedangSimpanServer = true;
+        const respons = await panggilApi("/akun/progres", {
+          metode: "POST",
+          token: muatSesi(),
+          badan: {
+            xp: state.xp,
+            koin: state.koin,
+            chat: ratakanChatUntukMigrasi(state.chat, state.belumDibaca),
+            hint: state.hint,
+            inventori: [],
+            terpasang: terpasangDariState(),
+          },
+        });
+        sedangSimpanServer = false;
+        if (respons.ok) {
+          if (simpanServerTertunda) {
+            simpanServerTertunda = false;
+            jadwalkanSimpanServer();
+          }
+          return true;
+        }
+        if (respons.status === 401) {
+          simpanServerTertunda = false;
+          return false;
+        }
+        simpanServerTertunda = true;
+        return false;
+      }
+
+      // Jadwalkan simpan ke server sesudah jeda singkat.
+      function jadwalkanSimpanServer() {
+        if (!state.akun) return;
+        if (timerSimpanServer !== null) clearTimeout(timerSimpanServer);
+        timerSimpanServer = setTimeout(simpanProgresKeServer, JEDA_SIMPAN_SERVER);
+      }
+
+      // Muat progres dari server saat masuk. Server dipakai bila
+      // simpanan lokal masih segar (belum ada progres) atau
+      // server lebih baru dari simpanan lokal (cap waktu).
+      // Mengembalikan true bila progres server diterapkan.
+      async function muatProgresDariServer() {
+        if (!state.akun) return false;
+        const respons = await panggilApi("/akun/progres", { token: muatSesi() });
+        if (!respons.ok || !respons.data || !respons.data.progres) return false;
+        const jauh = respons.data.progres;
+        const serverAdaIsi =
+          jauh.xp > 0 ||
+          jauh.koin > 0 ||
+          (Array.isArray(jauh.chat) && jauh.chat.length > 0);
+        if (!serverAdaIsi) return false;
+        const lokalSegar =
+          state.xp === 0 &&
+          state.koin === 0 &&
+          jumlahPesanChatAsli(state.chat) === 0;
+        // Umur isi lokal = cap waktu saat dimuat (bukan berkas yang
+        // sudah ditulis ulang init dengan cap baru).
+        const waktuLokal = capWaktuMuat;
+        const waktuServer = Date.parse(jauh.diperbarui_pada || "");
+        const serverLebihBaru = isFinite(waktuServer) && waktuServer >= waktuLokal;
+        if (!lokalSegar && !serverLebihBaru) return false;
+        if (typeof jauh.xp === "number") state.xp = jauh.xp;
+        if (typeof jauh.koin === "number") state.koin = jauh.koin;
+        const dibangun = bangunChatDariDaftar(jauh.chat);
+        state.chat = dibangun.chat;
+        state.belumDibaca = dibangun.belumDibaca;
+        if (jauh.hint && typeof jauh.hint === "object" && !Array.isArray(jauh.hint)) {
+          state.hint = jauh.hint;
+        }
+        terapkanTerpasang(jauh.terpasang);
+        // Progres dari server disimpan di kunci v2 (bukan v1),
+        // supaya tawaran migrasi tidak muncul lagi.
+        kunciSimpan = KUNCI_PENYIMPANAN_V2;
+        renderBarAtas();
+        simpanProgres();
+        return true;
       }
 
       // Kirim formulir Masuk. Mengembalikan true bila masuk
