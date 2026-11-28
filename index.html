@@ -5494,6 +5494,65 @@
         margin-top: 16px;
       }
 
+      /* 5.3b: mode Tamu + ikon mata. */
+      .masuk__pemisah {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 20px 0 12px;
+        color: var(--card-muted);
+        font-size: 0.85rem;
+      }
+
+      .masuk__pemisah::before,
+      .masuk__pemisah::after {
+        content: "";
+        flex: 1;
+        border-top: 1px solid var(--border);
+      }
+
+      .masuk__tamu-catatan {
+        margin: 0 0 4px;
+        font-size: 0.85rem;
+        color: var(--card-muted);
+      }
+
+      #masuk-tamu-mulai {
+        margin-top: 16px;
+      }
+
+      #masuk-tamu-tutup {
+        display: block;
+        margin: 12px auto 0;
+      }
+
+      .masuk__sandi-wrap {
+        position: relative;
+      }
+
+      .masuk__input--sandi {
+        padding-right: 48px;
+      }
+
+      .masuk__mata {
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        min-height: 40px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        font-size: 1.1rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .masuk__mata--aktif {
+        background: var(--accent);
+      }
+
 </style>
   </head>
   <body class="layar-kantor">
@@ -6136,7 +6195,10 @@
               <label class="masuk__label" for="masuk-nama">Nama akun</label>
               <input class="masuk__input" id="masuk-nama" name="nama_akun" type="text" autocomplete="username" required>
               <label class="masuk__label" for="masuk-sandi">Kata sandi</label>
-              <input class="masuk__input" id="masuk-sandi" name="kata_sandi" type="password" autocomplete="current-password" required>
+              <div class="masuk__sandi-wrap">
+                <input class="masuk__input masuk__input--sandi" id="masuk-sandi" name="kata_sandi" type="password" autocomplete="current-password" required>
+                <button type="button" class="masuk__mata" data-target="masuk-sandi" aria-label="Lihat kata sandi" aria-pressed="false">👁</button>
+              </div>
               <button type="submit" class="btn-primary btn-primary--full" id="masuk-btn-masuk">Masuk</button>
               <button type="button" class="masuk__lupa" id="masuk-btn-lupa">Lupa kata sandi?</button>
             </form>
@@ -6145,10 +6207,16 @@
               <input class="masuk__input" id="daftar-nama" name="nama_akun" type="text" autocomplete="username" required>
               <p class="masuk__petunjuk">3–30 karakter, diawali huruf, hanya huruf, angka, dan garis bawah.</p>
               <label class="masuk__label" for="daftar-sandi">Kata sandi</label>
-              <input class="masuk__input" id="daftar-sandi" name="kata_sandi" type="password" autocomplete="new-password" required>
+              <div class="masuk__sandi-wrap">
+                <input class="masuk__input masuk__input--sandi" id="daftar-sandi" name="kata_sandi" type="password" autocomplete="new-password" required>
+                <button type="button" class="masuk__mata" data-target="daftar-sandi" aria-label="Lihat kata sandi" aria-pressed="false">👁</button>
+              </div>
               <p class="masuk__petunjuk">Minimal 8 karakter.</p>
               <label class="masuk__label" for="daftar-sandi-ulang">Ulangi kata sandi</label>
-              <input class="masuk__input" id="daftar-sandi-ulang" name="kata_sandi_ulang" type="password" autocomplete="new-password" required>
+              <div class="masuk__sandi-wrap">
+                <input class="masuk__input masuk__input--sandi" id="daftar-sandi-ulang" name="kata_sandi_ulang" type="password" autocomplete="new-password" required>
+                <button type="button" class="masuk__mata" data-target="daftar-sandi-ulang" aria-label="Lihat kata sandi" aria-pressed="false">👁</button>
+              </div>
               <label class="masuk__label" for="daftar-panggilan">Nama panggilan (boleh kosong)</label>
               <input class="masuk__input" id="daftar-panggilan" name="nama_panggilan" type="text" autocomplete="nickname" maxlength="30">
               <label class="masuk__label" for="daftar-email">Email (boleh kosong, untuk lupa kata sandi)</label>
@@ -6161,6 +6229,15 @@
                 buat akun baru dari tab “Daftar”.
               </p>
               <button type="button" class="btn-secondary" id="masuk-lupa-tutup">Kembali</button>
+            </div>
+            <div class="masuk__pemisah" aria-hidden="true"><span>atau</span></div>
+            <button type="button" class="btn-secondary btn-primary--full" id="masuk-btn-tamu">Main sebagai Tamu</button>
+            <div class="masuk__tamu-panel" id="masuk-tamu-panel" hidden>
+              <p class="masuk__tamu-catatan">Progres tamu hanya tersimpan di HP ini. Daftar nanti supaya progresmu aman dan bisa dimainkan di HP lain.</p>
+              <label class="masuk__label" for="masuk-tamu-nama">Nama panggilan</label>
+              <input class="masuk__input" id="masuk-tamu-nama" name="nama_panggilan_tamu" type="text" autocomplete="nickname" maxlength="30" placeholder="Misalnya: Wibi">
+              <button type="button" class="btn-primary btn-primary--full" id="masuk-tamu-mulai">Mulai sebagai Tamu</button>
+              <button type="button" class="btn-secondary" id="masuk-tamu-tutup">Kembali</button>
             </div>
           </div>
         </section>
@@ -6788,6 +6865,7 @@
         belumDibaca: {},
         layar: "kantor",
         akun: null,
+        tamu: null,
         kostum: null,
         karakter: "beruang",
         meja: "set_meja_1",
@@ -6807,6 +6885,8 @@
       // kunci token sesi di localStorage.
       const ALAMAT_SERVER = "https://Wibi.pythonanywhere.com";
       const KUNCI_SESI = "office-quest-sesi";
+      // 5.3b: nama tamu terakhir, supaya kolom nama terisi otomatis.
+      const KUNCI_TAMU = "office-quest-tamu";
 
       // Seed acak dibuat sekali saat pertama kali bermain (atau
       // setelah "Ulang"); belum dipakai fitur lain — nanti
@@ -7194,6 +7274,96 @@
         }
       }
 
+      // 5.3b: nama tamu tersimpan di localStorage (KUNCI_TAMU)
+      // supaya kolom nama terisi otomatis saat kembali.
+      function simpanTamu(nama) {
+        try {
+          localStorage.setItem(KUNCI_TAMU, nama);
+        } catch (e) {
+          /* abaikan */
+        }
+      }
+
+      function muatTamu() {
+        try {
+          return localStorage.getItem(KUNCI_TAMU);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      // Nama yang ditampilkan untuk pemain: tamu memakai nama
+      // yang ia isi, akun memakai nama panggilan, sisanya "Kamu".
+      function namaPemainTampil() {
+        if (state.tamu && state.tamu.nama_panggilan) return state.tamu.nama_panggilan;
+        if (state.akun && state.akun.nama_panggilan) return state.akun.nama_panggilan;
+        if (state.akun && state.akun.nama_akun) return state.akun.nama_akun;
+        return "Kamu";
+      }
+
+      // Masuk sebagai tamu: tanpa akun, tanpa kata sandi, tanpa
+      // panggilan server. Progres tetap tersimpan lokal seperti
+      // biasa; daftar nanti (5.4) memindahkan progres ini ke akun.
+      function masukSebagaiTamu(nama) {
+        const panggilan = ((nama || "").trim() || "Kamu").slice(0, 30);
+        state.akun = null;
+        state.tamu = { nama_panggilan: panggilan };
+        simpanTamu(panggilan);
+        tampilkanStatusMasuk(null);
+        const elGalat = document.getElementById("masuk-galat");
+        if (elGalat) elGalat.hidden = true;
+        tampilkanLayar("kantor");
+        if (!panduanSudahDilihat()) bukaPanelPanduan();
+        tampilkanToast("Selamat datang, " + panggilan + "! (Mode Tamu)");
+      }
+
+      // Panel tamu: tampilkan kolom nama (terisi nama terakhir),
+      // sembunyikan kedua formulir; "Kembali" memulihkan tab aktif.
+      function bukaPanelTamu() {
+        const panel = document.getElementById("masuk-tamu-panel");
+        const formMasuk = document.getElementById("masuk-form-masuk");
+        const formDaftar = document.getElementById("masuk-form-daftar");
+        const panelLupa = document.getElementById("masuk-lupa-panel");
+        const inputNama = document.getElementById("masuk-tamu-nama");
+        if (panel) panel.hidden = false;
+        if (formMasuk) formMasuk.hidden = true;
+        if (formDaftar) formDaftar.hidden = true;
+        if (panelLupa) panelLupa.hidden = true;
+        const tersimpan = muatTamu();
+        if (inputNama) {
+          if (tersimpan) inputNama.value = tersimpan;
+          inputNama.focus();
+        }
+      }
+
+      function tutupPanelTamu() {
+        const panel = document.getElementById("masuk-tamu-panel");
+        if (panel) panel.hidden = true;
+        const btnDaftar = document.getElementById("masuk-tab-daftar");
+        const diDaftar =
+          btnDaftar && btnDaftar.classList.contains("masuk__tab-btn--aktif");
+        aturTabMasuk(diDaftar ? "daftar" : "masuk");
+      }
+
+      // Ikon mata: alih jenis kolom sandi antara password dan
+      // teks biasa, supaya pemain bisa memeriksa ketikannya.
+      function alihLihatSandi(tombol) {
+        if (!tombol) return;
+        const target = tombol.getAttribute && tombol.getAttribute("data-target");
+        const kolom = target ? document.getElementById(target) : null;
+        if (!kolom) return;
+        const sedangLihat = kolom.type === "text";
+        kolom.type = sedangLihat ? "password" : "text";
+        tombol.setAttribute("aria-pressed", sedangLihat ? "false" : "true");
+        tombol.setAttribute(
+          "aria-label",
+          sedangLihat ? "Lihat kata sandi" : "Sembunyikan kata sandi"
+        );
+        if (tombol.classList) {
+          tombol.classList.toggle("masuk__mata--aktif", !sedangLihat);
+        }
+      }
+
       // Panggil API backend. Mengembalikan {ok, status, data,
       // jaringan}: jaringan true bila fetch tidak ada atau
       // permintaan gagal total (offline). Tanpa pewaktu:
@@ -7285,6 +7455,8 @@
         if (formDaftar) formDaftar.hidden = masukAktif;
         const panelLupa = document.getElementById("masuk-lupa-panel");
         if (panelLupa) panelLupa.hidden = true;
+        const panelTamu = document.getElementById("masuk-tamu-panel");
+        if (panelTamu) panelTamu.hidden = true;
         const elGalat = document.getElementById("masuk-galat");
         if (elGalat) elGalat.hidden = true;
         const elStatus = document.getElementById("masuk-status");
@@ -7319,13 +7491,19 @@
           return false;
         }
         const tombol = document.getElementById("masuk-btn-masuk");
-        if (tombol) tombol.disabled = true;
+        if (tombol) {
+          tombol.disabled = true;
+          tombol.textContent = "Memeriksa…";
+        }
         tampilkanStatusMasuk("Masuk…");
         const respons = await panggilApi("/akun/masuk", {
           metode: "POST",
           badan: { nama_akun: nama, kata_sandi: sandi, perangkat: "web" },
         });
-        if (tombol) tombol.disabled = false;
+        if (tombol) {
+          tombol.disabled = false;
+          tombol.textContent = "Masuk";
+        }
         if (respons.ok && respons.data && respons.data.token) {
           simpanSesi(respons.data.token);
           masukKeGame(respons.data.akun || null);
@@ -7371,7 +7549,10 @@
           return false;
         }
         const tombol = document.getElementById("daftar-btn-buat");
-        if (tombol) tombol.disabled = true;
+        if (tombol) {
+          tombol.disabled = true;
+          tombol.textContent = "Membuat akun…";
+        }
         tampilkanStatusMasuk("Membuat akun…");
         const respons = await panggilApi("/akun/daftar", {
           metode: "POST",
@@ -7383,7 +7564,10 @@
             perangkat: "web",
           },
         });
-        if (tombol) tombol.disabled = false;
+        if (tombol) {
+          tombol.disabled = false;
+          tombol.textContent = "Buat akun";
+        }
         if (respons.ok && respons.data && respons.data.token) {
           simpanSesi(respons.data.token);
           const profil = Object.assign({}, respons.data);
@@ -7404,8 +7588,10 @@
         }
         hapusSesi();
         state.akun = null;
+        state.tamu = null;
         tutupPopup(false);
         tampilkanLayar("masuk");
+        aturTabMasuk("masuk");
         tampilkanStatusMasuk("Kamu sudah keluar. Masuk lagi bila mau bermain.");
         return true;
       }
@@ -8710,7 +8896,7 @@
           tampilkanLayar("uji");
           renderHasilUji();
         } else if (state.layar === "uji") {
-          tampilkanLayar(state.akun ? "kantor" : "masuk");
+          tampilkanLayar(state.akun || state.tamu ? "kantor" : "masuk");
         }
       }
 
@@ -11244,7 +11430,8 @@
             ? DATA_KARAKTER_KOLEKSI[normalisasiKarakter(state.karakter)]
             : data;
         tampilkanAvatar(document.getElementById("popup-avatar"), dataAvatar);
-        document.getElementById("popup-nama").textContent = data.nama;
+        document.getElementById("popup-nama").textContent =
+          idKarakter === "kamu" ? namaPemainTampil() : data.nama;
         document.getElementById("popup-peran").textContent =
           idKarakter === "kamu" ? jabatanSaatIni() : data.peran;
 
@@ -11926,6 +12113,29 @@
         if (btnKeluar) {
           btnKeluar.addEventListener("click", keluarAkun);
         }
+        // 5.3b: mode Tamu — tombol, panel nama, dan "Mulai".
+        const btnTamu = document.getElementById("masuk-btn-tamu");
+        if (btnTamu) {
+          btnTamu.addEventListener("click", bukaPanelTamu);
+        }
+        const btnTamuMulai = document.getElementById("masuk-tamu-mulai");
+        if (btnTamuMulai) {
+          btnTamuMulai.addEventListener("click", function () {
+            const inputNama = document.getElementById("masuk-tamu-nama");
+            masukSebagaiTamu(inputNama ? inputNama.value : "");
+          });
+        }
+        const btnTamuTutup = document.getElementById("masuk-tamu-tutup");
+        if (btnTamuTutup) {
+          btnTamuTutup.addEventListener("click", tutupPanelTamu);
+        }
+        // 5.3b: ikon mata di semua kolom kata sandi layar Masuk.
+        const tombolMata = document.querySelectorAll(".masuk__mata");
+        tombolMata.forEach(function (tombol) {
+          tombol.addEventListener("click", function () {
+            alihLihatSandi(tombol);
+          });
+        });
 
         // Halaman uji tersembunyi (#uji): "Jalankan ulang"
         // menjalankan ulang pengujian dari seed saat ini;
@@ -11945,7 +12155,7 @@
             } catch (e) {
               /* hash tidak terhapus pun layar tetap kembali */
             }
-            tampilkanLayar(state.akun ? "kantor" : "masuk");
+            tampilkanLayar(state.akun || state.tamu ? "kantor" : "masuk");
           });
         }
         window.addEventListener("hashchange", tanganiHashUji);
