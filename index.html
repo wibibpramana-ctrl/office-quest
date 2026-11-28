@@ -7558,20 +7558,23 @@
       // Masuk ke game setelah akun terbukti: simpan profil di
       // state, buka layar Kantor, dan tampilkan panel "Sebelum
       // mulai" bila belum pernah dilihat.
-      function masukKeGame(profil, akunBaru) {
+      async function masukKeGame(profil, akunBaru) {
         state.akun = profil || null;
         tampilkanStatusMasuk(null);
         const elGalat = document.getElementById("masuk-galat");
         if (elGalat) elGalat.hidden = true;
         tampilkanLayar("kantor");
+        // 5.5c: muat progres server DULU. Bila akun sudah punya
+        // progres di server, pakai itu dan jangan tawarkan
+        // migrasi — simpanan lokal milik akun lain sudah ada di
+        // server akun itu sendiri; menawarkannya membuat progres
+        // akun ini mundur ke progres akun lain (dan dialog muncul
+        // di setiap masuk). Dialog hanya bila server kosong.
+        const serverDimuat = await muatProgresDariServer();
         // 5.4: pemain lama ditawari migrasi dulu; panel "Sebelum
         // mulai" hanya untuk pemain yang benar-benar baru.
-        const migrasiDitawarkan = tawarkanMigrasi(akunBaru);
+        const migrasiDitawarkan = serverDimuat ? false : tawarkanMigrasi(akunBaru);
         if (!migrasiDitawarkan && !panduanSudahDilihat()) bukaPanelPanduan();
-        // 5.5: muat progres dari server (bila lebih baru dari
-        // simpanan lokal) — hanya bila tidak ada tawaran migrasi
-        // yang menunggu dijawab; berjalan di latar, tanpa menunggu.
-        if (!migrasiDitawarkan) muatProgresDariServer();
         const panggilan =
           (profil && profil.nama_panggilan) || (profil && profil.nama_akun) || "Kamu";
         tampilkanToast("Selamat datang, " + panggilan + "!");
@@ -7780,11 +7783,14 @@
         }
         if (respons.status === 409) {
           // Akun sudah punya progres (misalnya sudah migrasi di
-          // HP lain): progres lokal tetap di HP ini, jangan tanya
-          // lagi. Sinkronisasi antar-HP datang di 5.5.
+          // HP lain): jangan tanya lagi, dan muat progres akun
+          // dari server — kalau tidak, state tetap berisi
+          // progres lokal milik akun lain, lalu simpanan
+          // otomatis berikutnya menimpanya ke server akun ini.
           simpanKeputusanMigrasi("sudah");
           tutupDialogMigrasi();
-          tampilkanToast("Akun ini sudah punya progres — progres lokal tetap di HP ini.");
+          tampilkanToast("Akun ini sudah punya progres — progres akunmu dimuat dari server.");
+          await muatProgresDariServer(true);
           return false;
         }
         // Galat lain (jaringan/server): dialog tetap terbuka supaya
@@ -7795,7 +7801,30 @@
 
       // "Mulai dari awal": buang progres lokal, mulai segar dengan
       // kunci v2 (memakai reset yang sama dengan tombol Ulang).
-      function tolakMigrasi() {
+      // 5.5c: "Mulai dari awal" TIDAK BOLEH menghapus progres akun
+      // yang sudah ada di server. Bila server punya progres,
+      // pakai itu (buang simpanan lokal milik akun lain); hanya
+      // bila server kosong, mulai benar-benar dari awal. Bila
+      // server tidak bisa dihubungi, dialog dibiarkan terbuka.
+      async function tolakMigrasi() {
+        const respons = await panggilApi("/akun/progres", { token: muatSesi() });
+        const jauh = respons.ok && respons.data && respons.data.progres;
+        const serverAdaIsi =
+          jauh &&
+          (jauh.xp > 0 ||
+            jauh.koin > 0 ||
+            (Array.isArray(jauh.chat) && jauh.chat.length > 0));
+        if (respons.ok && serverAdaIsi) {
+          simpanKeputusanMigrasi("baru");
+          tutupDialogMigrasi();
+          await muatProgresDariServer(true);
+          tampilkanToast("Progres akunmu dimuat dari server.");
+          return;
+        }
+        if (!respons.ok) {
+          tampilkanToast("Tidak bisa menghubungi server. Coba lagi.");
+          return;
+        }
         simpanKeputusanMigrasi("baru");
         kunciSimpan = KUNCI_PENYIMPANAN_V2;
         tutupDialogMigrasi();
@@ -7813,6 +7842,10 @@
       // ikut (diputuskan Wibi 28 Nov 2026). Aturan tulis-terakhir-
       // menang: yang paling baru (lokal/server, dari cap waktu)
       // yang dipakai; migrasi 5.4 tetap tidak pernah menimpa.
+      // 5.5c: simpanan lokal milik akun lain tidak pernah menang
+      // atas server (cap akun); saat masuk, server dimuat dulu
+      // dan dialog migrasi dilewati bila server punya progres;
+      // "Mulai dari awal" tidak menghapus progres server.
       // ============================================================
       const JEDA_SIMPAN_SERVER = 2000;
       let timerSimpanServer = null;
@@ -7927,7 +7960,13 @@
       // simpanan lokal masih segar (belum ada progres) atau
       // server lebih baru dari simpanan lokal (cap waktu).
       // Mengembalikan true bila progres server diterapkan.
-      async function muatProgresDariServer() {
+      // 5.5c: bila simpanan lokal milik akun LAIN (cap akun di
+      // berkas berbeda dengan akun yang masuk), server yang
+      // menang apa pun cap waktunya — perbandingan waktu hanya
+      // masuk akal untuk simpanan milik akun sendiri. Parameter
+      // paksa: lewati perbandingan kesegaran (dipakai sesudah
+      // pemain memilih "Mulai dari awal" atau sesudah 409).
+      async function muatProgresDariServer(paksa) {
         if (!state.akun) return false;
         const respons = await panggilApi("/akun/progres", { token: muatSesi() });
         if (!respons.ok || !respons.data || !respons.data.progres) return false;
@@ -7937,16 +7976,24 @@
           jauh.koin > 0 ||
           (Array.isArray(jauh.chat) && jauh.chat.length > 0);
         if (!serverAdaIsi) return false;
+        // Cap pemilik simpanan lokal (dari berkas aktif, bukan
+        // dari state — state sudah dimuat dari berkas itu).
+        const berkasLokal = bacaSimpananKunci(kunciSimpan);
+        const lokalMilikAkunLain =
+          berkasLokal &&
+          typeof berkasLokal.akun === "string" &&
+          berkasLokal.akun !== state.akun.nama_akun;
         const lokalSegar =
-          state.xp === 0 &&
-          state.koin === 0 &&
-          jumlahPesanChatAsli(state.chat) === 0;
+          lokalMilikAkunLain ||
+          (state.xp === 0 &&
+            state.koin === 0 &&
+            jumlahPesanChatAsli(state.chat) === 0);
         // Umur isi lokal = cap waktu saat dimuat (bukan berkas yang
         // sudah ditulis ulang init dengan cap baru).
         const waktuLokal = capWaktuMuat;
         const waktuServer = Date.parse(jauh.diperbarui_pada || "");
         const serverLebihBaru = isFinite(waktuServer) && waktuServer >= waktuLokal;
-        if (!lokalSegar && !serverLebihBaru) return false;
+        if (!paksa && !lokalSegar && !serverLebihBaru) return false;
         if (typeof jauh.xp === "number") state.xp = jauh.xp;
         if (typeof jauh.koin === "number") state.koin = jauh.koin;
         const dibangun = bangunChatDariDaftar(jauh.chat);
