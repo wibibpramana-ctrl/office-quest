@@ -1,11 +1,13 @@
 name: Perbarui backend
 
+
 on:
   push:
     branches: [main]
     paths:
       - 'backend/**'
-  workflow_dispatch:
+    workflow_dispatch:
+
 
 jobs:
   muat-ulang:
@@ -20,4 +22,13 @@ jobs:
         run: sleep 30
       - name: Periksa /sehat
         run: |
-          curl -s -f -w "\nHTTP %{http_code}\n" --max-time 60 https://Wibi.pythonanywhere.com/sehat
+          for i in 1 2 3 4 5 6; do
+            if curl -s -f --max-time 60 https://Wibi.pythonanywhere.com/sehat; then
+              echo "Server nyala (percobaan ke-$i)."
+              exit 0
+            fi
+            echo "Belum nyala (percobaan ke-$i), tunggu 20 detik..."
+            sleep 20
+          done
+          echo "Server tidak nyala setelah 6 percobaan."
+          exit 1
