@@ -11821,7 +11821,14 @@
         const skor = wawancara && wawancara.skor;
         const tingkat = skor && typeof skor.tingkat === "string" ? skor.tingkat : null;
         state.tingkatWawancara = normalisasiTingkat(tingkat);
-        simpanProgres();
+        // 5.7b: JANGAN simpan di sini. masukKeGame memanggil
+        // fungsi ini SEBELUM tawaran migrasi; menyimpan
+        // sekarang akan mencap ulang simpanan akun lain
+        // dengan nama akun ini dan menutup dialog migrasi
+        // (bocor, terbukti live 29 Nov 2026). Tingkat cukup
+        // di memori — dimuat ulang tiap masuk, dan tersimpan
+        // di simpanProgres() berikutnya (sesudah keputusan
+        // migrasi).
       }
 
       // TOMBOL BANTUAN DI CHAT — Rina dan Dito punya peran berbeda:
