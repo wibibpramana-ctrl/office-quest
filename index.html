@@ -5876,7 +5876,9 @@
              dengan tombol kembali. Di bawah daftar pesan ada
              tombol bantuan: "Minta hint" di chat Rina dan
              "Minta trik" di chat Dito (maksimal 3 per tugas,
-             hitungan terpisah). Belum ada kolom kirim pesan. -->
+             5.7: jatah awal mengikuti tingkat wawancara — pemula
+             3, menengah 2, mahir 1; hitungan terpisah). Belum ada
+             kolom kirim pesan. -->
         <section class="screen" data-layar="chat" aria-labelledby="chat-title" hidden>
           <h1 class="scene-title sr-only" id="chat-title" tabindex="-1">Chat</h1>
 
@@ -7011,6 +7013,12 @@
         kostum: null,
         karakter: "beruang",
         meja: "set_meja_1",
+        // 5.7: tingkat hasil wawancara ("pemula"/"menengah"/
+        // "mahir", null bila belum wawancara/dilewati) — jatah
+        // hint awal mengikuti tingkat ini; dipakai juga
+        // generator tugas harian (Fase 7) sebagai titik awal
+        // kesulitan.
+        tingkatWawancara: null,
       };
 
       // ============================================================
@@ -7404,6 +7412,8 @@
               kostum: state.kostum,
               karakter: state.karakter,
               meja: state.meja,
+              // 5.7: tingkat wawancara (profil pemain).
+              tingkatWawancara: state.tingkatWawancara,
               // 5.5b: cap pemilik simpanan lokal (nama akun, atau
               // null bila tamu) — dipakai tawaran migrasi supaya
               // progres tidak diam-diam pindah ke akun lain.
@@ -7697,6 +7707,10 @@
         // akun ini mundur ke progres akun lain (dan dialog muncul
         // di setiap masuk). Dialog hanya bila server kosong.
         const serverDimuat = await muatProgresDariServer();
+        // 5.7: tingkat wawancara akun ini (jatah hint) dimuat
+        // dari server; akun tanpa hasil wawancara kembali ke
+        // bawaan.
+        await muatWawancaraDariServer();
         // 5.4: pemain lama ditawari migrasi dulu; panel "Sebelum
         // mulai" hanya untuk pemain yang benar-benar baru.
         const migrasiDitawarkan = serverDimuat ? false : tawarkanMigrasi(akunBaru);
@@ -11751,21 +11765,72 @@
         if (konfig && tugasId) {
           const terpakai = jumlahBantuanTerpakai(tugasId, id);
           const daftar = DATA_TUGAS[tugasId][konfig.field] || [];
+          // 5.7: total mengikuti jatah hint tingkat wawancara.
+          const batas = batasHintEfektif(daftar.length);
           const kata = konfig.kata.charAt(0).toUpperCase() + konfig.kata.slice(1);
           document.getElementById("chat-profil-bantuan").textContent =
-            kata + " terpakai: " + terpakai + "/" + daftar.length;
+            kata + " terpakai: " + Math.min(terpakai, batas) + "/" + batas;
         } else {
           document.getElementById("chat-profil-bantuan").textContent = "Tidak ada tugas aktif.";
         }
       }
 
       // ============================================================
+      // ============================================================
+      // 5.7: JATAH HINT DARI HASIL WAWANCARA — pemain dengan
+      // hasil tinggi mendapat hint lebih sedikit di awal
+      // (pemula 3, menengah 2, mahir 1 per tugas, untuk hint
+      // Rina dan trik Dito); yang melewati wawancara atau belum
+      // wawancara memakai bawaan (3). Tingkat tersimpan di
+      // state.tingkatWawancara dan di baris wawancara server
+      // (5.6); generator tugas harian (Fase 7) memakainya
+      // sebagai titik awal kesulitan.
+      // ============================================================
+
+      // Tingkat wawancara yang dikenal; nilai lain kembali ke
+      // null (bawaan).
+      function normalisasiTingkat(nilai) {
+        if (nilai === "pemula" || nilai === "menengah" || nilai === "mahir") return nilai;
+        return null;
+      }
+
+      // Jatah hint/trik per tugas untuk satu tingkat.
+      function batasHintUntukTingkat(tingkat) {
+        if (tingkat === "mahir") return 1;
+        if (tingkat === "menengah") return 2;
+        return 3;
+      }
+
+      // Batas efektif: jatah tingkat, tidak melebihi isi daftar
+      // hint/trik tugas itu.
+      function batasHintEfektif(panjangDaftar) {
+        return Math.min(panjangDaftar, batasHintUntukTingkat(state.tingkatWawancara));
+      }
+
+      // Muat tingkat wawancara akun ini dari server (baris
+      // wawancara 5.6). Bila server punya tingkat, pakai itu;
+      // bila akun belum wawancara/dilewati, kembali ke bawaan
+      // (null) — supaya tingkat akun lain dari simpanan lokal
+      // tidak menempel ke akun ini. Bila server tidak
+      // terjangkau, biarkan nilai lokal apa adanya.
+      async function muatWawancaraDariServer() {
+        if (!state.akun) return;
+        const respons = await panggilApi("/akun/wawancara", { token: muatSesi() });
+        if (!respons.ok || !respons.data) return;
+        const wawancara = respons.data.wawancara;
+        const skor = wawancara && wawancara.skor;
+        const tingkat = skor && typeof skor.tingkat === "string" ? skor.tingkat : null;
+        state.tingkatWawancara = normalisasiTingkat(tingkat);
+        simpanProgres();
+      }
+
       // TOMBOL BANTUAN DI CHAT — Rina dan Dito punya peran berbeda:
       // Rina memberi hint (arah jawaban, dari field hint tugas),
       // Dito memberi trik (alat dan pengecekan, dari field trik
       // tugas). Hitungan terpisah per karakter per tugas di
-      // state.hint[tugasId][karakter], maksimal 3 masing-masing.
-      // Belum ada pengurangan skor di Tahap 1.
+      // state.hint[tugasId][karakter], maksimal 3 masing-masing
+      // (5.7: jatah awal mengikuti tingkat wawancara — pemula 3,
+      // menengah 2, mahir 1). Belum ada pengurangan skor di Tahap 1.
       // ============================================================
 
       // Tugas aktif: dibaca dari SATU sumber kebenaran,
@@ -11796,8 +11861,9 @@
       // Bar tombol di bawah daftar pesan. Tombol bantuan hanya
       // tampil di chat Rina ("Minta hint") dan Dito ("Minta
       // trik"), dan hanya bila tugas aktif punya data untuk
-      // field-nya; labelnya selalu "Minta hint/trik (n/3)" dan
-      // setelah 3 kali tombol nonaktif dengan label (3/3).
+      // field-nya; labelnya "Minta hint/trik (n/batas)" dan
+      // tombol nonaktif setelah jatah habis (5.7: batas 3/2/1
+      // mengikuti tingkat wawancara).
       // Tombol "Kirim laporan" hanya tampil di chat Pak Bima
       // selama masih ada tugas aktif. Wadahnya hanya
       // disembunyikan bila kedua tombol tidak tampil.
@@ -11814,8 +11880,11 @@
         const bantuanTampil = !!(konfig && daftar && daftar.length);
         if (bantuanTampil) {
           const terpakai = jumlahBantuanTerpakai(tugasId, state.chatAktif);
-          btn.textContent = "Minta " + konfig.kata + " (" + terpakai + "/" + daftar.length + ")";
-          btn.disabled = terpakai >= daftar.length;
+          // 5.7: total mengikuti jatah hint tingkat wawancara.
+          const batas = batasHintEfektif(daftar.length);
+          btn.textContent =
+            "Minta " + konfig.kata + " (" + Math.min(terpakai, batas) + "/" + batas + ")";
+          btn.disabled = terpakai >= batas;
         }
         // 5.6: selama wawancara aktif di chat Pak Bima, tombol
         // biasa disembunyikan dan yang tampil hanya pilihan
@@ -11921,7 +11990,8 @@
         const daftar = DATA_TUGAS[tugasId][konfig.field];
         if (!daftar || !daftar.length) return;
         const terpakai = jumlahBantuanTerpakai(tugasId, id);
-        if (terpakai >= daftar.length) return;
+        // 5.7: jangan beri bantuan melebihi jatah tingkat.
+        if (terpakai >= batasHintEfektif(daftar.length)) return;
         if (!state.hint[tugasId]) state.hint[tugasId] = {};
         state.hint[tugasId][id] = terpakai + 1;
         if (!state.chat[id]) state.chat[id] = [];
@@ -12054,6 +12124,10 @@
           if (wawancara.jawaban[soal.id] === soal.jawaban) benar += 1;
         });
         const tingkat = tingkatWawancara(benar, total);
+        // 5.7: tingkat langsung dipakai sesi ini (jatah hint
+        // berubah tanpa perlu masuk ulang) dan tersimpan lokal.
+        state.tingkatWawancara = tingkat;
+        simpanProgres();
         const penutup = DATA_WAWANCARA.penutup
           .replace("{benar}", String(benar))
           .replace("{total}", String(total))
@@ -12071,6 +12145,9 @@
       function lewatiWawancara() {
         if (!wawancara.aktif) return;
         wawancara.aktif = false;
+        // 5.7: dilewati berarti bawaan (jatah hint penuh).
+        state.tingkatWawancara = null;
+        simpanProgres();
         sembunyikanPilihanWawancara();
         kirimBalasanNpc("bima", { dari: "bima", teks: DATA_WAWANCARA.lewatiBalasan, waktu: Date.now() });
         simpanWawancaraKeServer({}, true);
@@ -12411,6 +12488,8 @@
         state.level = 1;
         inisialisasiStatusTugas();
         state.hint = {};
+        // 5.7: tingkat wawancara ikut kembali ke awal.
+        state.tingkatWawancara = null;
         state.chat = {};
         state.belumDibaca = {};
         state.chatAktif = null;
@@ -12548,6 +12627,9 @@
           // Meja tersimpan yang tak dikenal kembali ke Meja
           // Kantor.
           state.meja = normalisasiMeja(progresTersimpan.meja);
+          // 5.7: tingkat wawancara tersimpan; nilai tak dikenal
+          // kembali ke null (bawaan, jatah hint penuh).
+          state.tingkatWawancara = normalisasiTingkat(progresTersimpan.tingkatWawancara);
           // Simpan kembali bentuk baru hasil normalisasi, supaya
           // simpanan lama (string status) ikut diperbarui.
           simpanProgres();
