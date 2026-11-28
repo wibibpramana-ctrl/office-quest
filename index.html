@@ -5602,6 +5602,15 @@
             <span class="btn-ulang__ikon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></span>
             <span class="btn-ulang__teks">Ulang</span>
           </button>
+          <button
+            type="button"
+            class="btn-ulang"
+            id="btn-keluar"
+            aria-label="Keluar dari akun"
+          >
+            <span class="btn-ulang__ikon" aria-hidden="true">🚪</span>
+            <span class="btn-ulang__teks">Keluar</span>
+          </button>
         </div>
       </header>
 
@@ -7603,16 +7612,22 @@
       // gerbang ini.
       async function periksaSesiTersimpan() {
         if (window.location.hash === "#uji") return false;
-        tampilkanLayar("masuk");
         const token = muatSesi();
-        if (!token) return false;
-        tampilkanStatusMasuk("Memeriksa sesi…");
+        if (!token) {
+          tampilkanLayar("masuk");
+          return false;
+        }
+        // Ada token: JANGAN tampilkan layar Masuk selama sesi
+        // diperiksa — biarkan layar Kantor (tujuan akhir) yang
+        // tampil, supaya pemain yang sudah masuk tidak melihat
+        // layar Masuk berkedip sepersekian detik tiap refresh.
         const respons = await panggilApi("/akun/saya", { token: token });
         if (respons.ok && respons.data && respons.data.nama_akun) {
           masukKeGame(respons.data);
           return true;
         }
         hapusSesi();
+        tampilkanLayar("masuk");
         if (respons.status === 401) {
           tampilkanGalatMasuk("Sesi habis. Masuk lagi ya.");
         } else {
@@ -12112,6 +12127,11 @@
         const btnKeluar = document.getElementById("popup-btn-keluar");
         if (btnKeluar) {
           btnKeluar.addEventListener("click", keluarAkun);
+        }
+        // 5.3c: tombol Keluar di bar atas (di samping Ulang).
+        const btnKeluarAtas = document.getElementById("btn-keluar");
+        if (btnKeluarAtas) {
+          btnKeluarAtas.addEventListener("click", keluarAkun);
         }
         // 5.3b: mode Tamu — tombol, panel nama, dan "Mulai".
         const btnTamu = document.getElementById("masuk-btn-tamu");
